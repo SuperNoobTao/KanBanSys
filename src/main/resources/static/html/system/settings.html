@@ -1,0 +1,46 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title></title>
+</head>
+<body>
+    <div class="easyui-layout animated fadeInRight" data-options="fit:true">
+        <div data-options="region:'center',border:false">
+            <table id="dg-Settings"></table>
+        </div>
+    </div>
+    <script type="text/javascript">
+        $(function() {
+            var dg = $('#dg-Settings');
+            dg.inlineGrid({
+                url: '/api/settings',
+                columns:[$.merge([
+                    { field: 'ck', checkbox: true },
+                    { field: 'Id', hidden: true },
+                    { field: 'Key', title: 'Key', width: 200, editor: { type: 'textbox', options: { required: true } }, sortable: true },
+                    { field: 'Value', title: 'Value', width: 300, editor: { type: 'textbox', options: { required: true } }, sortable: true },
+                    { field: 'Desc', title: '描述', width: 300, editor: { type: 'textbox', options: { required: true } } }
+                ], globalColumns)],
+                columnFilters: globalColumnsFilter,
+                onSelect: function (index, row) {
+                    if (row.IsSystem) {
+                        dg.datagrid('unselectRow', index);
+                    }
+                },
+                onCheck: function (index, row) {
+                    if (row.IsSystem) {
+                        dg.datagrid('unselectRow', index);
+                    }
+                },
+                onCheckAll: function (rows) {
+                    $.each(rows, function (i, n) {
+                        if (n.IsSystem) {
+                            dg.datagrid('unselectRow', i);
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

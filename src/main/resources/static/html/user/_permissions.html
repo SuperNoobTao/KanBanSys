@@ -1,0 +1,71 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title></title>
+</head>
+<body>
+    <ul class="roles-tree-Buttons">
+        <li>
+            <div>
+                <input type="checkbox" value="" /> 全部
+            </div>
+        </li>
+    </ul>
+    <div style="clear:both;"></div>
+    <script type="text/javascript">
+        var loadMenusButtons = null;
+        $(function () {
+            var allMenus = null;
+
+            //加载菜单、按钮
+            loadMenusButtons = function(roleMenus,tree) {
+                function render(buttons) {
+                    tree.find('ul').remove();
+                    var children = [];
+                    $.each(buttons, function (i, one) {
+                        var children1 = [];
+                        $.each(one.children, function (j, n) {
+                            var children2 = [];
+                            $.each(n.Buttons, function (k, m) {
+                                children2.push('<li><div><input type="checkbox" value="' + m.Id + '" /> ' + m.ButtonName + '</div></li>');
+                            });
+
+                            children1.push('<li><div><input type="checkbox" value="' + n.id + '" /> ' + n.text + '</div><ul>' + children2.join('') + '</ul></li>');
+                        });
+                        children.push('<li><div><input type="checkbox" value="' + one.id + '" /> ' + one.text + '</div><ul>' + children1.join('') + '</ul></li>');
+                    });
+                    tree.append('<ul>' + children.join('') + '</ul>');
+
+                    $.each(tree.find(':checkbox'), function (i, n) {
+                        var menuIndex = $.inArray($(n).val(), roleMenus);
+                        if (menuIndex > -1) {
+                            $(n).prop('checked', true);
+                        } else {
+                            $(n).prop('checked', false);
+                        }
+                    });
+
+                    var checkedAll = false;
+                    tree.find(':checkbox').click(function () {
+                        $(this).parent().next().find(':checkbox[value]').prop('checked', $(this).prop("checked"));
+                        if ($(this).val() === '' || tree.children().children('ul>li>div>:checkbox:checked').size() > 0) checkedAll = true;
+                        if (tree.find(':checkbox:checked').size() === 0) checkedAll = false;
+                        if (!checkedAll) $(this).parents('ul').prev().find(':checkbox[value]').prop('checked', $(this).prop("checked"));
+                    });
+                }
+
+                if (allMenus == null) {
+                    $.getJSON('/api/menus', function (data) {
+                        allMenus = data;
+                        render(allMenus);
+                    });
+                } else {
+                    render(allMenus);
+                }
+            }
+        });
+    </script>
+</body>
+</html>

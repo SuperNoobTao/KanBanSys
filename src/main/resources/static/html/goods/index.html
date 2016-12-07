@@ -1,0 +1,32 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+</head>
+<body>
+    <div class="easyui-layout animated fadeInRight" data-options="fit:true">
+        <div data-options="region:'center',border:false">
+            <table id="dg-Goods"></table>
+        </div>
+    </div>
+    <script type="text/javascript">
+        $(function () {
+            var dg = $('#dg-Goods');
+
+            dg.dialogDataGrid({
+                url: '/api/Goods',
+                dialogTitle: '商品',
+                dialogUrl:'goods/savegoods',
+                deleteField: 'GoodsName',
+                columns: [jQuery.merge([
+                    { field: 'ck', checkbox: true },
+                    { field: 'Id', hidden: true },
+                    { field: 'GoodsName', title: '商品名称', width: 220, sortable: true },
+                    { field: 'Price', title: '价格', width: 80 }
+                ], globalColumns)],
+                columnFilters: $.merge([globalFilters.numeric('Price')], globalColumnsFilter)
+            });
+        });
+    </script>
+</body>
+</html>

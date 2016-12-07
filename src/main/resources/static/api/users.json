@@ -1,0 +1,80 @@
+{
+  "total": 2,
+  "rows": [
+    {
+      "LoginLogs": null,
+      "Permissions": null,
+      "Roles": [
+        {
+          "Permissions": null,
+          "Users": [],
+          "RoleName": "Administrator",
+          "RoleDesc": "超级管理员",
+          "Id": "b3d56dfb-ed77-e511-9bcd-9d38c0ac0015",
+          "CreatorUserId": null,
+          "CreationTime": null,
+          "LastModifierUserId": "b5d56dfb-ed77-e511-9bcd-9d38c0ac0015",
+          "LastModificationTime": "2016-07-22 14:35",
+          "TimeStamp": "AAAAAAAAF3I="
+        }
+      ],
+      "Team": {
+        "ChildTeams": null,
+        "Users": [],
+        "ParentId": null,
+        "TeamName": "总公司",
+        "TeamDesc": null,
+        "SortOrder": 0,
+        "Id": "b4d56dfb-ed77-e511-9bcd-9d38c0ac0015",
+        "CreatorUserId": null,
+        "CreationTime": null,
+        "LastModifierUserId": null,
+        "LastModificationTime": null,
+        "TimeStamp": "AAAAAAAACL8="
+      },
+      "UserName": "admin",
+      "PasswordHash": "1000:rWt+9wbemn162KN0AdnjgPjQ7dqGt/by:SH/oj31l1c3BdWivvhWGGDl1yva7aScb",
+      "Email": "84383822@qq.com",
+      "EmailConfirmed": false,
+      "Mobile": "18386630369",
+      "MobileConfirmed": false,
+      "Id": "b5d56dfb-ed77-e511-9bcd-9d38c0ac0015",
+      "CreatorUserId": null,
+      "CreationTime": null,
+      "LastModifierUserId": "b5d56dfb-ed77-e511-9bcd-9d38c0ac0015",
+      "LastModificationTime": "2016-07-14 18:18",
+      "TimeStamp": "AAAAAAAACMA="
+    },
+    {
+      "LoginLogs": null,
+      "Permissions": null,
+      "Roles": [
+        {
+          "Permissions": null,
+          "Users": [],
+          "RoleName": "User",
+          "RoleDesc": "普通用户",
+          "Id": "40cb96d5-0387-add3-7418-39d9249e111a",
+          "CreatorUserId": "b5d56dfb-ed77-e511-9bcd-9d38c0ac0015",
+          "CreationTime": "2016-07-22 19:50",
+          "LastModifierUserId": null,
+          "LastModificationTime": null,
+          "TimeStamp": "AAAAAAAANrE="
+        }
+      ],
+      "Team": null,
+      "UserName": "18386630369",
+      "PasswordHash": "1000:A9uNifeot+koxcK4xSXztzfa7pEsgjEv:S+BaMEzYxDLv8BiUUXQSv2WlocjRWOqh",
+      "Email": null,
+      "EmailConfirmed": false,
+      "Mobile": "18386630369",
+      "MobileConfirmed": false,
+      "Id": "42c6c500-9415-60b2-ea3c-39d934891ee1",
+      "CreatorUserId": null,
+      "CreationTime": "2016-07-25 22:01",
+      "LastModifierUserId": null,
+      "LastModificationTime": null,
+      "TimeStamp": "AAAAAAAAs7E="
+    }
+  ]
+}

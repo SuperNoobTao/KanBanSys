@@ -1,0 +1,491 @@
+[
+  {
+    "ParentId": null,
+    "MenuText": "系统",
+    "MenuLink": "#",
+    "MenuType": null,
+    "IconCls": "fa-cogs",
+    "SortOrder": 1,
+    "IsActivated": "on",
+    "Buttons": [],
+    "id": "b2d56dfb-ed77-e511-9bcd-9d38c0ac0015",
+    "text": "系统",
+    "iconCls": null,
+    "leaf": false,
+    "expanded": true,
+    "children": [
+      {
+        "ParentId": "b2d56dfb-ed77-e511-9bcd-9d38c0ac0015",
+        "MenuText": "系统设置",
+        "MenuLink": "system/settings",
+        "MenuType": null,
+        "IconCls": "fa-cogs",
+        "SortOrder": 0,
+        "IsActivated": "on",
+        "Buttons": [
+          {
+            "ButtonName": "撤销",
+            "ButtonDesc": null,
+            "ButtonLink": "undo",
+            "IconCls": "fa-undo",
+            "Id": "b14dcfc5-b878-e511-9bcd-9d38c0ac0015"
+          },
+          {
+            "ButtonName": "删除",
+            "ButtonDesc": null,
+            "ButtonLink": "del",
+            "IconCls": "fa-remove",
+            "Id": "af4dcfc5-b878-e511-9bcd-9d38c0ac0015"
+          },
+          {
+            "ButtonName": "保存",
+            "ButtonDesc": null,
+            "ButtonLink": "save",
+            "IconCls": "fa-save",
+            "Id": "b24dcfc5-b878-e511-9bcd-9d38c0ac0015"
+          },
+          {
+            "ButtonName": "新增",
+            "ButtonDesc": null,
+            "ButtonLink": "insert",
+            "IconCls": "fa-plus",
+            "Id": "b04dcfc5-b878-e511-9bcd-9d38c0ac0015"
+          }
+        ],
+        "id": "4355fea1-f477-e511-9bcd-9d38c0ac0015",
+        "text": "系统设置",
+        "iconCls": null,
+        "leaf": true,
+        "expanded": true,
+        "children": []
+      },
+      {
+        "ParentId": "b2d56dfb-ed77-e511-9bcd-9d38c0ac0015",
+        "MenuText": "功能菜单",
+        "MenuLink": "system/MenuPermissions",
+        "MenuType": null,
+        "IconCls": null,
+        "SortOrder": 1,
+        "IsActivated": "on",
+        "Buttons": [
+          {
+            "ButtonName": "删除",
+            "ButtonDesc": null,
+            "ButtonLink": "del",
+            "IconCls": "fa-remove",
+            "Id": "745662ef-f277-e511-9bcd-9d38c0ac0015"
+          },
+          {
+            "ButtonName": "修改",
+            "ButtonDesc": null,
+            "ButtonLink": "edit",
+            "IconCls": "fa-edit",
+            "Id": "735662ef-f277-e511-9bcd-9d38c0ac0015"
+          },
+          {
+            "ButtonName": "添加",
+            "ButtonDesc": null,
+            "ButtonLink": "add",
+            "IconCls": "fa-plus",
+            "Id": "725662ef-f277-e511-9bcd-9d38c0ac0015"
+          }
+        ],
+        "id": "3fd7c317-f177-e511-9bcd-9d38c0ac0015",
+        "text": "功能菜单",
+        "iconCls": null,
+        "leaf": true,
+        "expanded": true,
+        "children": []
+      },
+      {
+        "ParentId": "b2d56dfb-ed77-e511-9bcd-9d38c0ac0015",
+        "MenuText": "按钮管理",
+        "MenuLink": "system/buttons",
+        "MenuType": null,
+        "IconCls": null,
+        "SortOrder": 2,
+        "IsActivated": "on",
+        "Buttons": [
+          {
+            "ButtonName": "新增",
+            "ButtonDesc": null,
+            "ButtonLink": "insert",
+            "IconCls": "fa-plus",
+            "Id": "3130c43b-f677-e511-9bcd-9d38c0ac0015"
+          },
+          {
+            "ButtonName": "删除",
+            "ButtonDesc": null,
+            "ButtonLink": "del",
+            "IconCls": "fa-remove",
+            "Id": "3030c43b-f677-e511-9bcd-9d38c0ac0015"
+          },
+          {
+            "ButtonName": "撤销",
+            "ButtonDesc": null,
+            "ButtonLink": "undo",
+            "IconCls": "fa-undo",
+            "Id": "3230c43b-f677-e511-9bcd-9d38c0ac0015"
+          },
+          {
+            "ButtonName": "保存",
+            "ButtonDesc": null,
+            "ButtonLink": "save",
+            "IconCls": "fa-save",
+            "Id": "3330c43b-f677-e511-9bcd-9d38c0ac0015"
+          }
+        ],
+        "id": "8747887f-f477-e511-9bcd-9d38c0ac0015",
+        "text": "按钮管理",
+        "iconCls": null,
+        "leaf": true,
+        "expanded": true,
+        "children": []
+      },
+      {
+        "ParentId": "b2d56dfb-ed77-e511-9bcd-9d38c0ac0015",
+        "MenuText": "角色管理",
+        "MenuLink": "user/roles",
+        "MenuType": null,
+        "IconCls": null,
+        "SortOrder": 3,
+        "IsActivated": "on",
+        "Buttons": [
+          {
+            "ButtonName": "新增",
+            "ButtonDesc": null,
+            "ButtonLink": "insert",
+            "IconCls": "fa-plus",
+            "Id": "e9775875-f677-e511-9bcd-9d38c0ac0015"
+          },
+          {
+            "ButtonName": "保存",
+            "ButtonDesc": null,
+            "ButtonLink": "save",
+            "IconCls": "fa-save",
+            "Id": "eb775875-f677-e511-9bcd-9d38c0ac0015"
+          },
+          {
+            "ButtonName": "撤销",
+            "ButtonDesc": null,
+            "ButtonLink": "undo",
+            "IconCls": "fa-undo",
+            "Id": "ea775875-f677-e511-9bcd-9d38c0ac0015"
+          },
+          {
+            "ButtonName": "删除",
+            "ButtonDesc": null,
+            "ButtonLink": "del",
+            "IconCls": "fa-remove",
+            "Id": "e8775875-f677-e511-9bcd-9d38c0ac0015"
+          }
+        ],
+        "id": "100a6559-f577-e511-9bcd-9d38c0ac0015",
+        "text": "角色管理",
+        "iconCls": null,
+        "leaf": true,
+        "expanded": true,
+        "children": []
+      },
+      {
+        "ParentId": "b2d56dfb-ed77-e511-9bcd-9d38c0ac0015",
+        "MenuText": "文件管理",
+        "MenuLink": "system/filemanage",
+        "MenuType": null,
+        "IconCls": null,
+        "SortOrder": 8,
+        "IsActivated": "on",
+        "Buttons": [],
+        "id": "dc325045-9e45-e611-97ba-98e0d97b8c7e",
+        "text": "文件管理",
+        "iconCls": null,
+        "leaf": true,
+        "expanded": true,
+        "children": []
+      },
+      {
+        "ParentId": "b2d56dfb-ed77-e511-9bcd-9d38c0ac0015",
+        "MenuText": "字典管理",
+        "MenuLink": "system/dictionarys",
+        "MenuType": null,
+        "IconCls": null,
+        "SortOrder": 8,
+        "IsActivated": "on",
+        "Buttons": [
+          {
+            "ButtonName": "删除",
+            "ButtonDesc": null,
+            "ButtonLink": "del",
+            "IconCls": "fa-remove",
+            "Id": "1361eeaf-2b4f-e611-97bc-98e0d97b8c7e"
+          },
+          {
+            "ButtonName": "新增",
+            "ButtonDesc": null,
+            "ButtonLink": "insert",
+            "IconCls": "fa-plus",
+            "Id": "1461eeaf-2b4f-e611-97bc-98e0d97b8c7e"
+          },
+          {
+            "ButtonName": "保存",
+            "ButtonDesc": null,
+            "ButtonLink": "save",
+            "IconCls": "fa-save",
+            "Id": "1661eeaf-2b4f-e611-97bc-98e0d97b8c7e"
+          },
+          {
+            "ButtonName": "撤销",
+            "ButtonDesc": null,
+            "ButtonLink": "undo",
+            "IconCls": "fa-undo",
+            "Id": "1561eeaf-2b4f-e611-97bc-98e0d97b8c7e"
+          }
+        ],
+        "id": "60da24a0-2b4f-e611-97bc-98e0d97b8c7e",
+        "text": "字典管理",
+        "iconCls": null,
+        "leaf": true,
+        "expanded": true,
+        "children": []
+      }
+    ]
+  },
+  {
+    "ParentId": null,
+    "MenuText": "用户",
+    "MenuLink": "#",
+    "MenuType": null,
+    "IconCls": "fa-users",
+    "SortOrder": 2,
+    "IsActivated": "on",
+    "Buttons": [],
+    "id": "ca596ff0-f477-e511-9bcd-9d38c0ac0015",
+    "text": "用户",
+    "iconCls": null,
+    "leaf": false,
+    "expanded": true,
+    "children": [
+      {
+        "ParentId": "ca596ff0-f477-e511-9bcd-9d38c0ac0015",
+        "MenuText": "部门管理",
+        "MenuLink": "user/teams",
+        "MenuType": null,
+        "IconCls": null,
+        "SortOrder": 0,
+        "IsActivated": "on",
+        "Buttons": [
+          {
+            "ButtonName": "添加",
+            "ButtonDesc": null,
+            "ButtonLink": "add",
+            "IconCls": "fa-plus",
+            "Id": "714d2e82-e844-e611-97ba-98e0d97b8c7e"
+          },
+          {
+            "ButtonName": "修改",
+            "ButtonDesc": null,
+            "ButtonLink": "edit",
+            "IconCls": "fa-edit",
+            "Id": "724d2e82-e844-e611-97ba-98e0d97b8c7e"
+          },
+          {
+            "ButtonName": "删除",
+            "ButtonDesc": null,
+            "ButtonLink": "del",
+            "IconCls": "fa-remove",
+            "Id": "734d2e82-e844-e611-97ba-98e0d97b8c7e"
+          }
+        ],
+        "id": "c34f6f79-e844-e611-97ba-98e0d97b8c7e",
+        "text": "部门管理",
+        "iconCls": null,
+        "leaf": true,
+        "expanded": true,
+        "children": []
+      },
+      {
+        "ParentId": "ca596ff0-f477-e511-9bcd-9d38c0ac0015",
+        "MenuText": "用户管理",
+        "MenuLink": "user/users",
+        "MenuType": null,
+        "IconCls": null,
+        "SortOrder": 1,
+        "IsActivated": "on",
+        "Buttons": [
+          {
+            "ButtonName": "添加",
+            "ButtonDesc": null,
+            "ButtonLink": "add",
+            "IconCls": "fa-plus",
+            "Id": "a22020c8-f677-e511-9bcd-9d38c0ac0015"
+          },
+          {
+            "ButtonName": "修改",
+            "ButtonDesc": null,
+            "ButtonLink": "edit",
+            "IconCls": "fa-edit",
+            "Id": "a32020c8-f677-e511-9bcd-9d38c0ac0015"
+          },
+          {
+            "ButtonName": "删除",
+            "ButtonDesc": null,
+            "ButtonLink": "del",
+            "IconCls": "fa-remove",
+            "Id": "a42020c8-f677-e511-9bcd-9d38c0ac0015"
+          },
+          {
+            "ButtonName": "权限设置",
+            "ButtonDesc": null,
+            "ButtonLink": "setPermissions",
+            "IconCls": "fa-shield",
+            "Id": "b412122a-6b22-e611-9798-98e0d97b8c8e"
+          }
+        ],
+        "id": "a12020c8-f677-e511-9bcd-9d38c0ac0015",
+        "text": "用户管理",
+        "iconCls": null,
+        "leaf": true,
+        "expanded": true,
+        "children": []
+      }
+    ]
+  },
+  {
+    "ParentId": null,
+    "MenuText": "商品",
+    "MenuLink": "#",
+    "MenuType": null,
+    "IconCls": "fa-apple",
+    "SortOrder": 3,
+    "IsActivated": "on",
+    "Buttons": [],
+    "id": "0fffc933-6c22-e611-9798-98e0d97b8c7e",
+    "text": "商品",
+    "iconCls": null,
+    "leaf": false,
+    "expanded": true,
+    "children": [
+      {
+        "ParentId": "0fffc933-6c22-e611-9798-98e0d97b8c7e",
+        "MenuText": "品牌管理",
+        "MenuLink": "goods/brands",
+        "MenuType": null,
+        "IconCls": null,
+        "SortOrder": 1,
+        "IsActivated": "on",
+        "Buttons": [
+          {
+            "ButtonName": "删除",
+            "ButtonDesc": null,
+            "ButtonLink": "del",
+            "IconCls": "fa-remove",
+            "Id": "b25a3795-6c22-e611-9798-98e0d97b8c7e"
+          },
+          {
+            "ButtonName": "撤销",
+            "ButtonDesc": null,
+            "ButtonLink": "undo",
+            "IconCls": "fa-undo",
+            "Id": "b45a3795-6c22-e611-9798-98e0d97b8c7e"
+          },
+          {
+            "ButtonName": "新增",
+            "ButtonDesc": null,
+            "ButtonLink": "insert",
+            "IconCls": "fa-plus",
+            "Id": "b35a3795-6c22-e611-9798-98e0d97b8c7e"
+          },
+          {
+            "ButtonName": "保存",
+            "ButtonDesc": null,
+            "ButtonLink": "save",
+            "IconCls": "fa-save",
+            "Id": "b55a3795-6c22-e611-9798-98e0d97b8c7e"
+          }
+        ],
+        "id": "0708a554-6c22-e611-9798-98e0d97b8c7e",
+        "text": "品牌管理",
+        "iconCls": null,
+        "leaf": true,
+        "expanded": true,
+        "children": []
+      },
+      {
+        "ParentId": "0fffc933-6c22-e611-9798-98e0d97b8c7e",
+        "MenuText": "分类管理",
+        "MenuLink": "goods/categorys",
+        "MenuType": null,
+        "IconCls": null,
+        "SortOrder": 2,
+        "IsActivated": "on",
+        "Buttons": [
+          {
+            "ButtonName": "添加",
+            "ButtonDesc": null,
+            "ButtonLink": "add",
+            "IconCls": "fa-plus",
+            "Id": "48c1638b-6c22-e611-9798-98e0d97b8c7e"
+          },
+          {
+            "ButtonName": "删除",
+            "ButtonDesc": null,
+            "ButtonLink": "del",
+            "IconCls": "fa-remove",
+            "Id": "4ac1638b-6c22-e611-9798-98e0d97b8c7e"
+          },
+          {
+            "ButtonName": "修改",
+            "ButtonDesc": null,
+            "ButtonLink": "edit",
+            "IconCls": "fa-edit",
+            "Id": "49c1638b-6c22-e611-9798-98e0d97b8c7e"
+          }
+        ],
+        "id": "96bb2662-6c22-e611-9798-98e0d97b8c7e",
+        "text": "分类管理",
+        "iconCls": null,
+        "leaf": true,
+        "expanded": true,
+        "children": []
+      },
+      {
+        "ParentId": "0fffc933-6c22-e611-9798-98e0d97b8c7e",
+        "MenuText": "商品管理",
+        "MenuLink": "goods/index",
+        "MenuType": null,
+        "IconCls": null,
+        "SortOrder": 3,
+        "IsActivated": "on",
+        "Buttons": [
+          {
+            "ButtonName": "删除",
+            "ButtonDesc": null,
+            "ButtonLink": "del",
+            "IconCls": "fa-remove",
+            "Id": "12647d83-6c22-e611-9798-98e0d97b8c7e"
+          },
+          {
+            "ButtonName": "修改",
+            "ButtonDesc": null,
+            "ButtonLink": "edit",
+            "IconCls": "fa-edit",
+            "Id": "11647d83-6c22-e611-9798-98e0d97b8c7e"
+          },
+          {
+            "ButtonName": "添加",
+            "ButtonDesc": null,
+            "ButtonLink": "add",
+            "IconCls": "fa-plus",
+            "Id": "10647d83-6c22-e611-9798-98e0d97b8c7e"
+          }
+        ],
+        "id": "9b8b336e-6c22-e611-9798-98e0d97b8c7e",
+        "text": "商品管理",
+        "iconCls": null,
+        "leaf": true,
+        "expanded": true,
+        "children": []
+      }
+    ]
+  }
+]

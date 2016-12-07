@@ -1,0 +1,77 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+</head>
+<body>
+    <div class="easyui-layout animated fadeInRight" data-options="fit:true">
+        <div data-options="region:'center',border:false">
+            <table id="dg-teams"></table>
+        </div>
+    </div>
+    <div id="dlg-team" style="width:320px;padding:5px;">
+        <form class="easyui-form" data-options="novalidate:true">
+            <table cellpadding="5">
+                <tr>
+                    <td>上级部门:</td>
+                    <td><input name="ParentId"></td>
+                </tr>
+                <tr>
+                    <td>部门名称:</td>
+                    <td><input class="easyui-textbox" type="text" name="TeamName" data-options="required:true" /></td>
+                </tr>
+                <tr>
+                    <td>部门描述:</td>
+                    <td><input class="easyui-textbox" type="text" name="TeamDesc" /></td>
+                </tr>
+                <tr>
+                    <td>排序:</td>
+                    <td><input class="easyui-numberspinner" type="text" name="SortOrder" value="0" min="0" /></td>
+                </tr>
+            </table>
+        </form>
+    </div>
+    <script type="text/javascript">
+        $(function () {
+            var
+                dg = $('#dg-teams'),
+                dlg = $('#dlg-team'),
+                cmbtree = dlg.find('input[name="ParentId"]');
+
+            dg.dialogTreeGrid({
+                url: '/api/teams',
+                remoteFilter: false,
+                treeField: 'TeamName',
+                dialogTitle: '组织机构',
+                dialogEl: dlg,
+                columns: [$.merge([
+                    { field: 'id', hidden: true },
+                    { field: 'TeamName', title: '部门名称', width: 220 },
+                    { field: 'TeamDesc', title: '描述', width: 160 },
+                    { field: 'SortOrder', title: '排序', width: 80 }
+                ], globalColumns)],
+                columnFilters: $.merge([globalFilters.numeric('SortOrder')], globalColumnsFilter),
+                dialogBeforeOpen:function(form,record) {
+                    cmbtree.combotree({
+                        url: '/api/teams',
+                        method: 'get',
+                        panelHeight: 'auto'
+                    });
+
+                    if (record) {
+                        if (record['ParentId'] == null) record['ParentId'] = '';
+                        form.form('load', record);
+                    }
+                    else {
+                        form.form('reset');
+                        var s = dg.treegrid('getSelected');
+                        if (s) {
+                            cmbtree.combotree('setValue', s.id);
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>

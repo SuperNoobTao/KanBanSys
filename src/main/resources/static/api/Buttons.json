@@ -1,0 +1,77 @@
+{
+  "total": 6,
+  "rows": [
+    {
+      "ButtonName": "保存",
+      "ButtonDesc": null,
+      "ButtonLink": "save",
+      "IconCls": "fa-save",
+      "Id": "ac4fe42c-f677-e511-9bcd-9d38c0ac0015",
+      "CreatorUserId": null,
+      "CreationTime": null,
+      "LastModifierUserId": null,
+      "LastModificationTime": null,
+      "TimeStamp": "AAAAAAAACMc="
+    },
+    {
+      "ButtonName": "撤销",
+      "ButtonDesc": null,
+      "ButtonLink": "undo",
+      "IconCls": "fa-undo",
+      "Id": "cf4db2e9-f577-e511-9bcd-9d38c0ac0015",
+      "CreatorUserId": null,
+      "CreationTime": null,
+      "LastModifierUserId": null,
+      "LastModificationTime": null,
+      "TimeStamp": "AAAAAAAACMY="
+    },
+    {
+      "ButtonName": "新增",
+      "ButtonDesc": null,
+      "ButtonLink": "insert",
+      "IconCls": "fa-plus",
+      "Id": "dd5cd1db-f577-e511-9bcd-9d38c0ac0015",
+      "CreatorUserId": null,
+      "CreationTime": null,
+      "LastModifierUserId": null,
+      "LastModificationTime": null,
+      "TimeStamp": "AAAAAAAACMU="
+    },
+    {
+      "ButtonName": "删除",
+      "ButtonDesc": null,
+      "ButtonLink": "del",
+      "IconCls": "fa-remove",
+      "Id": "1f063ae5-f277-e511-9bcd-9d38c0ac0015",
+      "CreatorUserId": null,
+      "CreationTime": null,
+      "LastModifierUserId": null,
+      "LastModificationTime": null,
+      "TimeStamp": "AAAAAAAACMQ="
+    },
+    {
+      "ButtonName": "修改",
+      "ButtonDesc": null,
+      "ButtonLink": "edit",
+      "IconCls": "fa-edit",
+      "Id": "5a1762d0-f277-e511-9bcd-9d38c0ac0015",
+      "CreatorUserId": null,
+      "CreationTime": null,
+      "LastModifierUserId": null,
+      "LastModificationTime": null,
+      "TimeStamp": "AAAAAAAACMM="
+    },
+    {
+      "ButtonName": "添加",
+      "ButtonDesc": "",
+      "ButtonLink": "add",
+      "IconCls": "fa-plus",
+      "Id": "2252e048-f277-e511-9bcd-9d38c0ac0015",
+      "CreatorUserId": null,
+      "CreationTime": null,
+      "LastModifierUserId": null,
+      "LastModificationTime": null,
+      "TimeStamp": "AAAAAAAACMI="
+    }
+  ]
+}

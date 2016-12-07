@@ -1,0 +1,68 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+</head>
+<body>
+    <div class="easyui-layout animated fadeInRight" data-options="fit:true">
+        <div data-options="region:'center',border:false">
+            <table id="dg-categorys"></table>
+        </div>
+    </div>
+    <div id="dlg-category" style="width:320px;padding:5px;">
+        <form class="easyui-form" data-options="novalidate:true">
+            <table cellpadding="5">
+                <tr>
+                    <td>上级分类:</td>
+                    <td><input name="ParentId"></td>
+                </tr>
+                <tr>
+                    <td>分类名称:</td>
+                    <td><input class="easyui-textbox" type="text" name="CategoryName" data-options="required:true" /></td>
+                </tr>
+                <tr>
+                    <td>排序:</td>
+                    <td><input class="easyui-numberspinner" type="text" name="SortOrder" value="0" min="0" /></td>
+                </tr>
+            </table>
+        </form>
+    </div>
+    <script type="text/javascript">
+        $(function () {
+            var
+                dg = $('#dg-categorys'),
+                dlg = $('#dlg-category'),
+                cmbtree = dlg.find('input[name="ParentId"]');
+
+            dg.dialogTreeGrid({
+                url: '/api/GoodsCategorys',
+                remoteFilter: false,
+                treeField: 'CategoryName',
+                dialogTitle: '商品分类',
+                dialogEl: dlg,
+                columns: [$.merge([
+                    { field: 'id', hidden: true },
+                    { field: 'CategoryName', title: '分类名称', width: 220 },
+                    { field: 'SortOrder', title: '排序', width: 80 }
+                ], globalColumns)],
+                columnFilters: $.merge([globalFilters.numeric('SortOrder')], globalColumnsFilter),
+                dialogBeforeOpen:function(form,record) {
+                    cmbtree.combotree({
+                        url: '/api/GoodsCategorys',
+                        method: 'get',
+                        panelHeight: 'auto'
+                    });
+
+                    if (record) {
+                        if (record['ParentId'] == null) record['ParentId'] = '';
+                        form.form('load', record);
+                    }
+                    else {
+                        form.form('reset');
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>

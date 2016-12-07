@@ -1,0 +1,44 @@
+{
+  "total": 3,
+  "rows": [
+    {
+      "Key": "system.appname",
+      "Value": "Web+",
+      "Desc": "系统名称",
+      "IsHidden": false,
+      "IsSystem": true,
+      "Id": "1e986bae-f077-e511-9bcd-9d38c0ac0015",
+      "CreatorUserId": null,
+      "CreationTime": null,
+      "LastModifierUserId": "b5d56dfb-ed77-e511-9bcd-9d38c0ac0015",
+      "LastModificationTime": "2016-07-20 16:34",
+      "TimeStamp": "AAAAAAAACNE="
+    },
+    {
+      "Key": "system.pagesize",
+      "Value": "20",
+      "Desc": "分页大小",
+      "IsHidden": false,
+      "IsSystem": true,
+      "Id": "d29c99ce-1f47-e611-97ba-98e0d97b8c7e",
+      "CreatorUserId": null,
+      "CreationTime": null,
+      "LastModifierUserId": null,
+      "LastModificationTime": null,
+      "TimeStamp": "AAAAAAAACNA="
+    },
+    {
+      "Key": "user.defaultrole",
+      "Value": "User",
+      "Desc": "注册用户默认角色名称",
+      "IsHidden": false,
+      "IsSystem": false,
+      "Id": "b8f3f20f-d4b2-13c2-c10c-39d924a4a4ce",
+      "CreatorUserId": "b5d56dfb-ed77-e511-9bcd-9d38c0ac0015",
+      "CreationTime": "2016-07-22 19:57",
+      "LastModifierUserId": null,
+      "LastModificationTime": null,
+      "TimeStamp": "AAAAAAAANrI="
+    }
+  ]
+}

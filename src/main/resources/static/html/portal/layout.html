@@ -1,0 +1,87 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+</head>
+<body>
+    <div id="main-portal" style="position: relative; overflow: hidden; width:100%;">
+        <div style="width: 40%;">
+            <div title="数据统计" style="height: 300px; text-align: center;">
+                <div id="chart-container" style="height:260px;"></div>
+            </div>
+            <div title="系统升级日志" collapsible="true" closable="true" data-options="href:'upgrade.html'" style="height: 230px; padding: 10px; line-height: 20px;"></div>
+        </div>
+        <div style="width: 60%;">
+            <div title="最新注册用户" collapsible="true" closable="true" style="height: 300px;">
+                <div id="chart1-container" style="height:260px;"></div>
+            </div>
+            <div title="运行环境" collapsible="true" closable="true" style="height: 230px; padding: 10px;"></div>
+        </div>
+    </div>
+    <script>
+        loadResources({
+            id: 'js-portal',
+            src: 'libs/easyui/jquery.portal.js'
+        }, {
+            id: 'js-highcharts',
+            src: 'libs/highcharts.js'
+        });
+
+        $(function() {
+            $('#main-portal').portal({
+                border: false,
+                fit: true
+            });
+
+            $('#chart-container').highcharts({
+                title: {
+                    text: 'Logarithmic axis demo'
+                },
+
+                xAxis: {
+                    tickInterval: 1
+                },
+
+                yAxis: {
+                    type: 'logarithmic',
+                    minorTickInterval: 0.1
+                },
+
+                tooltip: {
+                    headerFormat: '<b>{series.name}</b><br />',
+                    pointFormat: 'x = {point.x}, y = {point.y}'
+                },
+
+                series: [{
+                    data: [1, 2, 4, 8, 16],
+                    pointStart: 1
+                }]
+            });
+
+            $('#chart1-container').highcharts({
+                chart: {
+                    type: 'bar'
+                },
+                title: {
+                    text: 'Fruit Consumption'
+                },
+                xAxis: {
+                    categories: ['Apples', 'Bananas', 'Oranges']
+                },
+                yAxis: {
+                    title: {
+                        text: 'Fruit eaten'
+                    }
+                },
+                series: [{
+                    name: 'Jane',
+                    data: [1, 0, 4]
+                }, {
+                    name: 'John',
+                    data: [5, 7, 3]
+                }],
+            });
+        });
+    </Script>
+</body>
+</html>

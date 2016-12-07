@@ -1,0 +1,101 @@
+﻿* {
+    font-family:Verdana, Geneva, Tahoma, sans-serif, "宋体";
+}
+
+.layout-panel-north .panel-body {
+    background:#1C2B36;
+}
+#app-header .fa,.tabs-tool .fa {
+    text-decoration: none;
+}
+#app-header ul,#app-header li,#app-header a {
+    padding:0; 
+    margin:0;
+    list-style:none;
+    height:40px;
+}
+#app-header ul li {
+    float:left;
+}
+#app-header a {
+    display:block;
+    text-decoration:none;
+    padding:10px 15px;
+}
+#app-header a:hover {
+    color:#eee; 
+    background:#16232D;
+}
+#app-header .app-logo,#app-header a {
+    color:#869fb1; 
+}
+#app-header .app-logo {
+    margin:0;
+    font-weight:bold;
+    font-size:16px;
+    padding:8px 0 0 15px;
+}
+.layout-panel-west .accordion-body a {
+    font-size:13px;
+    color: #333;
+    display: block;
+    text-decoration:none;
+    padding:8px 20px;
+}
+    .layout-panel-west .accordion-body a:hover {
+            background:#eee;
+            color:#333;
+    }
+    .layout-panel-west .accordion-body a:active,.layout-panel-west .accordion-body .active {
+        background:#F2F2F2;
+        border-left:#3c8dbc solid 3px;
+        padding-left:17px;
+        color:#333;
+    }
+
+#toast {
+    background:none;
+    border:0;
+    font-size:14px;
+    font-weight:bold;
+}
+#form-assignment-button div {
+    display:inline-block;
+    padding: 0 10px;
+    height: 50px;
+}
+    #form-assignment-button div a {
+        padding: 0 10px;
+    }
+.ajax-loadding {
+    z-index: 9999;
+    position: absolute;
+    top: 30%;
+    left: 45%;
+    width: 220px;
+    padding: 10px;
+    background: #1D9D74;
+    color: #fff;
+    -ms-border-radius: 4px;
+    border-radius: 4px;
+    display: none;
+}
+
+.roles-tree-Buttons>li>ul>li>ul>li>ul>li {
+        display:inline-block;
+        height: 30px;
+        width: 120px;
+}
+
+.textbox { height: 20px;}
+.c096 { color: #096;}
+
+#icons a {width: 42px;height: 42px;line-height: 42px;color: #555;font-size: 22px;text-decoration: none;text-align: center;}
+#icons a:hover { color: #096;font-size: 32px;}
+
+.icon-ok { background: url('images/icon-ok.png') no-repeat;}
+.icon-filter { background: url('images/filter.png') no-repeat center;}
+
+#nav-accordion a .fa {
+    color:#999;
+}

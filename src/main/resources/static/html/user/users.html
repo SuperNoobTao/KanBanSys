@@ -1,0 +1,185 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+</head>
+<body>
+    <div class="easyui-layout animated fadeInRight" data-options="fit:true">
+        <div data-options="region:'west',border:false" title="按部门筛选" style="width: 200px; border-right: 1px #efefef solid; padding: 10px;">
+            <ul id="tree-users-teams"></ul>
+        </div>
+        <div data-options="region:'center',border:false" title="用户列表">
+            <table id="dg-users"></table>
+        </div>
+    </div>
+    <div id="dlg-user" style="width:520px;padding:5px;">
+        <form class="easyui-form" data-options="novalidate:true">
+            <table cellpadding="5">
+                <tr>
+                    <td>部门:</td>
+                    <td colspan="3"><input name="TeamId" style="width: 90%;"></td>
+                </tr>
+                <tr>
+                    <td>角色:</td>
+                    <td colspan="3"><input name="RoleId" style="width: 90%;"></td>
+                </tr>
+                <tr>
+                    <td>用户名:</td>
+                    <td colspan="3"><input class="easyui-textbox" type="text" name="UserName" data-options="required:true" /></td>
+                </tr>
+                <tr>
+                    <td>密码:</td>
+                    <td><input id="user-form-pwd" class="textbox" type="password" name="Password" /></td>
+                    <td>确认密码:</td>
+                    <td><input type="password" class="textbox" name="ConfrimPassword" /></td>
+                </tr>
+                <tr>
+                    <td>邮箱:</td>
+                    <td><input class="easyui-textbox" type="text" name="Email" data-options="required:true,validType: 'email'" /></td>
+                    <td>手机号:</td>
+                    <td><input class="easyui-textbox" type="text" name="Mobile" data-options="required:true" /></td>
+                </tr>
+            </table>
+        </form>
+    </div>
+    <div id="dlg-permissions"></div>
+    <script type="text/javascript">
+        $(function () {
+            var
+                dg = $('#dg-users'),
+                dlg = $('#dlg-user'),
+                dlgPermissions = $('#dlg-permissions'),
+                teamtree = $('#tree-users-teams'),
+                cmbtree = dlg.find('input[name="TeamId"]'),
+                cmbrole = dlg.find('input[name="RoleId"]'),
+                treePermissions = null;
+
+            teamtree.tree({
+                url: '/api/teams',
+                method: 'get',
+                onSelect: function (node) {
+                    dg.datagrid('load', {
+                        teamId: node.id
+                    });
+                }
+            });
+
+            dg.dialogDataGrid({
+                url: '/api/users',
+                dialogTitle: '用户',
+                dialogEl: dlg,
+                deleteField: 'MenuText',
+                columns: [$.merge([
+                    { field: 'ck', checkbox: true },
+                    { field: 'id', hidden: true },
+                    { field: 'UserName', title: '用户名', width: 220, sortable: true },
+                    { field: 'Email', title: '邮箱', width: 160, sortable: true },
+                    { field: 'Mobile', title: '手机', width: 120, sortable: true }
+                ], globalColumns)],
+                columnFilters: globalColumnsFilter,
+                dialogBeforeOpen: function (form, record) {
+                    var pwdField = form.find('input[name="Password"]').validatebox({
+                        required: record === undefined,
+                        value: '',
+                        novalidate: true,
+                        validType: {
+                            length: [6, 20]
+                        }
+                    });
+                    form.find('input[name="ConfrimPassword"]').validatebox({
+                        required: record === undefined,
+                        novalidate: true,
+                        value: '',
+                        validType: {
+                            equals: pwdField
+                        }
+                    });
+                    cmbtree.combotree({
+                        url: '/api/teams',
+                        method: 'get',
+                        required: true,
+                        panelHeight: 'auto'
+                    });
+
+                    cmbrole.combobox({
+                        url: '/api/AllRoles',
+                        method: 'get',
+                        valueField: 'Id',
+                        textField: 'RoleName',
+                        required: true,
+                        multiple: true,
+                        panelHeight: 'auto'
+                    });
+
+                    if (record) {
+                        if (record['Team'] != null) record['TeamId'] = record['Team'].Id;
+                        if (record['Roles'] != null) {
+                            var roles = [];
+                            $.each(record['Roles'], function (i, n) {
+                                roles.push(n.Id);
+                            });
+                            record['RoleId'] = roles;
+                        }
+                        form.form('load', record);
+                    }
+                    else {
+                        form.form('reset');
+                    }
+                },
+                setPermissions: function () {
+                    var selected = dg.datagrid('getSelected');
+                    if (selected == null) {
+                        showToast('请选择用户！');
+                        return false;
+                    }
+
+                    dlgPermissions.dialog({
+                        title: '用户权限设置',
+                        modal: true,
+                        cache: true,
+                        width: 600,
+                        height: 400,
+                        top: 120,
+                        href: 'app/user/_permissions.cshtml',
+                        onLoad: function () {
+                            treePermissions = dlgPermissions.find('.roles-tree-Buttons>li');
+                            $.post('/api/GetAllMenuByUserId/' + selected.Id, function (data) {
+                                loadMenusButtons(data, treePermissions);
+                            });
+                        },
+                        buttons: [{
+                            text: lang.iconsave,
+                            handler: function () {
+                                var menus = [];
+                                var tree = treePermissions;
+
+                                $.each(tree.find(':checkbox:checked'), function (i, n) {
+                                    menus.push($(n).val());
+                                });
+
+                                if (menus.length === 0) {
+                                    showToast('请选择权限');
+                                    return false;
+                                }
+
+                                $.post('/api/save-user-permissions/' + selected.Id, { KeyList: menus }, function (data) {
+                                    showToast(data.message);
+                                    if (data.success) {
+                                        dlgPermissions.dialog('close');
+                                        dg.datagrid('reload');
+                                    }
+                                });
+                            }
+                        }, {
+                            text: lang.iconcancel,
+                            handler: function () {
+                                dlgPermissions.dialog('close');
+                            }
+                        }]
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

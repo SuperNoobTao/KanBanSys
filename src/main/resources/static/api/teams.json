@@ -1,0 +1,27 @@
+[
+  {
+    "ParentId": null,
+    "TeamName": "总公司",
+    "TeamDesc": null,
+    "SortOrder": 0,
+    "id": "b4d56dfb-ed77-e511-9bcd-9d38c0ac0015",
+    "text": "总公司",
+    "iconCls": null,
+    "leaf": false,
+    "expanded": true,
+    "children": [
+      {
+        "ParentId": "b4d56dfb-ed77-e511-9bcd-9d38c0ac0015",
+        "TeamName": "深圳分公司",
+        "TeamDesc": null,
+        "SortOrder": 0,
+        "id": "fb66405b-98ea-31cb-138a-39d92a134148",
+        "text": "深圳分公司",
+        "iconCls": null,
+        "leaf": true,
+        "expanded": true,
+        "children": []
+      }
+    ]
+  }
+]

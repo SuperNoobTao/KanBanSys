@@ -1,0 +1,28 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+</head>
+<body>
+    <div class="easyui-layout animated fadeInRight" data-options="fit:true">
+        <div data-options="region:'center',border:false">
+            <table id="dg-Dictionarys"></table>
+        </div>
+    </div>
+	<script type="text/javascript">
+        $(function() {
+            $('#dg-Dictionarys').inlineGrid({
+                url: '/api/Dictionarys',
+                columns: [jQuery.merge([
+                    { field: 'ck', checkbox: true }
+					, { field: 'Id', hidden: true }
+					, { field: 'Key', title: '标识', width: 140, editor: { type: 'textbox', options: { required: true } }, sortable: true }
+					, { field: 'Desc', title: '描述', width: 140, editor: { type: 'textbox', options: { required: true } }, sortable: true }
+                    , { field: 'Dictionarys', title: '值（用逗号分隔）', width: 340, editor: { type: 'textbox', options: { required: true } }, sortable: true }
+                ], globalColumns)],
+                columnFilters: globalColumnsFilter
+            });
+        });
+    </script>
+	</body>
+</html>

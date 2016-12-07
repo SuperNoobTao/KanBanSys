@@ -1,0 +1,129 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+</head>
+<body>
+    <div id="dlg-Goods" class="easyui-layout" data-options="fit:true">
+        <div data-options="region:'south',border:0">
+            <div class="datagrid-toolbar">
+                <table cellspacing="0" cellpadding="0" align="center">
+                    <tbody>
+                        <tr>
+                            <td><a href="javascript:void(0)" class="l-btn l-btn-small l-btn-plain" id="btnSaveGoods"><span class="l-btn-left"><span class="l-btn-text"><i class="fa fa-save"></i> 保存</span></span></a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div data-options="region:'center',border:0" style="padding:5px;">
+            <div style="width:90%;min-width:800px;padding:5px;">
+                <form id="form-goods" class="easyui-form" data-options="novalidate:true">
+                    <table cellpadding="5" style="width:100%;">
+                        <tr>
+                            <td>商品名称:</td>
+                            <td><input class="easyui-textbox" type="text" name="GoodsName" data-options="required:true" style="width: 330px;" /></td>
+                            <td>品牌:</td>
+                            <td><input name="BrandId" style="width:160px;"></td>
+                        </tr>
+                        <tr>
+                            <td>所在分类:</td>
+                            <td colspan="3"><input name="GoodsCategorys" style="width: 90%;"></td>
+                        </tr>
+                        <tr>
+                            <td>价格:</td>
+                            <td><input class="easyui-numberbox" type="text" name="Price" data-options="required:true" style="width: 330px;" /></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>图片:</td>
+                            <td colspan="3">
+                                <input id="xFilePath" name="Photo" type="text" size="60" />
+                                <input type="button" value="选择..." onclick="BrowseServer('#xFilePath');" />
+                            </td>
+                        </tr>
+                    </table>
+                    <div>
+                        <textarea id="GoodsContent" name="Content" style="width:auto;"></textarea>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        loadResources({
+            id: 'js-ckeditor',
+            src: '/libs/ckeditor/ckeditor.js'
+        });
+
+        $(function () {
+            var dg = $('#dg-Goods'),
+                dlg = $('#dlg-Goods'),
+                form = dlg.find('form'),
+                btnSave = dlg.find('#btnSaveGoods'),
+                cmbBrand = dlg.find('input[name="BrandId"]'),
+                cmbCategorys = dlg.find('input[name="GoodsCategorys"]'),
+                record = $('.tabs-selected').data('record'),
+                id =record ? record.Id : 0;
+
+            CKEDITOR.replace('GoodsContent');
+
+            cmbCategorys.combotree({
+                url: '/api/GoodsCategorys',
+                multiple: true,
+                required: true,
+                method: 'get'
+            });
+
+            cmbBrand.combobox({
+                url: '/api/GetAllGoodsBrands',
+                valueField: 'Id',
+                textField: 'BrandName',
+                method: 'get'
+            });
+
+            if (id != '') {
+                $.get('/api/Goods/' + id, function (record) {
+                    if (record['Brand'] != null) record['BrandId'] = record['Brand'].Id;
+                    if (record['Categorys'] != null) {
+                        var categorys = [];
+                        $.each(record['Categorys'], function (i, n) {
+                            categorys.push(n.Id);
+                        });
+                        record['GoodsCategorys'] = categorys;
+                    }
+                    for (instance in CKEDITOR.instances) {
+                        CKEDITOR.instances[instance].setData(record['Content']);
+                    }
+                    form.form('load', record);
+                });
+            }
+
+            btnSave.click(function () {
+                for (instance in CKEDITOR.instances) {
+                    CKEDITOR.instances[instance].updateElement();
+                }
+                var data = form.serialize();
+                $.ajax({
+                    method: id == '' ? 'POST' : 'PUT',
+                    url: '/api/Goods' + (id == '' ? '' : '/' + id),
+                    data: data,
+                    beforeSend: function () {
+                        var isValidate = form.form('enableValidation').form('validate');
+                        if (isValidate) $(btnSave).attr('disable', true);
+                        return isValidate;
+                    }
+                }).done(function (data) {
+                    showToast(data.message);
+                    $(btnSave).attr('disable', false);
+                    if (data.success) {
+                        dg.datagrid('reload');
+                        closetab();
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

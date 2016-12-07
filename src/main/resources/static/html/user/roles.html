@@ -1,0 +1,88 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+</head>
+<body>
+    <div class="easyui-layout animated fadeInRight" data-options="fit:true">
+        <div data-options="region:'west',border:false,collapsible:false" title="角色管理" style="width:400px; border-right: 1px #e4e4e4 solid;">
+            <table id="dg-roles"></table>
+        </div>
+        <div data-options="region:'center',border:false" title="权限分配">
+            <div class="datagrid-toolbar">
+                <table cellspacing="0" cellpadding="0">
+                    <tbody>
+                        <tr>
+                            <td><a href="javascript:void(0)" class="l-btn l-btn-small l-btn-plain" id="btnSaveRoleButtons"><span class="l-btn-left"><span class="l-btn-text"><i class="fa fa-save"></i> 保存</span></span></a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div id="roles-tree-permissions" style="border:0"></div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        $(function () {
+            var dg = $('#dg-roles'),
+                treePermissions = null;
+
+            $('#roles-tree-permissions').panel({
+                href: 'html/user/_permissions.html',
+                fit: true,
+                onLoad: function () {
+                    treePermissions = $('#roles-tree-permissions .roles-tree-Buttons>li');
+                    loadMenusButtons([], treePermissions);
+                }
+            });
+
+            $('#btnSaveRoleButtons').click(function () {
+                var selected = dg.datagrid('getSelected');
+                if (selected == null) {
+                    showToast('请选择角色！');
+                    return false;
+                }
+
+                var menus = [];
+                var tree = treePermissions;
+
+                $.each(tree.find(':checkbox:checked'), function (i, n) {
+                    menus.push($(n).val());
+                });
+
+                if (menus.length === 0) {
+                    showToast('请选择权限');
+                    return false;
+                }
+
+                $.post('/api/save-role-permissions/' + selected.Id, { KeyList: menus }, function (data) {
+                    showToast(data.message);
+                    if (data.success) {
+                        dg.datagrid('reload');
+                    }
+                });
+                return this;
+            });
+            
+            dg.inlineGrid({
+                url: '/api/Roles',
+                singleSelect: true,
+                columns: [$.merge([
+                    { field: 'Id', hidden: true },
+                    { field: 'RoleName', title: '角色名称', width: 120, editor: { type: 'textbox', options: { required: true } }, sortable: true },
+                    { field: 'RoleDesc', title: '描述', width: 200, editor: 'textbox', sortable: true }
+                ], globalColumns)],
+                pagination:false,
+                columnFilters: globalColumnsFilter,
+                onSelect: function (index, row) {
+                    var rowMenus = [];
+                    
+                    $.each(row.Permissions, function (i, n) {
+                        rowMenus.push(n.MenuId);
+                    });
+                    loadMenusButtons(rowMenus, treePermissions);
+                }
+            });
+        });
+    </script>
+</body>
+</html>

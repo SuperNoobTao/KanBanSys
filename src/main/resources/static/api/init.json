@@ -1,0 +1,1 @@
+var WebPlus = {"config": {"system.appname": "Web+", "system.pagesize":"20", "user.defaultrole": "User"}, "user": {"UserName": "admin", "Email": "84383822@qq.com", "Mobile":"18386630369", "Count": 17}, "dictionarys": {"OrderStatus": {"0": "处理中", "1": "已发货", "2": "取消"}}}

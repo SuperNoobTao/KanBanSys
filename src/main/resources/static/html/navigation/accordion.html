@@ -1,0 +1,37 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+</head>
+<body>
+<div id="nav-accordion" class="easyui-accordion" data-options="fit:true,border:false">
+    
+</div>
+<script type="text/javascript">
+    $(function() {
+        var nav = $('#nav-accordion');
+
+        $.getJSON('/api/navs', function (data) {
+            $.each(data, function(i,n) {
+                var panelContent = $('<div />');
+                $.each(n.children, function(j, c) {
+                    var item = $('<a href="#' + c.MenuText + '"><i class="fa fa-circle-o"></i> ' + c.MenuText + '</a>').click(function () {
+                        $('#nav-accordion a').removeClass('active');
+                        $(this).addClass('active');
+                        opentab(c.MenuLink, c.MenuText, c.Buttons);
+                    });
+                    panelContent.append(item);
+                });
+
+                nav.accordion('add', {
+                    title: n.MenuText,
+                    content: panelContent,
+                    //iconCls:'fa '+n.IconCls,
+                    selected:i===0
+                });
+            });
+        });
+    });
+</script>
+</body>
+</html>

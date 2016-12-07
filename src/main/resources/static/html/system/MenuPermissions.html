@@ -1,0 +1,186 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+</head>
+<body>
+    <div class="easyui-layout animated fadeInRight" data-options="fit:true">
+        <div data-options="region:'west',border:false,collapsible:false" title="菜单及功能" style="width:600px;border-right:1px #ddd solid;">
+            <table id="dg-menus"></table>
+        </div>
+        <div data-options="region:'center',border:false" title="分配按钮">
+            <div class="datagrid-toolbar">
+                <table cellspacing="0" cellpadding="0">
+                    <tbody>
+                        <tr>
+                            <td><a href="javascript:void(0)" id="btnSaveMenuButtons" data-options="iconCls:'fa fa-save',plain:true">保存</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <form id="form-assignment-button" style="padding: 20px;"></form>
+        </div>
+    </div>
+    <div id="dlg-menu" style="width:320px;padding:5px;">
+        <form class="easyui-form" data-options="novalidate:true">
+            <table cellpadding="5">
+                <tr>
+                    <td>上级菜单:</td>
+                    <td><input name="ParentId"></td>
+                </tr>
+                <tr>
+                    <td>名称:</td>
+                    <td><input class="easyui-textbox" type="text" name="MenuText" data-options="required:true" /></td>
+                </tr>
+                <tr>
+                    <td>操作:</td>
+                    <td><input class="easyui-textbox" type="text" name="MenuLink" data-options="required:true" /></td>
+                </tr>
+                <tr>
+                    <td>类型:</td>
+                    <td>
+                        <select class="easyui-combobox" name="MenuType" style="height:26px;" data-options="panelHeight: 'auto'">
+                            <option value="menu">菜单</option>
+                            <option value="button">按钮</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>IconCls:</td>
+                    <td><input class="easyui-textbox" type="text" name="IconCls" data-options="
+                               iconWidth: 22,
+                               buttonIcon: 'fa fa-th-large',
+                               onClickButton: chooseIcons
+                               " /></td>
+                </tr>
+                <tr>
+                    <td>有效</td>
+                    <td><input class="easyui-switchbutton" name="IsActivated" checked></td>
+                </tr>
+                <tr>
+                    <td>排序:</td>
+                    <td><input class="easyui-numberspinner" type="text" name="SortOrder" value="0" min="0" /></td>
+                </tr>
+            </table>
+        </form>
+    </div>
+    <script type="text/javascript">
+        $(function () {
+            var
+                dg = $('#dg-menus'),
+                dlg = $('#dlg-menu'),
+                cmbtree = dlg.find('input[name="ParentId"]'),
+                btnForm = $('#form-assignment-button'),
+                allButtons = null;
+
+            $('#btnSaveMenuButtons').linkbutton({
+                onClick: function () {
+                    var selected = dg.treegrid('getSelected');
+                    if (selected == null || !selected['leaf']) {
+                        showToast('请选择最底层的菜单！');
+                        return false;
+                    }
+
+                    var selectedButtons = [];
+                    btnForm.find('a[class*="l-btn-selected"]').each(function (i, n) {
+                        selectedButtons.push($(n).attr('data-id'));
+                    });
+
+                    if (selectedButtons.length === 0) {
+                        showToast('请选择要分配的按钮！');
+                        return false;
+                    }
+
+                    $.post('/api/save-menu-Buttons/' + selected.id, { KeyList: selectedButtons }, function (data) {
+                        showToast(data.message);
+                        if (data.success) {
+                            dg.treegrid('reload');
+                        }
+                    });
+                    return this;
+                }
+            });
+
+            function loadButtons(menuButtons) {
+                function render(buttons) {
+                    btnForm.empty();
+                    $.each(buttons, function (i, n) {
+                        if ($.inArray(n.ButtonName, menuButtons) >= 0)
+                            btnForm.append('<div><a href="#" data-options="selected:true" data-id="'+ n.Id +'"><i class="fa ' + n.IconCls + '"></i> ' + n.ButtonName + '</a></div>');
+                        else {
+                            btnForm.append('<div><a href="#" data-id="' + n.Id + '"><i class="fa ' + n.IconCls + '"></i> ' + n.ButtonName + '</a></div>');
+                        }
+                    });
+                    btnForm.find('a').linkbutton({
+                        size: 'large',
+                        iconAlign: 'top'
+                    }).click(function() {
+                        if ($(this).hasClass('l-btn-selected')) {
+                            $(this).linkbutton('unselect');
+                        } else {
+                            $(this).linkbutton('select');
+                        }
+                    });
+                }
+
+                if (allButtons == null) {
+                    $.getJSON('/api/all-Buttons', function(data) {
+                        allButtons = data;
+                        render(allButtons);
+                    });
+                } else {
+                    render(allButtons);
+                }
+            }
+
+            loadButtons();
+
+            dg.dialogTreeGrid({
+                url: '/api/menus',
+                treeField: 'MenuText',
+                remoteFilter:false,
+                dialogTitle: '功能菜单',
+                dialogEl: dlg,
+                columns: [$.merge([
+                    { field: 'id', hidden: true },
+                    { field: 'MenuText', title: '名称', width: 220 },
+                    { field: 'MenuLink', title: '操作', width: 160 },
+                    { field: 'IsActivated', title: '可用', width: 80 },
+                    { field: 'SortOrder', title: '排序', width: 80 }
+                ], globalColumns)],
+                columnFilters: $.merge([globalFilters.numeric('SortOrder')], globalColumnsFilter),
+                onClickRow: function (row) {
+                    if (row.MenuType == 'button') $('#btnSaveMenuButtons').linkbutton('disable');
+                    else $('#btnSaveMenuButtons').linkbutton('enable');
+                    if (row.Buttons.length == 0) return;
+                    var rowButtons = [];
+                    $.each(row.Buttons, function(i, n) {
+                        rowButtons.push(n.ButtonName);
+                    });
+                    if (row.leaf) loadButtons(rowButtons);
+                },
+                dialogBeforeOpen: function (form,record) {
+                    cmbtree.combotree({
+                        url: '/api/navs',
+                        method: 'get',
+                        width:160,
+                        panelHeight: 'auto'
+                    });
+
+                    if (record) {
+                        if (record['ParentId'] == null) record['ParentId'] = '';
+                        form.form('load', record);
+                    }
+                    else {
+                        form.form('reset');
+                        var s = dg.treegrid('getSelected');
+                        if (s) {
+                            cmbtree.combotree('setValue', s.id);
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>

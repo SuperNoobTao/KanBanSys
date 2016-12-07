@@ -1,0 +1,220 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+</head>
+<body>
+    <div id='main-calendar' style="padding: 10px;"></div>
+    <div id="dlg-calendar" class="easyui-dialog" closed="true" style="width: 320px; padding: 5px;">
+        <form class="easyui-form" data-options="novalidate:true">
+            <input type="hidden" name="id"/>
+            <table cellpadding="5" style="width: 100%;">
+                <tr>
+                    <td>开始日期:</td>
+                    <td><input class="easyui-datetimespinner" type="text" name="StartDate" data-options="required:true"/></td>
+                </tr>
+                <tr>
+                    <td>结束日期:</td>
+                    <td><input class="easyui-datetimespinner" type="text" name="EndDate"/></td>
+                </tr>
+                <tr>
+                    <td>事件颜色:</td>
+                    <td><input name="Color" value="#33A1C9"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>做什么事:</td>
+                    <td><input class="easyui-textbox" type="text" name="Title" data-options="required:true,novalidate:true,multiline:true" style="width: 200px; height: 60px"/></td>
+                </tr>
+            </table>
+        </form>
+    </div>
+    <div id="calendar-buttons" style="display: none;">
+        <div style="float: left;"><a class="easyui-linkbutton" href="#" itemid="recycle"><i class="fa fa-recycle" style="color: #E3170D;"></i> 删除</a></div>
+        <div style="float: right;">
+            <a href="#" class="easyui-linkbutton" itemid="save"><i class="fa fa-save"></i> 保存</a>
+            <a href="#" class="easyui-linkbutton" itemid="close"><i class="fa fa-close"></i> 取消</a>
+        </div>
+    </div>
+    <script type="text/javascript">
+        loadResources({
+            id: 'css-fullcalendar',
+            src: 'libs/fullcalendar/fullcalendar.min.css'
+        }, {
+            id: 'js-moment',
+            src: 'libs/fullcalendar/lib/moment.min.js'
+        },{
+            id: 'js-fullcalendar',
+            src: 'libs/fullcalendar/fullcalendar.js'
+        }, {
+            id: 'js-fullcalendar-lang',
+            src: 'libs/fullcalendar/lang/zh-cn.js'
+        });
+
+        $(document).ready(function () {
+            var
+                dlg = $('#dlg-calendar'),
+                form = dlg.find('form'),
+                calendar = $('#main-calendar'),
+                buttons = $('#calendar-buttons');
+
+            form.find('input[name="Color"]').combobox({
+                valueField: 'value',
+                textField: 'label',
+                panelHeight: 'auto',
+                formatter: formatItem,
+                data: [{
+                    label: '紫色',
+                    value: '#DA70D6'
+                }, {
+                    label: '绿色',
+                    value: '#00FF7F'
+                }, {
+                    label: '蓝色',
+                    value: '#33A1C9'
+                }, {
+                    label: '黄色',
+                    value: '#F5DEB3'
+                }, {
+                    label: '褐色',
+                    value: '#A0522D'
+                }, {
+                    label: '红色',
+                    value: '#E3170D'
+                }, {
+                    label: '橙色',
+                    value: '#FF6100'
+                }]
+            });
+
+            buttons.find('a[itemid="recycle"]').bind('click', function () {
+                var id = form.find('input[name="id"]').val(),
+                    remark = form.find('input[name="Title"]').val();
+                $.messager.confirm('Confirm', lang.deleteConfirm, function (r) {
+                    if (r) {
+                        $.ajax({
+                            method: 'DELETE',
+                            url: '/api/CalendarEvents',
+                            data: {
+                                Id: id,
+                                Remark: remark
+                            }
+                        }).done(function (data) {
+                            showToast(data.message);
+                            if (data.success) {
+                                calendar.fullCalendar('refetchEvents');
+                                dlg.dialog('close');
+                            }
+                        });
+                    }
+                });
+            });
+            buttons.find('a[itemid="save"]').bind('click', function () {
+                var btn = this,
+                    data = form.serialize(),
+                    id = form.find('input[name="id"]').val();
+                $.ajax({
+                    method: id !== '' ? 'PUT' : 'POST',
+                    url: '/api/CalendarEvents' + (id !== '' ? '/' + id : ''),
+                    data: data,
+                    beforeSend: function () {
+                        var isValidate = form.form('enableValidation').form('validate');
+                        if (isValidate) $(btn).linkbutton('disable');
+                        return isValidate;
+                    }
+                }).done(function (data) {
+                    showToast(data.message);
+                    $(btn).linkbutton('enable');
+                    if (data.success) {
+                        calendar.fullCalendar('refetchEvents');
+                        dlg.dialog('close');
+                    }
+                });
+            });
+            buttons.find('a[itemid="close"]').bind('click', function () {
+                dlg.dialog('close');
+            });
+
+            function formatItem(row) {
+                var s = '<span style="background:' + row.value + ';"> &nbsp; &nbsp; </span> &nbsp; ' + row.label + '';
+                return s;
+            }
+
+            function dialog(record) {
+                if (record) {
+                    form.form('load', record);
+                }
+                if (!record.id) {
+                    buttons.find('a[itemid="recycle"]').hide();
+                } else {
+                    buttons.find('a[itemid="recycle"]').show();
+                }
+                return dlg.dialog({
+                    title: record.id ? '修改事件' : '添加事件',
+                    modal: true,
+                    closed:false,
+                    top: 120,
+                    buttons: buttons
+                });
+            }
+
+            calendar.fullCalendar({
+                header: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'month,basicWeek,basicDay'
+                },
+                editable: true,
+                eventLimit: true, // allow "more" link when too many events
+                selectable: true,  
+                selectHelper: true,
+                events: {
+                    url: '/api/CalendarEvents',
+                    error: function () {
+                        
+                    }
+                },
+                select: function (startDate, endDate, allDay, jsEvent, view) {
+                    startDate = startDate.format('YYYY-MM-DD');
+                    endDate = endDate.format('YYYY-MM-DD');
+                    dialog({
+                        StartDate: startDate,
+                        EndDate: endDate,
+                        Color: '#33A1C9',
+                        Title: '',
+                        Desc: ''
+                    });
+                },
+                eventClick: function (event) {
+                    var startDate = event.start.format('YYYY-MM-DD');
+                    var endDate = event.end.format('YYYY-MM-DD');
+                    dialog({
+                        id:event.id,
+                        StartDate: startDate,
+                        EndDate: endDate,
+                        Color: event.color,
+                        Title: event.title,
+                        Desc:event.desc
+                    });
+                },
+                eventRender: function (event, element) {
+                    element.tooltip({
+                        content: event.title,
+                        onShow: function () {
+                            $(this).tooltip('tip').css({
+                                maxWidth: 220,
+                                borderColor: '#ccc'
+                            });
+                        },
+                        onPosition: function () {
+                            $(this).tooltip('tip').css('left', $(this).offset().left);
+                            $(this).tooltip('arrow').css('left', 20);
+                        }
+                    });
+                }
+            });
+
+        });
+    </script>
+</body>
+</html>

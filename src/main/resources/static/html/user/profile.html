@@ -1,0 +1,107 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+</head>
+<body>
+    <div class="easyui-layout animated fadeInRight" data-options="fit:true">
+        <div data-options="region:'west',border:false,collapsible:false" title="我的资料" style="width: 300px; border-right: 1px #ddd solid; padding: 10px;">
+            <div style="text-align: center; padding: 20px 0;">
+                <i class="fa fa-user" style="font-size: 18em; color: #bbb;"></i><br />
+                <a href="javascript:void(0);" id="changepwd" class="c096" title="点击修改您的密码">修改密码</a> &nbsp;
+                <a href="#" class="c096">修改资料</a>
+            </div>
+            <p style="font-size: 14px;">
+                用户名：<strong data-init="user['UserName']"></strong><br />
+                手机号：<strong data-init="user['Mobile']"></strong><br />
+                邮箱：<strong data-init="user['Email']"></strong>
+            </p>
+            <div style="border-color: #e7eaec; border-style: solid solid none; border-width: 4px 0 0; padding: 10px 0;">
+                登录总数：<strong data-init="user['LoginCount']"></strong> 次
+            </div>
+        </div>
+        <div data-options="region:'center',border:false" title="历史登录数据">
+            <table id="dg-loginlogs"></table>
+        </div>
+    </div>
+    <div id="dlg-changpwd" style="width: 320px; padding: 5px;">
+        <form class="easyui-form" data-options="novalidate:true">
+            <table cellpadding="5">
+                <tr>
+                    <td>旧密码:</td>
+                    <td><input class="easyui-validatebox textbox" type="password" name="OldPassword" required="required" /></td>
+                </tr>
+                <tr>
+                    <td>新密码:</td>
+                    <td><input id="newpwd" class="easyui-validatebox textbox" type="password" name="Password" required="required" validType="length[6,20]" /></td>
+                </tr>
+                <tr>
+                    <td>确认新密码:</td>
+                    <td><input class="easyui-validatebox textbox" type="password" name="ConfrimPassword" required="required" validtype="equals['#newpwd']" /></td>
+                </tr>
+            </table>
+        </form>
+    </div>
+    <script type="text/javascript">
+        $(function () {
+            var dg = $('#dg-loginlogs'),
+                dlg = $('#dlg-changpwd'),
+                form = dlg.find('form');
+
+            renderInit();
+
+            function changepwd() {
+                form.form('reset');
+                return dlg.dialog({
+                    title: '修改密码',
+                    modal: true,
+                    top: 120,
+                    buttons: [{
+                        text: lang.iconsave,
+                        handler: function () {
+                            var data = form.serialize();
+                            $.ajax({
+                                method: 'POST',
+                                url: '/api/change-user-pwd',
+                                data: data,
+                                beforeSend: function () {
+                                    return form.form('enableValidation').form('validate');
+                                }
+                            }).done(function (data) {
+                                showToast(data.message);
+                                if (data.success) {
+                                    dlg.dialog('close');
+                                }
+                            });
+                        }
+                    }, {
+                        text: lang.iconcancel,
+                        handler: function () {
+                            dlg.dialog('close');
+                        }
+                    }]
+                });
+            }
+
+            $('#changepwd').bind('click', function() {
+                changepwd();
+            });
+
+            dg.datagrid({
+                url: '/api/LoginLogs',
+                pagination: true,
+                rownumbers: true,
+                singleSelect: true,
+                method: 'get',
+                fit: true,
+                border: 0,
+                columns: [[
+                    { field: 'Id', hidden: true },
+                    { field: 'IpAddress', title: '登录IP', width: 160, sortable: true },
+                    { field: 'CreationTime', title: '登录时间', width: 130, sortable: true }
+                ]]
+            });
+        });
+    </script>
+</body>
+</html>

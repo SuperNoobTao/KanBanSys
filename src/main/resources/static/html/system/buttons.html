@@ -1,0 +1,45 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+</head>
+<body>
+    <div class="easyui-layout animated fadeInRight" data-options="fit:true">
+        <div data-options="region:'center',border:false">
+            <table id="dg-Buttons"></table>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        $(function() {
+            $('#dg-Buttons').inlineGrid({
+                url: '/api/Buttons',
+                columns:[$.merge([
+                    { field: 'ck', checkbox: true },
+                    { field: 'Id', hidden: true },
+                    { field: 'ButtonName', title: '按钮名称', width: 120, editor: {
+                        type: 'textbox',
+                        options: {
+                            required: true
+                        }
+                    }, sortable: true },
+                    { field: 'ButtonLink', title: '方法', width: 200, editor: { type: 'textbox', options: { required: true } }, sortable: true },
+                    {
+                        field: 'IconCls', title: 'Icon Class', width: 160, editor: {
+                            type: 'textbox',
+                            options: {
+                                required: true,
+                                editable: false,
+                                iconWidth: 22,
+                                buttonText: '<i class="fa fa-th-large"></i>',
+                                onClickButton: chooseIcons
+                            }
+                    }, sortable: true },
+                    { field: 'ButtonDesc', title: '描述', width: 300, editor: 'textbox' }
+                ], globalColumns)],
+                columnFilters: globalColumnsFilter
+            });
+        });
+    </script>
+</body>
+</html>

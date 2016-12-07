@@ -1,0 +1,16 @@
+{
+  "total": 1,
+  "rows": [
+    {
+      "Key": "OrderStatus",
+      "Desc": "订单状态",
+      "Dictionarys": "处理中,已发货,取消",
+      "Id": "73526e61-334f-e611-97bc-98e0d97b8c7e",
+      "CreatorUserId": "b5d56dfb-ed77-e511-9bcd-9d38c0ac0015",
+      "CreationTime": "2016-07-21 19:07",
+      "LastModifierUserId": null,
+      "LastModificationTime": null,
+      "TimeStamp": "AAAAAAAACMs="
+    }
+  ]
+}

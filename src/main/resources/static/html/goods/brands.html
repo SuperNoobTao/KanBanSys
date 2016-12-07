@@ -1,0 +1,26 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+</head>
+<body>
+    <div class="easyui-layout animated fadeInRight" data-options="fit:true">
+        <div data-options="region:'center',border:false">
+            <table id="dg-brands"></table>
+        </div>
+    </div>
+    <script type="text/javascript">
+        $(function() {
+            $('#dg-brands').inlineGrid({
+                url: '/api/brands',
+                columns:[$.merge([
+                    { field: 'ck', checkbox: true },
+                    { field: 'Id', hidden: true },
+                    { field: 'BrandName', title: '品牌名称', width: 200, editor: { type: 'textbox', options: { required: true } }, sortable: true },
+                ], globalColumns)],
+                columnFilters: globalColumnsFilter
+            });
+        });
+    </script>
+</body>
+</html>
