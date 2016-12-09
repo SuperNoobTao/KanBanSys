@@ -7,6 +7,8 @@ import cc.superliar.po.User;
 import cc.superliar.vo.ResultVO;
 import cc.superliar.vo.WelcomeVO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -33,8 +35,9 @@ public class WelcomeController {
    * @return user's name
    */
   @RequestMapping(ResourceURL.WELCOME)
-  public ResultVO welcome(@AuthenticationPrincipal User user) {
-    return resultHelper.successResp(new WelcomeVO(user.getId(), String.format(template, user.getName())));
+  public ResponseEntity welcome(@AuthenticationPrincipal User user) {
+    return new ResponseEntity<>(new WelcomeVO(user.getId(), String.format(template, user.getName())), HttpStatus.OK);
+
   }
 
   // ------------------------
