@@ -10,6 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Field;
+import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -22,6 +23,10 @@ import java.util.stream.Collectors;
  */
 @Component
 public class Transformer {
+
+  // ------------------------
+  // PUBLIC METHODS
+  // ------------------------
 
   // ------------------------
   // PUBLIC METHODS
@@ -93,18 +98,24 @@ public class Transformer {
     // Init transformer
     Field idField = type.getDeclaredField(CommonsConstant.ID);
     idField.setAccessible(true);
-
+//    Field createdByField = type.getDeclaredField(CommonsConstant.CREATED_BY);
+//    createdByField.setAccessible(true);
+//    Field lastModifiedByField = type.getDeclaredField(CommonsConstant.LAST_MODIFIED_BY);
+//    lastModifiedByField.setAccessible(true);
     Field lastModifiedDateField = type.getDeclaredField(CommonsConstant.LAST_MODIFIED_DATE);
     lastModifiedDateField.setAccessible(true);
-    Date now = new Date();
+    LocalDateTime now = LocalDateTime.now();
     if (idField.get(po) == null) {
       createdBy = currentUser.getId();
       lastModifiedBy = createdBy;
     } else {
+      //createdBy = (Long) createdByField.get(po);
       lastModifiedBy = currentUser.getId();
     }
     // Set param.
     BeanUtils.copyPropertiesIgnoreNull(param, po);
+    //createdByField.set(po, createdBy);
+    //lastModifiedByField.set(po, lastModifiedBy);
     lastModifiedDateField.set(po, now);
     return po;
   }
@@ -116,7 +127,7 @@ public class Transformer {
    * @return VO
    */
   @SuppressWarnings("unchecked")
-  public List pos2VOs(Class<?> type, List pos) throws Exception {
+  public List pos2VOs(Class<?> type, List pos) throws InstantiationException, IllegalAccessException {
     List voList = new ArrayList();
     for (Object po : pos) {
       Object vo = po2VO(type, po);
