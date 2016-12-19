@@ -10,7 +10,7 @@ import java.util.Optional;
  * Created by shentao on 2016/11/8.
  */
 @Repository
-public interface UserRepo extends CustomRepository<User, Long> {
+public interface UserReposity extends CustomRepository<User, Long> {
 
 
     Optional<User> findByAccountAndValidFlag(String usr, ValidFlag validFlag);

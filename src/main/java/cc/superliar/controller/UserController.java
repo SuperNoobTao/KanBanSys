@@ -51,7 +51,7 @@ public class UserController {
      * Create new {@link User}.
      *
      * @param param {@link UserParam}
-     * @return {@link com.saintdan.framework.vo.UserVO}
+     * @return {@link cc.superliar.vo.UserVO}
      */
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity create(@CurrentUser User currentUser, @Valid UserParam param, BindingResult result) {
@@ -102,10 +102,10 @@ public class UserController {
 
 
     /**
-     * Show {@link com.saintdan.framework.vo.UserVO} by ID.
+     * Show {@link cc.superliar.vo.UserVO} by ID.
      *
      * @param id {@link User#id}
-     * @return {@link com.saintdan.framework.vo.UserVO}
+     * @return {@link cc.superliar.vo.UserVO}
      */
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity detail(@PathVariable String id) {
@@ -127,7 +127,7 @@ public class UserController {
      *
      * @param id    {@link User#id}
      * @param param {@link UserParam}
-     * @return {@link com.saintdan.framework.vo.UserVO}
+     * @return {@link cc.superliar.vo.UserVO}
      */
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public ResponseEntity update(@CurrentUser User currentUser, @PathVariable String id, @Valid UserParam param, BindingResult result) {
@@ -153,7 +153,7 @@ public class UserController {
      * Delete {@link User}.
      *
      * @param id {@link User#id}
-     * @return {@link com.saintdan.framework.vo.UserVO}
+     * @return {@link cc.superliar.vo.UserVO}
      */
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity delete(@CurrentUser User currentUser, @PathVariable String id) {

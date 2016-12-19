@@ -9,7 +9,7 @@ import cc.superliar.exception.CommonsException;
 import cc.superliar.param.UserParam;
 import cc.superliar.po.Role;
 import cc.superliar.po.User;
-import cc.superliar.repo.UserRepo;
+import cc.superliar.repo.UserReposity;
 import cc.superliar.util.ErrorMsgHelper;
 import cc.superliar.vo.UserVO;
 import org.apache.commons.lang3.StringUtils;
@@ -84,13 +84,13 @@ public class UserDomain extends BaseDomain<User,Long> {
     @Autowired
     private RoleDomain roleDomain;
 
-    @Autowired private UserRepo userRepository;
+    @Autowired private UserReposity userRepository;
 
     @Autowired private CustomPasswordEncoder passwordEncoder;
 
     @Autowired private Transformer transformer;
 
-    @Autowired public UserDomain(UserRepo userRepository) {
+    @Autowired public UserDomain(UserReposity userRepository) {
         this.userRepository = userRepository;
     }
 

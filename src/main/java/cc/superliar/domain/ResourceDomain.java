@@ -9,7 +9,7 @@ import cc.superliar.param.ResourceParam;
 import cc.superliar.po.Resource;
 import cc.superliar.po.Role;
 import cc.superliar.po.User;
-import cc.superliar.repo.ResourceRepo;
+import cc.superliar.repo.ResourceReposity;
 import cc.superliar.util.ErrorMsgHelper;
 import cc.superliar.vo.ResourceVO;
 import org.apache.commons.lang3.StringUtils;
@@ -102,7 +102,7 @@ import java.util.List;
   private RoleDomain roleDomain;
 
   @Autowired
-  private ResourceRepo resourceRepository;
+  private ResourceReposity resourceRepository;
 
   @Autowired
   private Transformer transformer;

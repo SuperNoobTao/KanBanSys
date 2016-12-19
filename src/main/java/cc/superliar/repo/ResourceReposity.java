@@ -8,7 +8,7 @@ import java.util.Optional;
 /**
  * Created by shentao on 2016/11/29.
  */
-public interface ResourceRepo extends CustomRepository<Resource, Long> {
+public interface ResourceReposity extends CustomRepository<Resource, Long> {
 
     Optional<Resource> findByNameAndValidFlag(String name, ValidFlag validFlag);
 
