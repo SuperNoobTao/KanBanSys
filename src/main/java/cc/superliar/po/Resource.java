@@ -1,6 +1,7 @@
 package cc.superliar.po;
 
 
+import cc.superliar.enums.ValidFlag;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.security.core.GrantedAuthority;
 
@@ -43,7 +44,7 @@ public class Resource implements GrantedAuthority, Serializable {
   @Column(name = "resource_priority")
   private int priority;
   @Column(name = "resource_valid_flag")
-  private int validFlag;
+  private ValidFlag validFlag= ValidFlag.VALID;
   @Column(name = "resource_version")
   private int version;
   @ManyToMany(fetch = FetchType.LAZY, mappedBy = "resources", cascade = {CascadeType.REFRESH})
@@ -119,11 +120,11 @@ public class Resource implements GrantedAuthority, Serializable {
     this.priority = priority;
   }
 
-  public int getValidFlag() {
+  public ValidFlag getValidFlag() {
     return validFlag;
   }
 
-  public void setValidFlag(int validFlag) {
+  public void setValidFlag(ValidFlag validFlag) {
     this.validFlag = validFlag;
   }
 

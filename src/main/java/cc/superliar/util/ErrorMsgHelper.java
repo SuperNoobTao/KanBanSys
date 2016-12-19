@@ -23,7 +23,7 @@ public class ErrorMsgHelper {
     final String COLON = ": ";
     final String PREFIX = String.join("", msg.name(), COLON);
     if (args != null) {
-      return String.join("", PREFIX, String.format(msg.description(), (Object) args));//format-格式化！ SY001:XX is exsited;
+      return String.join("", PREFIX, String.format(msg.description(), args));//format-格式化！ SY001:XX is exsited;
     } else {
       return String.join("", PREFIX, msg.description());
     }

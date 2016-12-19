@@ -15,7 +15,7 @@ public enum ErrorType implements IntentStateWithDescription {
   // COMMONS
   SYS0100("%s error."),
   SYS0110("%s create failed."),
-  SYS0111("%s already existing, %s taken"),
+  SYS0111("%s already existing"),
   SYS0120("%s find error."),
   SYS0121("%s find error, no %s exists."),
   SYS0122("Cannot find any %s by %s param."),

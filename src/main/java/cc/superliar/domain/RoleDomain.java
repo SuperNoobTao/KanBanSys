@@ -115,7 +115,7 @@ public class RoleDomain extends BaseDomain<Role, Long> {
     private void nameExists(String name) throws Exception {
         if (roleRepository.findByNameAndValidFlag(name, ValidFlag.VALID).isPresent()) {
             // Throw role already existing exception, name taken.
-            throw new CommonsException(ErrorType.SYS0111, ErrorMsgHelper.getReturnMsg(ErrorType.SYS0111, getClassT().getSimpleName(), CommonsConstant.NAME));
+            throw new CommonsException(ErrorType.SYS0111, ErrorMsgHelper.getReturnMsg(ErrorType.SYS0111,CommonsConstant.NAME));
         }
     }
 
