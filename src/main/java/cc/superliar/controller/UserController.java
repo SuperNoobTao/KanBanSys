@@ -43,7 +43,35 @@ import javax.validation.Valid;
 public class UserController {
 
 
+    // ------------------------
+    // PUBLIC METHODS
+    // ------------------------
 
+    /**
+     * Create new {@link User}.
+     *
+     * @param param {@link UserParam}
+     * @return {@link com.saintdan.framework.vo.UserVO}
+     */
+    @RequestMapping(method = RequestMethod.POST)
+    public ResponseEntity create(@CurrentUser User currentUser, @Valid UserParam param, BindingResult result) {
+        try {
+            // Validate current user, param and sign.
+            ResponseEntity responseEntity = validateHelper.validate(param, result, currentUser, logger, OperationType.CREATE);
+            if (!responseEntity.getStatusCode().is2xxSuccessful()) {
+                return responseEntity;
+            }
+            // Return result and message.
+            return new ResponseEntity<>(userDomain.create(param, currentUser), HttpStatus.CREATED);
+//      return new ResponseEntity<>(userDomain.create(param, currentUser), HttpStatus.CREATED);
+        } catch (CommonsException e) {
+            // Return error information and log the exception.
+            return resultHelper.infoResp(logger, e.getErrorType(), e.getMessage(), HttpStatus.UNPROCESSABLE_ENTITY);
+        } catch (Exception e) {
+            // Return unknown error and log the exception.
+            return resultHelper.errorResp(logger, e, ErrorType.UNKNOWN, e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 
     /**
      * Show all.
@@ -112,6 +140,33 @@ public class UserController {
             }
             // Update user.
             return new ResponseEntity<>(userDomain.update(param, currentUser), HttpStatus.OK);
+        } catch (CommonsException e) {
+            // Return error information and log the exception.
+            return resultHelper.infoResp(logger, e.getErrorType(), e.getMessage(), HttpStatus.UNPROCESSABLE_ENTITY);
+        } catch (Exception e) {
+            // Return unknown error and log the exception.
+            return resultHelper.errorResp(logger, e, ErrorType.UNKNOWN, e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    /**
+     * Delete {@link User}.
+     *
+     * @param id {@link User#id}
+     * @return {@link com.saintdan.framework.vo.UserVO}
+     */
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity delete(@CurrentUser User currentUser, @PathVariable String id) {
+        try {
+            UserParam param = new UserParam(StringUtils.isBlank(id) ? null : Long.valueOf(id));
+            // Validate current user and param.
+            ResponseEntity responseEntity = validateHelper.validate(param, currentUser, logger, OperationType.DELETE);
+            if (!responseEntity.getStatusCode().is2xxSuccessful()) {
+                return responseEntity;
+            }
+            // Delete user.
+            userDomain.delete(param, currentUser);
+            return new ResponseEntity(HttpStatus.NO_CONTENT);
         } catch (CommonsException e) {
             // Return error information and log the exception.
             return resultHelper.infoResp(logger, e.getErrorType(), e.getMessage(), HttpStatus.UNPROCESSABLE_ENTITY);

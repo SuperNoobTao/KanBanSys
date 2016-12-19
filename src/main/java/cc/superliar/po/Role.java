@@ -6,7 +6,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.security.core.GrantedAuthority;
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -35,9 +35,9 @@ public class Role implements GrantedAuthority, Serializable {
   @Column(name = "role_description")
   private String description;
   @Column(name = "role_created_date")
-  private Date createDate;
+  private LocalDateTime createDate=LocalDateTime.now();
   @Column(name = "role_last_modified_date")
-  private Date lastModifiedDate;
+  private LocalDateTime lastModifiedDate=LocalDateTime.now();
   @Column(name = "role_valid_flag")
   private ValidFlag validFlag = ValidFlag.VALID;
   @Column(name = "role_version")
@@ -88,19 +88,19 @@ public class Role implements GrantedAuthority, Serializable {
     this.description = description;
   }
 
-  public Date getCreateDate() {
+  public LocalDateTime getCreateDate() {
     return createDate;
   }
 
-  public void setCreateDate(Date createDate) {
+  public void setCreateDate(LocalDateTime createDate) {
     this.createDate = createDate;
   }
 
-  public Date getLastModifiedDate() {
+  public LocalDateTime getLastModifiedDate() {
     return lastModifiedDate;
   }
 
-  public void setLastModifiedDate(Date lastModifiedDate) {
+  public void setLastModifiedDate(LocalDateTime lastModifiedDate) {
     this.lastModifiedDate = lastModifiedDate;
   }
 

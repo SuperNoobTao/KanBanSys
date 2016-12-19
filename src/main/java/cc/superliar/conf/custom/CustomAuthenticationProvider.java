@@ -14,6 +14,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 /**
@@ -48,7 +49,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 
         // Save user login info.
         user.setIp(ip);
-        user.setLastLoginTime(new Date());
+        user.setLastLoginTime(LocalDateTime.now());
         userRepo.save(user);
         return new UsernamePasswordAuthenticationToken(userDetails, user.getPwd(), userDetails.getAuthorities());
     }

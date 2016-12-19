@@ -6,7 +6,8 @@ import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDateTime;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -30,11 +31,11 @@ public class Resource implements GrantedAuthority, Serializable {
   @Column(name = "resource_id")
   private Long id;
   @Column(name = "resource_created_date")
-  private Date createDate;
+  private LocalDateTime createDate=LocalDateTime.now();
   @Column(name = "resource_description")
   private String description;
   @Column(name = "resource_last_modified_date")
-  private Date lastModifiedDate;
+  private LocalDateTime lastModifiedDate=LocalDateTime.now();
   @Column(name = "resource_name")
   private String name;
   @Column(name = "resource_path")
@@ -70,11 +71,11 @@ public class Resource implements GrantedAuthority, Serializable {
     this.id = id;
   }
 
-  public Date getCreateDate() {
+  public LocalDateTime getCreateDate() {
     return createDate;
   }
 
-  public void setCreateDate(Date createDate) {
+  public void setCreateDate(LocalDateTime createDate) {
     this.createDate = createDate;
   }
 
@@ -86,11 +87,11 @@ public class Resource implements GrantedAuthority, Serializable {
     this.description = description;
   }
 
-  public Date getLastModifiedDate() {
+  public LocalDateTime getLastModifiedDate() {
     return lastModifiedDate;
   }
 
-  public void setLastModifiedDate(Date lastModifiedDate) {
+  public void setLastModifiedDate(LocalDateTime lastModifiedDate) {
     this.lastModifiedDate = lastModifiedDate;
   }
 

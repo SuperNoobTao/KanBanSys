@@ -6,7 +6,8 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDateTime;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -37,7 +38,7 @@ public class User implements Serializable {
 
     @CreatedDate
     @Column(name = "user_created_date")
-    private Date createdDate = new Date();
+    private LocalDateTime createdDate = LocalDateTime.now();
 
     @Column(name = "user_description")
     private String description;
@@ -46,11 +47,11 @@ public class User implements Serializable {
     private String ip;
 
     @Column(name = "user_last_login_time")
-    private Date lastLoginTime;
+    private LocalDateTime lastLoginTime=LocalDateTime.now();
 
     @LastModifiedDate
     @Column(name = "user_last_modified_date")
-    private Date lastModifiedDate = new Date();
+    private LocalDateTime lastModifiedDate = LocalDateTime.now();
 
     @Column(name = "user_valid_flag")
     private ValidFlag validFlag = ValidFlag.VALID;
@@ -102,11 +103,11 @@ public class User implements Serializable {
         this.pwd = pwd;
     }
 
-    public Date getCreatedDate() {
+    public LocalDateTime getCreatedDate() {
         return createdDate;
     }
 
-    public void setCreatedDate(Date createdDate) {
+    public void setCreatedDate(LocalDateTime createdDate) {
         this.createdDate = createdDate;
     }
 
@@ -126,19 +127,19 @@ public class User implements Serializable {
         this.ip = ip;
     }
 
-    public Date getLastLoginTime() {
+    public LocalDateTime getLastLoginTime() {
         return lastLoginTime;
     }
 
-    public void setLastLoginTime(Date lastLoginTime) {
+    public void setLastLoginTime(LocalDateTime lastLoginTime) {
         this.lastLoginTime = lastLoginTime;
     }
 
-    public Date getLastModifiedDate() {
+    public LocalDateTime getLastModifiedDate() {
         return lastModifiedDate;
     }
 
-    public void setLastModifiedDate(Date lastModifiedDate) {
+    public void setLastModifiedDate(LocalDateTime lastModifiedDate) {
         this.lastModifiedDate = lastModifiedDate;
     }
 

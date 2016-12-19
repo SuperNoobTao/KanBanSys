@@ -55,6 +55,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .formLogin()
                 .loginPage("/login")
                 .usernameParameter("account")
+                .passwordParameter("pwd")
                 .successHandler(new AccessHandler())
                 .failureHandler(new AccessHandler()).permitAll().and().logout()
                 .permitAll()

@@ -12,7 +12,7 @@ public class UserParam extends BaseParam {
 
     private static final long serialVersionUID = -9153801716112918626L;
 
-    @NotNullField(value = {OperationType.CREATE, OperationType.UPDATE, OperationType.DELETE}, message = "udid cannot be null.")
+    @NotNullField(value = {OperationType.UPDATE, OperationType.DELETE}, message = "id cannot be null.")
     private Long id; // user's ID
 
     @NotNullField(value = OperationType.CREATE, message = "account cannot be null.")
