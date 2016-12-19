@@ -125,13 +125,27 @@ responese：
 ### 更新用户
 url: http://localhost:8080/resources/v1/users/3
 PUT
-
+payload: name=测试更新
 responese：
 ```markdown
 {
 id: 3
 name: "测试更新"
 account: "111"
+description: null
+}
+```
+
+### 更新用户(添加角色)
+url: http://localhost:8080/resources/v1/users/10
+PUT
+payload: roleIds=1,2
+responese：
+```markdown
+{
+id: 10
+name: "create"
+account: "create"
 description: null
 }
 ```
