@@ -303,4 +303,6 @@ public abstract class BaseDomain<T, ID extends Serializable> {
     validFlagField.set(po, ValidFlag.INVALID);
     return po;
   }
+
+
 }

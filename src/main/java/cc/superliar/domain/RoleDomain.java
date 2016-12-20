@@ -18,7 +18,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Set;
 
 /**
  * Created by shentao on 2016/12/9.
@@ -67,14 +66,14 @@ public class RoleDomain extends BaseDomain<Role, Long> {
      * @throws CommonsException {@link ErrorType#SYS0122} Cannot find any role by id param.
      */
     @Transactional public RoleVO update(RoleParam param, User currentUser) throws Exception {
-        Role role = findById(param.getId());
+        Role role = findByIdAndValidFlag(param.getId());
         if (StringUtils.isNoneBlank(param.getName())&&param.getName().equals(role.getName())) {
             nameExists(param.getName());
         }
         return super.updateByPO(RoleVO.class, roleParam2PO(param, role, currentUser), currentUser);
     }
 
-    public Role findById(Long id) {
+    public Role findByIdAndValidFlag(Long id) {
         return roleRepository.findById(id).orElse(null);
     }
 
@@ -115,7 +114,7 @@ public class RoleDomain extends BaseDomain<Role, Long> {
     private void nameExists(String name) throws Exception {
         if (roleRepository.findByNameAndValidFlag(name, ValidFlag.VALID).isPresent()) {
             // Throw role already existing exception, name taken.
-            throw new CommonsException(ErrorType.SYS0111, ErrorMsgHelper.getReturnMsg(ErrorType.SYS0111,CommonsConstant.NAME));
+            throw new CommonsException(ErrorType.SYS0111, ErrorMsgHelper.getReturnMsg(ErrorType.SYS0111, getClassT().getSimpleName(), CommonsConstant.NAME));
         }
     }
 

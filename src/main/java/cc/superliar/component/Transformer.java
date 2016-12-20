@@ -2,6 +2,8 @@ package cc.superliar.component;
 
 
 import cc.superliar.constant.CommonsConstant;
+import cc.superliar.param.UrlParam;
+import cc.superliar.po.Url;
 import cc.superliar.po.User;
 import cc.superliar.util.BeanUtils;
 import org.springframework.data.domain.Page;
@@ -40,6 +42,9 @@ public class Transformer {
    */
   public List<Long> idsStr2List(String idsStr) {
     return Arrays.stream(idsStr.split(",")).map(Long::valueOf).collect(Collectors.toList());
+  }
+  public List<String> idsStr2ListStr(String idsStr) {
+    return Arrays.stream(idsStr.split(",")).map(String::valueOf).collect(Collectors.toList());
   }
 
   public String IdList2IdsStr(List<Long> list){
@@ -147,5 +152,6 @@ public class Transformer {
     BeanUtils.copyPropertiesIgnoreNull(po, vo);
     return vo;
   }
+
 
 }

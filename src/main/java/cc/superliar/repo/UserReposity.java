@@ -14,4 +14,5 @@ public interface UserReposity extends CustomRepository<User, Long> {
 
 
     Optional<User> findByAccountAndValidFlag(String usr, ValidFlag validFlag);
+    Optional<User> findByIdAndValidFlag(Long id, ValidFlag validFlag);
 }

@@ -3,6 +3,8 @@ package cc.superliar.util;
 
 import cc.superliar.enums.ErrorType;
 
+import java.util.Objects;
+
 /**
  * Format the error msg.
  *
@@ -19,7 +21,7 @@ public class ErrorMsgHelper {
    * @param args args
    * @return return error message
    */
-  public static String getReturnMsg(ErrorType msg, String... args) {
+  public static String getReturnMsg(ErrorType msg, Object... args) {
     final String COLON = ": ";
     final String PREFIX = String.join("", msg.name(), COLON);
     if (args != null) {

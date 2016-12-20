@@ -66,14 +66,14 @@ public class UserDomain extends BaseDomain<User,Long> {
      * @throws CommonsException {@link ErrorType#SYS0122} Cannot find any user by id param.
      */
     @Transactional public UserVO update(UserParam param, User currentUser) throws Exception {
-        User user = findById(param.getId());
+        User user = findByIdAndValidFlag(param.getId());
         if (StringUtils.isNotBlank(param.getAccount()) && param.getAccount().equals(user.getAccount())) {
             usrExists(param.getAccount());
         }
         return super.updateByPO(UserVO.class, userParam2PO(param, user, currentUser), currentUser);
     }
 
-    public User findById(Long id) {
+    public User findByIdAndValidFlag(Long id) {
         return userRepository.findById(id).orElse(null);
     }
 
@@ -81,8 +81,7 @@ public class UserDomain extends BaseDomain<User,Long> {
     // PRIVATE FIELDS AND METHODS
     // --------------------------
 
-    @Autowired
-    private RoleDomain roleDomain;
+    @Autowired private RoleDomain roleDomain;
 
     @Autowired private UserReposity userRepository;
 

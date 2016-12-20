@@ -30,20 +30,28 @@ public class Role implements GrantedAuthority, Serializable {
   @GeneratedValue(generator = "roles_seq", strategy = GenerationType.SEQUENCE)
   @Column(name = "role_id")
   private Long id;
+
   @Column(name = "role_name")
   private String name;
+
   @Column(name = "role_description")
   private String description;
+
   @Column(name = "role_created_date")
   private LocalDateTime createDate=LocalDateTime.now();
+
   @Column(name = "role_last_modified_date")
   private LocalDateTime lastModifiedDate=LocalDateTime.now();
+
   @Column(name = "role_valid_flag")
   private ValidFlag validFlag = ValidFlag.VALID;
+
   @Column(name = "role_version")
   private int version;
+
   @ManyToMany(fetch = FetchType.LAZY, mappedBy = "roles", cascade = {CascadeType.REFRESH})
   private Set<User> users = new HashSet<>();
+
   @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.REFRESH})
   @JoinTable(name = "tb_role_has_resourse",
           joinColumns = {@JoinColumn(name = "role_id")},

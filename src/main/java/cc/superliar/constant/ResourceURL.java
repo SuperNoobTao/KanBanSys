@@ -23,4 +23,9 @@ public interface ResourceURL {
 
   String CLIENTS = "/clients";
 
+  String DEVICES = "/devices";
+
+  String STYLES = "/styles";
+
+  String URLS = "/urls";
 }

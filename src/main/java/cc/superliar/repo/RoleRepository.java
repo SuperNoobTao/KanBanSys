@@ -12,4 +12,6 @@ import java.util.Optional;
 @Repository
 public interface RoleRepository extends CustomRepository<Role, Long> {
     Optional<Role> findByNameAndValidFlag(String name, ValidFlag validFlag);
+    Optional<Role> findByIdAndValidFlag(Long id, ValidFlag validFlag);
+
 }

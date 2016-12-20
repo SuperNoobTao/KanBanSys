@@ -8,14 +8,14 @@ public enum ErrorType implements IntentStateWithDescription {
   // System
   SYS0001("System error."),
   SYS0002("Param cannot be null."),
-  SYS0003("You need use 'bearer' token."),
+  SYS0003("You need login."),
   SYS0004("Signature error."),
   SYS0005("Format error."),
 
   // COMMONS
   SYS0100("%s error."),
   SYS0110("%s create failed."),
-  SYS0111("%s already existing"),
+  SYS0111("%s already existing, %s taken"),
   SYS0120("%s find error."),
   SYS0121("%s find error, no %s exists."),
   SYS0122("Cannot find any %s by %s param."),

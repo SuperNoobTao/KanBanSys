@@ -2,6 +2,8 @@ package cc.superliar.po;
 
 
 import cc.superliar.enums.ValidFlag;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.security.core.GrantedAuthority;
 
@@ -31,22 +33,33 @@ public class Resource implements GrantedAuthority, Serializable {
   @GeneratedValue(generator = "resources_seq", strategy = GenerationType.SEQUENCE)
   @Column(name = "resource_id")
   private Long id;
+
+  @CreatedDate
   @Column(name = "resource_created_date")
   private LocalDateTime createDate=LocalDateTime.now();
+
   @Column(name = "resource_description")
   private String description;
+
+  @LastModifiedDate
   @Column(name = "resource_last_modified_date")
   private LocalDateTime lastModifiedDate=LocalDateTime.now();
+
   @Column(name = "resource_name")
   private String name;
+
   @Column(name = "resource_path")
   private String path;
+
   @Column(name = "resource_priority")
   private int priority;
+
   @Column(name = "resource_valid_flag")
   private ValidFlag validFlag= ValidFlag.VALID;
+
   @Column(name = "resource_version")
   private int version;
+
   @ManyToMany(fetch = FetchType.LAZY, mappedBy = "resources", cascade = {CascadeType.REFRESH})
   private Set<Role> roles = new HashSet<>();
 

@@ -27,7 +27,8 @@ import java.util.List;
  * @since JDK1.8
  */
 @Service
-@Transactional(readOnly = true) public class ResourceDomain extends BaseDomain<Resource, Long> {
+@Transactional(readOnly = true)
+public class ResourceDomain extends BaseDomain<Resource, Long> {
 
   // ------------------------
   // PUBLIC METHODS
