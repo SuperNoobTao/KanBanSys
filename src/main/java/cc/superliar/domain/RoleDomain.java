@@ -68,7 +68,7 @@ public class RoleDomain extends BaseDomain<Role, Long> {
      */
     @Transactional public RoleVO update(RoleParam param, User currentUser) throws Exception {
         Role role = findById(param.getId());
-        if (param.getName().equals(role.getName())) {
+        if (StringUtils.isNoneBlank(param.getName())&&param.getName().equals(role.getName())) {
             nameExists(param.getName());
         }
         return super.updateByPO(RoleVO.class, roleParam2PO(param, role, currentUser), currentUser);
@@ -107,7 +107,7 @@ public class RoleDomain extends BaseDomain<Role, Long> {
         }
         if (!StringUtils.isBlank(param.getResourceIds())) {
             List<Resource> resources = resourceService.getAllByIds(transformer.idsStr2List(param.getResourceIds()));
-            role.setResources((Set<Resource>) resources);
+            role.setResources(transformer.list2Set(resources));
         }
         return role;
     }

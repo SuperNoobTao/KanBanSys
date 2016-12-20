@@ -67,7 +67,7 @@ public class UserDomain extends BaseDomain<User,Long> {
      */
     @Transactional public UserVO update(UserParam param, User currentUser) throws Exception {
         User user = findById(param.getId());
-        if (StringUtils.isNotBlank(param.getAccount()) && !param.getAccount().equals(user.getAccount())) {
+        if (StringUtils.isNotBlank(param.getAccount()) && param.getAccount().equals(user.getAccount())) {
             usrExists(param.getAccount());
         }
         return super.updateByPO(UserVO.class, userParam2PO(param, user, currentUser), currentUser);

@@ -84,7 +84,7 @@ import java.util.List;
   @Transactional
   public ResourceVO update(ResourceParam param, User currentUser) throws Exception {
     Resource resource = findById(param.getId());
-    if (!param.getName().equals(resource.getName())) {
+    if (StringUtils.isNotBlank(param.getName())&&param.getName().equals(resource.getName())) {
       nameExists(param.getName());
     }
     return super.updateByPO(ResourceVO.class, resourceParam2PO(param, resource, currentUser), currentUser);
