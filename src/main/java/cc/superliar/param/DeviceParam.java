@@ -13,7 +13,11 @@ public class DeviceParam extends BaseParam{
     private static final long serialVersionUID = -177088332110942844L;
 
     @NotNullField(value = {OperationType.UPDATE, OperationType.DELETE}, message = "udid cannot be null.")
-    private String udid; // device's ID
+    private String id; // device's ID
+
+    @NotNullField(value = OperationType.CREATE, message = "name cannot be null.")
+    @Size(min = 4, max = 50)
+    private String name;
 
     @NotNullField(value = OperationType.CREATE, message = "location cannot be null.")
     @Size(min = 4, max = 50)
@@ -34,12 +38,20 @@ public class DeviceParam extends BaseParam{
     private String urlIds;
 
 
-    public String getUdid() {
-        return udid;
+    public String getId() {
+        return id;
     }
 
-    public void setUdid(String udid) {
-        this.udid = udid;
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getLocation() {
@@ -90,8 +102,8 @@ public class DeviceParam extends BaseParam{
         this.urlIds = urlIds;
     }
 
-    public DeviceParam(String udid) {
-        this.udid = udid;
+    public DeviceParam(String id) {
+        this.id = id;
     }
 
     public DeviceParam() {
