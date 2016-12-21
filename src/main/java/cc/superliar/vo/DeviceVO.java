@@ -15,13 +15,15 @@ public class DeviceVO implements Serializable{
 
     private String id; // device's ID
 
+    private String name;
+
     private String location;
 
-    private int screenSize;
+    private String screenSize;
 
-    private int screenNum;
+    private String screenNum;
 
-    private int styleid;
+    private String styleid;
 
     private String description;
 
@@ -34,6 +36,14 @@ public class DeviceVO implements Serializable{
         this.id = id;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public String getLocation() {
         return location;
     }
@@ -42,27 +52,27 @@ public class DeviceVO implements Serializable{
         this.location = location;
     }
 
-    public int getScreenSize() {
+    public String getScreenSize() {
         return screenSize;
     }
 
-    public void setScreenSize(int screenSize) {
+    public void setScreenSize(String screenSize) {
         this.screenSize = screenSize;
     }
 
-    public int getScreenNum() {
+    public String getScreenNum() {
         return screenNum;
     }
 
-    public void setScreenNum(int screenNum) {
+    public void setScreenNum(String screenNum) {
         this.screenNum = screenNum;
     }
 
-    public int getStyleid() {
+    public String getStyleid() {
         return styleid;
     }
 
-    public void setStyleid(int styleid) {
+    public void setStyleid(String styleid) {
         this.styleid = styleid;
     }
 

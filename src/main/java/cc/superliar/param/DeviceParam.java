@@ -12,26 +12,22 @@ public class DeviceParam extends BaseParam{
 
     private static final long serialVersionUID = -177088332110942844L;
 
-    @NotNullField(value = {OperationType.UPDATE, OperationType.DELETE}, message = "udid cannot be null.")
+    @NotNullField(value = {OperationType.CREATE,OperationType.UPDATE, OperationType.DELETE}, message = "udid cannot be null.")
     private String id; // device's ID
 
     @NotNullField(value = OperationType.CREATE, message = "name cannot be null.")
-    @Size(min = 4, max = 50)
     private String name;
 
     @NotNullField(value = OperationType.CREATE, message = "location cannot be null.")
-    @Size(min = 4, max = 50)
     private String location;
 
     @NotNullField(value = OperationType.CREATE, message = "screenSize cannot be null.")
-    @Size(min = 4, max = 50)
-    private int screenSize;
+    private String screenSize;
 
     @NotNullField(value = OperationType.CREATE, message = "screenNum cannot be null.")
-    @Size(min = 4, max = 50)
-    private int screenNum;
+    private String screenNum;
 
-    private int styleid;
+    private String styleid;
 
     private String description;
 
@@ -62,27 +58,27 @@ public class DeviceParam extends BaseParam{
         this.location = location;
     }
 
-    public int getScreenSize() {
+    public String getScreenSize() {
         return screenSize;
     }
 
-    public void setScreenSize(int screenSize) {
+    public void setScreenSize(String screenSize) {
         this.screenSize = screenSize;
     }
 
-    public int getScreenNum() {
+    public String getScreenNum() {
         return screenNum;
     }
 
-    public void setScreenNum(int screenNum) {
+    public void setScreenNum(String screenNum) {
         this.screenNum = screenNum;
     }
 
-    public int getStyleid() {
+    public String getStyleid() {
         return styleid;
     }
 
-    public void setStyleid(int styleid) {
+    public void setStyleid(String styleid) {
         this.styleid = styleid;
     }
 

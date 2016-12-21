@@ -1,11 +1,13 @@
 package cc.superliar.po;
 
+import cc.superliar.enums.ValidFlag;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -32,30 +34,27 @@ public class Device implements Serializable{
     private String location;
 
     @Column(name = "device_screen_size")
-    private int screenSize;
+    private String screenSize;
 
     @Column(name = "device_screen_num")
-    private int screenNum;
+    private String screenNum;
 
     @Column(name = "device_styleid")
-    private int styleid;
+    private String styleid="0";
 
     @CreatedDate
     @Column(name = "device_created_date")
-    private Date createdDate;
+    private LocalDateTime createdDate = LocalDateTime.now();
 
     @Column(name = "device_description")
-    private Date description;
+    private String description;
 
     @LastModifiedDate
     @Column(name = "device_last_modified_date")
-    private Date lastModifiedDate;
+    private LocalDateTime lastModifiedDate= LocalDateTime.now();
 
     @Column(name = "device_vaild_flag")
-    private int validFlag;
-
-    @Column(name = "device_version")
-    private int version;
+    private ValidFlag validFlag = ValidFlag.VALID;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.REFRESH})
     @JoinTable(name = "tb_device_has_url",
@@ -88,68 +87,60 @@ public class Device implements Serializable{
         this.location = location;
     }
 
-    public int getScreenSize() {
+    public String getScreenSize() {
         return screenSize;
     }
 
-    public void setScreenSize(int screenSize) {
+    public void setScreenSize(String screenSize) {
         this.screenSize = screenSize;
     }
 
-    public int getScreenNum() {
+    public String getScreenNum() {
         return screenNum;
     }
 
-    public void setScreenNum(int screenNum) {
+    public void setScreenNum(String screenNum) {
         this.screenNum = screenNum;
     }
 
-    public int getStyleid() {
+    public String getStyleid() {
         return styleid;
     }
 
-    public void setStyleid(int styleid) {
+    public void setStyleid(String styleid) {
         this.styleid = styleid;
     }
 
-    public Date getCreatedDate() {
+    public LocalDateTime getCreatedDate() {
         return createdDate;
     }
 
-    public void setCreatedDate(Date createdDate) {
+    public void setCreatedDate(LocalDateTime createdDate) {
         this.createdDate = createdDate;
     }
 
-    public Date getDescription() {
+    public String getDescription() {
         return description;
     }
 
-    public void setDescription(Date description) {
+    public void setDescription(String description) {
         this.description = description;
     }
 
-    public Date getLastModifiedDate() {
+    public LocalDateTime getLastModifiedDate() {
         return lastModifiedDate;
     }
 
-    public void setLastModifiedDate(Date lastModifiedDate) {
+    public void setLastModifiedDate(LocalDateTime lastModifiedDate) {
         this.lastModifiedDate = lastModifiedDate;
     }
 
-    public int getValidFlag() {
+    public ValidFlag getValidFlag() {
         return validFlag;
     }
 
-    public void setValidFlag(int validFlag) {
+    public void setValidFlag(ValidFlag validFlag) {
         this.validFlag = validFlag;
-    }
-
-    public int getVersion() {
-        return version;
-    }
-
-    public void setVersion(int version) {
-        this.version = version;
     }
 
     public Set<Url> getUrls() {

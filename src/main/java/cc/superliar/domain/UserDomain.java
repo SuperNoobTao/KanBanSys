@@ -67,7 +67,8 @@ public class UserDomain extends BaseDomain<User,Long> {
      */
     @Transactional public UserVO update(UserParam param, User currentUser) throws Exception {
         User user = findByIdAndValidFlag(param.getId());
-        if (StringUtils.isNotBlank(param.getAccount()) && param.getAccount().equals(user.getAccount())) {
+        //当 account不为空且account改变时需要确认重复与否
+        if (StringUtils.isNotBlank(param.getAccount()) && !param.getAccount().equals(user.getAccount())) {
             usrExists(param.getAccount());
         }
         return super.updateByPO(UserVO.class, userParam2PO(param, user, currentUser), currentUser);
@@ -93,7 +94,7 @@ public class UserDomain extends BaseDomain<User,Long> {
         this.userRepository = userRepository;
     }
 
-    private static final String USR = "usr";
+    private static final String USR = "account";
 
     /**
      * Transform {@link UserParam} to {@link User}.
@@ -115,6 +116,12 @@ public class UserDomain extends BaseDomain<User,Long> {
         return user;
     }
 
+
+    /**
+     * 如果有相同的账号则跳出错误
+     * @param usr
+     * @throws Exception
+     */
     private void usrExists(String usr) throws Exception {
         if (userRepository.findByAccountAndValidFlag(usr, ValidFlag.VALID).isPresent()) {
             // Throw user already exists error, usr taken.

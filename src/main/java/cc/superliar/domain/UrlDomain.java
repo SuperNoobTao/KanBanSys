@@ -55,16 +55,15 @@ public class UrlDomain extends BaseDomain<Url,Long> {
     @Transactional
     public UrlVO update(UrlParam param, User currentUser) throws Exception {
         Url url = findById(param.getId());
-        if (StringUtils.isNotBlank(param.getContent())&&param.getContent().equals(url.getContent())) {
+        //当 account不为空或者account改变时需要确认重复与否
+        if (StringUtils.isNotBlank(param.getContent())&& !param.getContent().equals(url.getContent())) {
             contentExists(param.getContent());
         }
         return super.updateByPO(UrlVO.class, urlParam2PO(param, url, currentUser), currentUser);
     }
 
 
-    public Url findByContent(String content) throws Exception {
-        return urlReposity.findByContent(content).orElse(null);
-    }
+
 
 
     public Url findById(Long id) {
@@ -95,9 +94,9 @@ public class UrlDomain extends BaseDomain<Url,Long> {
     }
 
     private void contentExists(String content) throws Exception {
-        if (urlReposity.findByContent(content).isPresent()) {
+        if (urlReposity.findByContentAndValidFlag(content,ValidFlag.VALID).isPresent()) {
             // Throw group already existing exception, name taken.
-            throw new CommonsException(ErrorType.SYS0111, ErrorMsgHelper.getReturnMsg(ErrorType.SYS0111, getClassT().getSimpleName(), CommonsConstant.NAME));
+            throw new CommonsException(ErrorType.SYS0111, ErrorMsgHelper.getReturnMsg(ErrorType.SYS0111, getClassT().getSimpleName(), CommonsConstant.CONTENT));
         }
     }
 

@@ -133,6 +133,13 @@ public abstract class BaseDomain<T, ID extends Serializable> {
     return findById(id) == null ? null : transformer.po2VO(voType, findById(id));
   }
 
+
+  @SuppressWarnings("unchecked")
+  public <VO> VO getByIdStr(String id, Class<VO> voType) throws Exception {
+    return findByIdStr(id) == null ? null : transformer.po2VO(voType, findByIdStr(id));
+  }
+
+
   /**
    * Update <T> by param.
    *
@@ -257,6 +264,11 @@ public abstract class BaseDomain<T, ID extends Serializable> {
 
   @SuppressWarnings("unchecked")
   public T findById(Long id) {
+    return repository.findById((ID) id).orElse(null);
+  }
+
+  @SuppressWarnings("unchecked")
+  public T findByIdStr(String id) {
     return repository.findById((ID) id).orElse(null);
   }
 

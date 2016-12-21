@@ -13,5 +13,5 @@ import java.util.Optional;
 public interface UrlReposity extends CustomRepository<Url, Long> {
 
 
-    Optional<Url> findByContent(String content);
+    Optional<Url> findByContentAndValidFlag(String content,ValidFlag validFlag);
 }

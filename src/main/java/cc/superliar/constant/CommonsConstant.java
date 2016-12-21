@@ -13,6 +13,8 @@ public interface CommonsConstant {
 
   String NAME = "name";
 
+  String CONTENT  = "content";
+
   String LAST_MODIFIED_DATE = "lastModifiedDate";
 
   String VALID_FLAG = "validFlag";

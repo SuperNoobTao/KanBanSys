@@ -47,10 +47,10 @@ public class RoleController {
     // ------------------------
 
     /**
-     * Create new {@link com.saintdan.framework.po.Role}.
+     * Create new {@link cc.superliar.po.Role}.
      *
      * @param param {@link RoleParam}
-     * @return {@link com.saintdan.framework.vo.RoleVO}
+     * @return {@link cc.superliar.vo.RoleVO}
      */
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity create(@CurrentUser User currentUser, @Valid RoleParam param, BindingResult result) {
@@ -98,10 +98,10 @@ public class RoleController {
 
 
     /**
-     * Show {@link com.saintdan.framework.vo.RoleVO} by ID.
+     * Show {@link cc.superliar.vo.RoleVO} by ID.
      *
      * @param id {@link Role#id}
-     * @return {@link com.saintdan.framework.vo.RoleVO}
+     * @return {@link cc.superliar.vo.RoleVO}
      */
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity detail(@PathVariable String id) {
@@ -118,11 +118,11 @@ public class RoleController {
 
 
     /**
-     * Update {@link com.saintdan.framework.po.Role}.
+     * Update {@link cc.superliar.po.Role}.
      *
      * @param id    {@link Role#id}
      * @param param {@link RoleParam}
-     * @return {@link com.saintdan.framework.vo.RoleVO}
+     * @return {@link cc.superliar.vo.RoleVO}
      */
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public ResponseEntity update(@CurrentUser User currentUser, @PathVariable String id, @Valid RoleParam param, BindingResult result) {
@@ -146,10 +146,10 @@ public class RoleController {
 
 
     /**
-     * Delete {@link com.saintdan.framework.po.Role}.
+     * Delete {@link cc.superliar.po.Role}.
      *
      * @param id {@link Role#id}
-     * @return {@link com.saintdan.framework.vo.RoleVO}
+     * @return {@link cc.superliar.vo.RoleVO}
      */
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity delete(@CurrentUser User currentUser, @PathVariable String id) {

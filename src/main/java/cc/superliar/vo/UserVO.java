@@ -17,6 +17,7 @@ public class UserVO implements Serializable {
 
     private String description;
 
+
     public Long getId() {
         return id;
     }

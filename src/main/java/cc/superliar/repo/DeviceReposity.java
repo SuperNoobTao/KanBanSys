@@ -12,6 +12,6 @@ import java.util.Optional;
  */
 public interface DeviceReposity extends CustomRepository<Device, String> {
 
-    Optional<Device> findByNameAndValidFlag(String usr, ValidFlag validFlag);
-    Optional<Device> findById(String id);
+    Optional<Device> findByNameAndValidFlag(String name, ValidFlag validFlag);
+    Optional<Device> findByIdAndValidFlag(String name, ValidFlag validFlag);
 }

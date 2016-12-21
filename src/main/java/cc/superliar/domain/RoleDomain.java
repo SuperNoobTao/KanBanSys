@@ -67,7 +67,8 @@ public class RoleDomain extends BaseDomain<Role, Long> {
      */
     @Transactional public RoleVO update(RoleParam param, User currentUser) throws Exception {
         Role role = findByIdAndValidFlag(param.getId());
-        if (StringUtils.isNoneBlank(param.getName())&&param.getName().equals(role.getName())) {
+        //当name不为空或者name改变时需要确认重复与否
+        if (StringUtils.isNoneBlank(param.getName())&&!param.getName().equals(role.getName())) {
             nameExists(param.getName());
         }
         return super.updateByPO(RoleVO.class, roleParam2PO(param, role, currentUser), currentUser);

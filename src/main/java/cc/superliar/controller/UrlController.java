@@ -51,9 +51,9 @@ public class UrlController {
     // ------------------------
 
     /**
-     * Create new {@link com.saintdan.framework.po.Resource}.
+     * Create new {@link cc.superliar.po.Url}.
      *
-     * @param param {@link ResourceParam}
+     * @param param {@link UrlParam}
      * @return {@link org.springframework.http.ResponseEntity}
      */
     @RequestMapping(method = RequestMethod.POST)
@@ -79,14 +79,14 @@ public class UrlController {
     /**
      * Show all.
      *
-     * @param param {@link ResourceParam}
-     * @return all resources.
+     * @param param {@link UrlParam}
+     * @return all urls.
      */
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity all(
             @And({
-//                    @Spec(path = "name", spec = Like.class),
-//                    @Spec(path = "path", spec = Like.class),
+                    @Spec(path = "content", spec = Like.class),
+                    @Spec(path = "validFlag", constVal = "VALID", spec = In.class),
                     @Spec(path = "createdDate", params = {"createdDateAfter, createdDateBefore"}, spec = DateBetween.class)}) Specification<Url> urlSpecification,
             UrlParam param) {
         try {
@@ -104,7 +104,7 @@ public class UrlController {
     /**
      * Show {@link org.springframework.http.ResponseEntity} by ID.
      *
-     * @param id    {@link Resource#id}
+     * @param id    {@link Url#id}
      * @return {@link org.springframework.http.ResponseEntity}
      */
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
@@ -113,7 +113,7 @@ public class UrlController {
             if (StringUtils.isBlank(id)) {
                 return resultHelper.infoResp(ErrorType.SYS0002, String.format(ControllerConstant.PARAM_BLANK, ControllerConstant.ID_PARAM), HttpStatus.UNPROCESSABLE_ENTITY);
             }
-            return new ResponseEntity<>(urlDomain.getById(Long.valueOf(id), ResourceVO.class), HttpStatus.OK);
+            return new ResponseEntity<>(urlDomain.getById(Long.valueOf(id), UrlVO.class), HttpStatus.OK);
         } catch (Exception e) {
             // Return unknown error and log the exception.
             return resultHelper.errorResp(logger, e, ErrorType.UNKNOWN, e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
@@ -122,10 +122,10 @@ public class UrlController {
 
 
     /**
-     * Update {@link com.saintdan.framework.po.Resource}.
+     * Update {@link cc.superliar.po.Resource}.
      *
-     * @param id    {@link Resource#id}
-     * @param param {@link ResourceParam}
+     * @param id    {@link Url#id}
+     * @param param {@link UrlParam}
      * @return {@link org.springframework.http.ResponseEntity}
      */
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
@@ -150,15 +150,15 @@ public class UrlController {
 
 
     /**
-     * Delete {@link com.saintdan.framework.po.Resource}.
+     * Delete {@link cc.superliar.po.Url}.
      *
-     * @param id id of resource
+     * @param id id of url
      * @return {@link org.springframework.http.ResponseEntity}
      */
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity delete(@CurrentUser User currentUser, @PathVariable String id) {
         try {
-            ResourceParam param = new ResourceParam(StringUtils.isBlank(id) ? null : Long.valueOf(id));
+            UrlParam param = new UrlParam(StringUtils.isBlank(id) ? null : Long.valueOf(id));
             // Validate current user and param.
             ResponseEntity responseEntity = validateHelper.validate(param, currentUser, logger, OperationType.DELETE);
             if (!responseEntity.getStatusCode().is2xxSuccessful()) {

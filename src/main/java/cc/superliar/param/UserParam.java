@@ -31,6 +31,8 @@ public class UserParam extends BaseParam {
 
     private String roleIds; // role ids string
 
+    private int version;
+
     public UserParam() {}
 
     public UserParam(Long id) {
@@ -88,4 +90,6 @@ public class UserParam extends BaseParam {
     public void setRoleIds(String roleIds) {
         this.roleIds = roleIds;
     }
+
+
 }

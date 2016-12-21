@@ -52,10 +52,10 @@ public class DeviceController {
     // ------------------------
 
     /**
-     * Create new {@link User}.
+     * Create new {@link Device}.
      *
-     * @param param {@link UserParam}
-     * @return {@link cc.superliar.vo.UserVO}
+     * @param param {@link DeviceParam}
+     * @return {@link cc.superliar.vo.DeviceVO}
      */
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity create(@CurrentUser User currentUser, @Valid DeviceParam param, BindingResult result) {
@@ -67,7 +67,6 @@ public class DeviceController {
             }
             // Return result and message.
             return new ResponseEntity<>(deviceDomain.create(param, currentUser), HttpStatus.CREATED);
-//      return new ResponseEntity<>(userDomain.create(param, currentUser), HttpStatus.CREATED);
         } catch (CommonsException e) {
             // Return error information and log the exception.
             return resultHelper.infoResp(logger, e.getErrorType(), e.getMessage(), HttpStatus.UNPROCESSABLE_ENTITY);
@@ -82,8 +81,8 @@ public class DeviceController {
     /**
      * Show all.
      *
-     * @param param {@link UserParam}
-     * @return users
+     * @param param {@link DeviceParam}
+     * @return devices
      */
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity all(
@@ -107,10 +106,10 @@ public class DeviceController {
 
 
     /**
-     * Show {@link cc.superliar.vo.UserVO} by ID.
+     * Show {@link cc.superliar.vo.DeviceVO} by ID.
      *
-     * @param id {@link User#id}
-     * @return {@link cc.superliar.vo.UserVO}
+     * @param id {@link Device#id}
+     * @return {@link cc.superliar.vo.DeviceVO}
      */
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity detail(@PathVariable String id) {
@@ -118,7 +117,7 @@ public class DeviceController {
             if (StringUtils.isBlank(id)) {
                 return resultHelper.infoResp(ErrorType.SYS0002, String.format(ControllerConstant.PARAM_BLANK, ControllerConstant.ID_PARAM), HttpStatus.UNPROCESSABLE_ENTITY);
             }
-            return new ResponseEntity<>(deviceDomain.getById(Long.valueOf(id), DeviceVO.class), HttpStatus.OK);
+            return new ResponseEntity<>(deviceDomain.getByIdStr(id, DeviceVO.class), HttpStatus.OK);
         } catch (Exception e) {
             // Return unknown error and log the exception.
             return resultHelper.errorResp(logger, e, ErrorType.UNKNOWN, e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
@@ -128,11 +127,11 @@ public class DeviceController {
 
 
     /**
-     * Update {@link User}.
+     * Update {@link Device}.
      *
-     * @param id    {@link User#id}
-     * @param param {@link UserParam}
-     * @return {@link cc.superliar.vo.UserVO}
+     * @param id    {@link Device#id}
+     * @param param {@link DeviceParam}
+     * @return {@link cc.superliar.vo.DeviceVO}
      */
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public ResponseEntity update(@CurrentUser User currentUser, @PathVariable String id, @Valid DeviceParam param, BindingResult result) {
@@ -155,10 +154,10 @@ public class DeviceController {
     }
 
     /**
-     * Delete {@link User}.
+     * Delete {@link Device}.
      *
-     * @param id {@link User#id}
-     * @return {@link cc.superliar.vo.UserVO}
+     * @param id {@link Device#id}
+     * @return {@link cc.superliar.vo.DeviceVO}
      */
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity delete(@CurrentUser User currentUser, @PathVariable String id) {

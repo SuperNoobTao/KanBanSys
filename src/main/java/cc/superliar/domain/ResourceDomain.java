@@ -85,7 +85,8 @@ public class ResourceDomain extends BaseDomain<Resource, Long> {
   @Transactional
   public ResourceVO update(ResourceParam param, User currentUser) throws Exception {
     Resource resource = findById(param.getId());
-    if (StringUtils.isNotBlank(param.getName())&&param.getName().equals(resource.getName())) {
+    //当name不为空或者name改变时需要确认重复与否
+    if (StringUtils.isNotBlank(param.getName())&&!param.getName().equals(resource.getName())) {
       nameExists(param.getName());
     }
     return super.updateByPO(ResourceVO.class, resourceParam2PO(param, resource, currentUser), currentUser);

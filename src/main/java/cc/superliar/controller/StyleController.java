@@ -6,15 +6,18 @@ import cc.superliar.component.ValidateHelper;
 import cc.superliar.constant.ControllerConstant;
 import cc.superliar.constant.ResourceURL;
 import cc.superliar.constant.VersionConstant;
-import cc.superliar.domain.ResourceDomain;
+import cc.superliar.domain.StyleDomain;
 import cc.superliar.enums.ErrorType;
 import cc.superliar.enums.OperationType;
 import cc.superliar.exception.CommonsException;
-import cc.superliar.param.ResourceParam;
-import cc.superliar.po.Resource;
+import cc.superliar.param.StyleParam;
+
+import cc.superliar.po.Style;
+
 import cc.superliar.po.User;
 import cc.superliar.util.QueryHelper;
-import cc.superliar.vo.ResourceVO;
+import cc.superliar.vo.StyleVO;
+
 import net.kaczmarzyk.spring.data.jpa.domain.DateBetween;
 import net.kaczmarzyk.spring.data.jpa.domain.In;
 import net.kaczmarzyk.spring.data.jpa.domain.Like;
@@ -36,24 +39,25 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 
 /**
- * Created by shentao on 2016/12/19.
+ * Created by shentao on 2016/12/21.
  */
 @RestController
-@RequestMapping(ResourceURL.RESOURCES + VersionConstant.V1 + ResourceURL.RESOURCES)
-public class ResourceController {
+@RequestMapping(ResourceURL.RESOURCES + VersionConstant.V1 + ResourceURL.STYLES)
+public class StyleController {
+
 
     // ------------------------
     // PUBLIC METHODS
     // ------------------------
 
     /**
-     * Create new {@link cc.superliar.po.Resource}.
+     * Create new {@link Style}.
      *
-     * @param param {@link ResourceParam}
-     * @return {@link org.springframework.http.ResponseEntity}
+     * @param param {@link StyleParam}
+     * @return {@link cc.superliar.vo.StyleVO}
      */
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity create(@CurrentUser User currentUser, @Valid ResourceParam param, BindingResult result) {
+    public ResponseEntity create(@CurrentUser User currentUser, @Valid StyleParam param, BindingResult result) {
         try {
             // Validate current user, param and sign.
             ResponseEntity responseEntity = validateHelper.validate(param, result, currentUser, logger, OperationType.CREATE);
@@ -61,7 +65,7 @@ public class ResourceController {
                 return responseEntity;
             }
             // Return result and message.
-            return new ResponseEntity<>(resourceDomain.create(param, currentUser), HttpStatus.CREATED);
+            return new ResponseEntity<>(styleDomain.create(param, currentUser), HttpStatus.CREATED);
         } catch (CommonsException e) {
             // Return error information and log the exception.
             return resultHelper.infoResp(logger, e.getErrorType(), e.getMessage(), HttpStatus.UNPROCESSABLE_ENTITY);
@@ -75,22 +79,21 @@ public class ResourceController {
     /**
      * Show all.
      *
-     * @param param {@link ResourceParam}
-     * @return all resources.
+     * @param param {@link StyleParam}
+     * @return styles
      */
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity all(
             @And({
-                    @Spec(path = "name", spec = Like.class),
-                    @Spec(path = "path", spec = Like.class),
                     @Spec(path = "validFlag", constVal = "VALID", spec = In.class),
-                    @Spec(path = "createdDate", params = {"createdDateAfter, createdDateBefore"}, spec = DateBetween.class)}) Specification<Resource> resourceSpecification,
-            ResourceParam param) {
+                    @Spec(path = "createdDate", params = {"createdDateAfter", "createdDateBefore"}, spec = DateBetween.class)}) Specification<Style> styleSpecification,
+            StyleParam param
+    ) {
         try {
             if (param.getPageNo() == null) {
-                return new ResponseEntity<>(resourceDomain.getAll(resourceSpecification, QueryHelper.getSort(param.getSortBy()), ResourceVO.class), HttpStatus.OK);
+                return new ResponseEntity<>(styleDomain.getAll(styleSpecification, QueryHelper.getSort(param.getSortBy()), StyleVO.class), HttpStatus.OK);
             }
-            return new ResponseEntity<>(resourceDomain.getPage(resourceSpecification, QueryHelper.getPageRequest(param), ResourceVO.class), HttpStatus.OK);
+            return new ResponseEntity<>(styleDomain.getPage(styleSpecification, QueryHelper.getPageRequest(param), StyleVO.class), HttpStatus.OK);
         } catch (Exception e) {
             // Return unknown error and log the exception.
             return resultHelper.errorResp(logger, e, ErrorType.UNKNOWN, e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
@@ -99,10 +102,10 @@ public class ResourceController {
 
 
     /**
-     * Show {@link org.springframework.http.ResponseEntity} by ID.
+     * Show {@link cc.superliar.vo.StyleVO} by ID.
      *
-     * @param id    {@link Resource#id}
-     * @return {@link org.springframework.http.ResponseEntity}
+     * @param id {@link Style#id}
+     * @return {@link cc.superliar.vo.StyleVO}
      */
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity detail(@PathVariable String id) {
@@ -110,7 +113,7 @@ public class ResourceController {
             if (StringUtils.isBlank(id)) {
                 return resultHelper.infoResp(ErrorType.SYS0002, String.format(ControllerConstant.PARAM_BLANK, ControllerConstant.ID_PARAM), HttpStatus.UNPROCESSABLE_ENTITY);
             }
-            return new ResponseEntity<>(resourceDomain.getById(Long.valueOf(id), ResourceVO.class), HttpStatus.OK);
+            return new ResponseEntity<>(styleDomain.getById(Long.valueOf(id), StyleVO.class), HttpStatus.OK);
         } catch (Exception e) {
             // Return unknown error and log the exception.
             return resultHelper.errorResp(logger, e, ErrorType.UNKNOWN, e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
@@ -119,14 +122,14 @@ public class ResourceController {
 
 
     /**
-     * Update {@link cc.superliar.po.Resource}.
+     * Update {@link Style}.
      *
-     * @param id    {@link Resource#id}
-     * @param param {@link ResourceParam}
-     * @return {@link org.springframework.http.ResponseEntity}
+     * @param id    {@link Style#id}
+     * @param param {@link StyleParam}
+     * @return {@link cc.superliar.vo.StyleVO}
      */
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public ResponseEntity update(@CurrentUser User currentUser, @PathVariable String id, @Valid ResourceParam param, BindingResult result) {
+    public ResponseEntity update(@CurrentUser User currentUser, @PathVariable String id, @Valid StyleParam param, BindingResult result) {
         try {
             param.setId(StringUtils.isBlank(id) ? null : Long.valueOf(id));
             // Validate current user, param and sign.
@@ -134,8 +137,8 @@ public class ResourceController {
             if (!responseEntity.getStatusCode().is2xxSuccessful()) {
                 return responseEntity;
             }
-            // Update resource.
-            return new ResponseEntity<>(resourceDomain.update(param, currentUser), HttpStatus.OK);
+            // Update user.
+            return new ResponseEntity<>(styleDomain.update(param, currentUser), HttpStatus.OK);
         } catch (CommonsException e) {
             // Return error information and log the exception.
             return resultHelper.infoResp(logger, e.getErrorType(), e.getMessage(), HttpStatus.UNPROCESSABLE_ENTITY);
@@ -145,24 +148,23 @@ public class ResourceController {
         }
     }
 
-
     /**
-     * Delete {@link cc.superliar.po.Resource}.
+     * Delete {@link Style}.
      *
-     * @param id id of resource
-     * @return {@link org.springframework.http.ResponseEntity}
+     * @param id {@link Style#id}
+     * @return {@link cc.superliar.vo.StyleVO}
      */
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity delete(@CurrentUser User currentUser, @PathVariable String id) {
         try {
-            ResourceParam param = new ResourceParam(StringUtils.isBlank(id) ? null : Long.valueOf(id));
+            StyleParam param = new StyleParam(StringUtils.isBlank(id) ? null : Long.valueOf(id));
             // Validate current user and param.
             ResponseEntity responseEntity = validateHelper.validate(param, currentUser, logger, OperationType.DELETE);
             if (!responseEntity.getStatusCode().is2xxSuccessful()) {
                 return responseEntity;
             }
-            // Delete resource.
-            resourceDomain.delete(param, currentUser);
+            // Delete user.
+            styleDomain.delete(param, currentUser);
             return new ResponseEntity(HttpStatus.NO_CONTENT);
         } catch (CommonsException e) {
             // Return error information and log the exception.
@@ -185,5 +187,5 @@ public class ResourceController {
 
     @Autowired private ValidateHelper validateHelper;
 
-    @Autowired private ResourceDomain resourceDomain;
+    @Autowired private StyleDomain styleDomain;
 }

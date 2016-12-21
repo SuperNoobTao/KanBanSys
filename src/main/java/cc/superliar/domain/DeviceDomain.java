@@ -16,7 +16,6 @@ import cc.superliar.po.Url;
 
 import cc.superliar.po.User;
 import cc.superliar.repo.DeviceReposity;
-import cc.superliar.repo.UserReposity;
 import cc.superliar.util.ErrorMsgHelper;
 import cc.superliar.vo.DeviceVO;
 import cc.superliar.vo.RoleVO;
@@ -49,7 +48,7 @@ public class DeviceDomain extends BaseDomain<Device,String> {
      */
     @Transactional
     public DeviceVO create(DeviceParam param, User currentUser) throws Exception {
-        nameExists(param.getName());
+        idExists(param.getId());
         return super.createByPO(DeviceVO.class, deviceParam2PO(param, new Device(), currentUser), currentUser);
     }
 
@@ -64,8 +63,9 @@ public class DeviceDomain extends BaseDomain<Device,String> {
      */
     @Transactional public DeviceVO update(DeviceParam param, User currentUser) throws Exception {
         Device device = findById(param.getId());
-        if (StringUtils.isNotBlank(param.getName()) && param.getName().equals(device.getName())) {
-            nameExists(param.getName());
+        //当id不为空或者id改变时需要确认重复与否
+        if (StringUtils.isNotBlank(param.getId()) && !param.getId().equals(device.getId())) {
+            idExists(param.getId());
         }
         return super.updateByPO(DeviceVO.class, deviceParam2PO(param, device, currentUser), currentUser);
     }
@@ -112,10 +112,10 @@ public class DeviceDomain extends BaseDomain<Device,String> {
     }
 
 
-    private void nameExists(String name) throws Exception {
-        if (deviceReposity.findByNameAndValidFlag(name, ValidFlag.VALID).isPresent()) {
+    private void idExists(String id) throws Exception {
+        if (deviceReposity.findByIdAndValidFlag(id, ValidFlag.VALID).isPresent()) {
             // Throw role already existing exception, name taken.
-            throw new CommonsException(ErrorType.SYS0111, ErrorMsgHelper.getReturnMsg(ErrorType.SYS0111, getClassT().getSimpleName(), CommonsConstant.NAME));
+            throw new CommonsException(ErrorType.SYS0111, ErrorMsgHelper.getReturnMsg(ErrorType.SYS0111, getClassT().getSimpleName(), CommonsConstant.ID));
         }
     }
 
