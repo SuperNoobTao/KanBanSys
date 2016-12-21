@@ -51,6 +51,9 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers(ROLE_URL).hasAnyAuthority("root", "role")
                 .antMatchers(GROUP_URL).hasAnyAuthority("root", "group")
                 .antMatchers(RESOURCE_URL).hasAnyAuthority("root", "resource")
+                .antMatchers(DEVICE_URL).hasAnyAuthority("root", "device")
+                .antMatchers(STYLE_URL).hasAnyAuthority("root", "style")
+                .antMatchers(URL_URL).hasAnyAuthority("root", "url")
                 .and()
                 .formLogin()
                 .loginPage("/login")
@@ -81,6 +84,11 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     private static final String ROLE_URL = getURL(ResourceURL.ROLES);
     private static final String GROUP_URL = getURL(ResourceURL.GROUPS);
     private static final String RESOURCE_URL = getURL(ResourceURL.RESOURCES);
+    private static final String DEVICE_URL = getURL(ResourceURL.DEVICES);
+    private static final String STYLE_URL = getURL(ResourceURL.STYLES);
+    private static final String URL_URL = getURL(ResourceURL.URLS);
+
+
 
     private static String getURL(CharSequence element) {
         return String.join("", ResourceURL.FIX, ResourceURL.RESOURCES, VersionConstant.V1, element, ResourceURL.FIX);
