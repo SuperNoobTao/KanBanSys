@@ -8,30 +8,30 @@ For licensing, see LICENSE.html or http://ckfinder.com/license
 <messages>
 	<errorUnknown>It was not possible to complete the request. (Error %1)</errorUnknown>
 	<errors>
-		<error number="10">Invalid command.</error>
-		<error number="11">The resource type was not specified in the request.</error>
-		<error number="12">The requested resource type is not valid.</error>
-		<error number="102">Invalid file or folder name.</error>
-		<error number="103">It was not possible to complete the request due to authorization restrictions.</error>
-		<error number="104">It was not possible to complete the request due to file system permission restrictions.</error>
-		<error number="105">Invalid file extension.</error>
-		<error number="109">Invalid request.</error>
-		<error number="110">Unknown error.</error>
-		<error number="111">It was not possible to complete the request due to resulting file size.</error>
-		<error number="115">A file or folder with the same name already exists.</error>
-		<error number="116">Folder not found. Please refresh and try again.</error>
-		<error number="117">File not found. Please refresh the files list and try again.</error>
-		<error number="118">Source and target paths are equal.</error>
-		<error number="201">A file with the same name is already available. The uploaded file was renamed to "%1".</error>
-		<error number="202">Invalid file.</error>
-		<error number="203">Invalid file. The file size is too big.</error>
-		<error number="204">The uploaded file is corrupt.</error>
-		<error number="205">No temporary folder is available for upload in the server.</error>
-		<error number="206">Upload cancelled due to security reasons. The file contains HTML-like data.</error>
-		<error number="207">The uploaded file was renamed to "%1".</error>
-		<error number="300">Moving file(s) failed.</error>
-		<error number="301">Copying file(s) failed.</error>
-		<error number="500">The file browser is disabled for security reasons. Please contact your system administrator and check the CKFinder configuration file.</error>
-		<error number="501">The thumbnails support is disabled.</error>
+		<code number="10">Invalid command.</code>
+		<code number="11">The resource type was not specified in the request.</code>
+		<code number="12">The requested resource type is not valid.</code>
+		<code number="102">Invalid file or folder name.</code>
+		<code number="103">It was not possible to complete the request due to authorization restrictions.</code>
+		<code number="104">It was not possible to complete the request due to file system permission restrictions.</code>
+		<code number="105">Invalid file extension.</code>
+		<code number="109">Invalid request.</code>
+		<code number="110">Unknown code.</code>
+		<code number="111">It was not possible to complete the request due to resulting file size.</code>
+		<code number="115">A file or folder with the same name already exists.</code>
+		<code number="116">Folder not found. Please refresh and try again.</code>
+		<code number="117">File not found. Please refresh the files list and try again.</code>
+		<code number="118">Source and target paths are equal.</code>
+		<code number="201">A file with the same name is already available. The uploaded file was renamed to "%1".</code>
+		<code number="202">Invalid file.</code>
+		<code number="203">Invalid file. The file size is too big.</code>
+		<code number="204">The uploaded file is corrupt.</code>
+		<code number="205">No temporary folder is available for upload in the server.</code>
+		<code number="206">Upload cancelled due to security reasons. The file contains HTML-like data.</code>
+		<code number="207">The uploaded file was renamed to "%1".</code>
+		<code number="300">Moving file(s) failed.</code>
+		<code number="301">Copying file(s) failed.</code>
+		<code number="500">The file browser is disabled for security reasons. Please contact your system administrator and check the CKFinder configuration file.</code>
+		<code number="501">The thumbnails support is disabled.</code>
 	</errors>
 </messages>

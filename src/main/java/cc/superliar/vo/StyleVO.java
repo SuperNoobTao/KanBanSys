@@ -1,5 +1,7 @@
 package cc.superliar.vo;
 
+import cc.superliar.constant.ResultConstant;
+
 import javax.persistence.Column;
 import java.io.Serializable;
 
@@ -9,6 +11,10 @@ import java.io.Serializable;
 public class StyleVO implements Serializable{
 
     private static final long serialVersionUID = 1157692044436647370L;
+
+    private String code = ResultConstant.OK;
+
+    private String message = "Successful operation";
 
     private Long id;
 
@@ -48,5 +54,21 @@ public class StyleVO implements Serializable{
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
     }
 }

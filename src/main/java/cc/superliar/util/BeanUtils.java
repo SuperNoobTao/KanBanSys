@@ -32,7 +32,7 @@ public class BeanUtils {
    * @return
    */
   private static String[] getNamesOfNullProperties(Object source) {
-    final BeanWrapper src = new BeanWrapperImpl(source);//beanWrapper是bean的一个包装类
+      final BeanWrapper src = new BeanWrapperImpl(source);//beanWrapper是bean的一个包装类
     java.beans.PropertyDescriptor[] pds = src.getPropertyDescriptors();//得到bean的属性，类型是propertyDescription的数组
 
     Set<String> emptyNames = new HashSet<>();

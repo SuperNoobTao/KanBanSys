@@ -189,22 +189,6 @@
       },
       {
         "ParentId": "b2d56dfb-ed77-e511-9bcd-9d38c0ac0015",
-        "MenuText": "文件管理",
-        "MenuLink": "system/filemanage",
-        "MenuType": null,
-        "IconCls": null,
-        "SortOrder": 8,
-        "IsActivated": "on",
-        "Buttons": [],
-        "id": "dc325045-9e45-e611-97ba-98e0d97b8c7e",
-        "text": "文件管理",
-        "iconCls": null,
-        "leaf": true,
-        "expanded": true,
-        "children": []
-      },
-      {
-        "ParentId": "b2d56dfb-ed77-e511-9bcd-9d38c0ac0015",
         "MenuText": "字典管理",
         "MenuLink": "system/dictionarys",
         "MenuType": null,
@@ -352,7 +336,7 @@
   },
   {
     "ParentId": null,
-    "MenuText": "商品",
+    "MenuText": "设备",
     "MenuLink": "#",
     "MenuType": null,
     "IconCls": "fa-apple",
@@ -360,14 +344,14 @@
     "IsActivated": "on",
     "Buttons": [],
     "id": "0fffc933-6c22-e611-9798-98e0d97b8c7e",
-    "text": "商品",
+    "text": "设备",
     "iconCls": null,
     "leaf": false,
     "expanded": true,
     "children": [
       {
         "ParentId": "0fffc933-6c22-e611-9798-98e0d97b8c7e",
-        "MenuText": "品牌管理",
+        "MenuText": "链接管理",
         "MenuLink": "goods/brands",
         "MenuType": null,
         "IconCls": null,
@@ -404,7 +388,7 @@
           }
         ],
         "id": "0708a554-6c22-e611-9798-98e0d97b8c7e",
-        "text": "品牌管理",
+        "text": "链接管理",
         "iconCls": null,
         "leaf": true,
         "expanded": true,
@@ -412,7 +396,7 @@
       },
       {
         "ParentId": "0fffc933-6c22-e611-9798-98e0d97b8c7e",
-        "MenuText": "分类管理",
+        "MenuText": "显示样式管理",
         "MenuLink": "goods/categorys",
         "MenuType": null,
         "IconCls": null,
@@ -442,7 +426,7 @@
           }
         ],
         "id": "96bb2662-6c22-e611-9798-98e0d97b8c7e",
-        "text": "分类管理",
+        "text": "显示样式管理",
         "iconCls": null,
         "leaf": true,
         "expanded": true,
@@ -450,7 +434,7 @@
       },
       {
         "ParentId": "0fffc933-6c22-e611-9798-98e0d97b8c7e",
-        "MenuText": "商品管理",
+        "MenuText": "设备管理",
         "MenuLink": "goods/index",
         "MenuType": null,
         "IconCls": null,
@@ -480,7 +464,45 @@
           }
         ],
         "id": "9b8b336e-6c22-e611-9798-98e0d97b8c7e",
-        "text": "商品管理",
+        "text": "设备管理",
+        "iconCls": null,
+        "leaf": true,
+        "expanded": true,
+        "children": []
+      },
+      {
+        "ParentId": "0fffc933-6c22-e611-9798-98e0d97b8c7e",
+        "MenuText": "设备显示",
+        "MenuLink": "goods/devicemanager",
+        "MenuType": null,
+        "IconCls": null,
+        "SortOrder": 1,
+        "IsActivated": "on",
+        "Buttons": [
+          {
+            "ButtonName": "添加",
+            "ButtonDesc": null,
+            "ButtonLink": "add",
+            "IconCls": "fa-plus",
+            "Id": "ddfb7a73-8d12-471c-8a8b-0a06e9efa4f2"
+          },
+          {
+            "ButtonName": "修改",
+            "ButtonDesc": null,
+            "ButtonLink": "edit",
+            "IconCls": "fa-edit",
+            "Id": "16775eee-db91-47fd-9d2b-8d563dccaa64"
+          },
+          {
+            "ButtonName": "删除",
+            "ButtonDesc": null,
+            "ButtonLink": "del",
+            "IconCls": "fa-remove",
+            "Id": "4dc8c5cc-32b0-4771-bc08-2124cb086392"
+          }
+        ],
+        "id": "61e25b52-c301-4734-916c-69ebb03c3fec",
+        "text": "设备显示",
         "iconCls": null,
         "leaf": true,
         "expanded": true,

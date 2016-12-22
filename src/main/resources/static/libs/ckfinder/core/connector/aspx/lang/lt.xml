@@ -8,30 +8,30 @@ For licensing, see LICENSE.html or http://ckfinder.com/license
 <messages>
 	<errorUnknown>Užklausos įvykdyti nepavyko. (Klaida %1)</errorUnknown>
 	<errors>
-		<error number="10">Neteisinga komanda.</error>
-		<error number="11">Resurso rūšis nenurodyta užklausoje.</error>
-		<error number="12">Neteisinga resurso rūšis.</error>
-		<error number="102">Netinkamas failas arba segtuvo pavadinimas.</error>
-		<error number="103">Nepavyko įvykdyti užklausos dėl autorizavimo apribojimų.</error>
-		<error number="104">Nepavyko įvykdyti užklausos dėl failų sistemos leidimų apribojimų.</error>
-		<error number="105">Netinkamas failo plėtinys.</error>
-		<error number="109">Netinkama užklausa.</error>
-		<error number="110">Nežinoma klaida.</error>
-		<error number="111">It was not possible to complete the request due to resulting file size.</error>
-		<error number="115">Failas arba segtuvas su tuo pačiu pavadinimu jau yra.</error>
-		<error number="116">Segtuvas nerastas. Pabandykite atnaujinti.</error>
-		<error number="117">Failas nerastas. Pabandykite atnaujinti failų sąrašą.</error>
-		<error number="118">Šaltinio ir nurodomos vietos nuorodos yra vienodos.</error>
-		<error number="201">Failas su tuo pačiu pavadinimu jau tra. Įkeltas failas buvo pervadintas į "%1"</error>
-		<error number="202">Netinkamas failas</error>
-		<error number="203">Netinkamas failas. Failo apimtis yra per didelė.</error>
-		<error number="204">Įkeltas failas yra pažeistas.</error>
-		<error number="205">Nėra laikinojo segtuvo skirto failams įkelti.</error>
-		<error number="206">Įkėlimas bus nutrauktas dėl saugumo sumetimų. Šiame faile yra HTML duomenys.</error>
-		<error number="207">Įkeltas failas buvo pervadintas į "%1"</error>
-		<error number="300">Failų perkėlimas nepavyko.</error>
-		<error number="301">Failų kopijavimas nepavyko.</error>
-		<error number="500">Failų naršyklė yra išjungta dėl saugumo nustaymų. Prašau susisiekti su sistemų administratoriumi ir patikrinkite CKFinder konfigūracinį failą.</error>
-		<error number="501">Miniatiūrų palaikymas išjungtas.</error>
+		<code number="10">Neteisinga komanda.</code>
+		<code number="11">Resurso rūšis nenurodyta užklausoje.</code>
+		<code number="12">Neteisinga resurso rūšis.</code>
+		<code number="102">Netinkamas failas arba segtuvo pavadinimas.</code>
+		<code number="103">Nepavyko įvykdyti užklausos dėl autorizavimo apribojimų.</code>
+		<code number="104">Nepavyko įvykdyti užklausos dėl failų sistemos leidimų apribojimų.</code>
+		<code number="105">Netinkamas failo plėtinys.</code>
+		<code number="109">Netinkama užklausa.</code>
+		<code number="110">Nežinoma klaida.</code>
+		<code number="111">It was not possible to complete the request due to resulting file size.</code>
+		<code number="115">Failas arba segtuvas su tuo pačiu pavadinimu jau yra.</code>
+		<code number="116">Segtuvas nerastas. Pabandykite atnaujinti.</code>
+		<code number="117">Failas nerastas. Pabandykite atnaujinti failų sąrašą.</code>
+		<code number="118">Šaltinio ir nurodomos vietos nuorodos yra vienodos.</code>
+		<code number="201">Failas su tuo pačiu pavadinimu jau tra. Įkeltas failas buvo pervadintas į "%1"</code>
+		<code number="202">Netinkamas failas</code>
+		<code number="203">Netinkamas failas. Failo apimtis yra per didelė.</code>
+		<code number="204">Įkeltas failas yra pažeistas.</code>
+		<code number="205">Nėra laikinojo segtuvo skirto failams įkelti.</code>
+		<code number="206">Įkėlimas bus nutrauktas dėl saugumo sumetimų. Šiame faile yra HTML duomenys.</code>
+		<code number="207">Įkeltas failas buvo pervadintas į "%1"</code>
+		<code number="300">Failų perkėlimas nepavyko.</code>
+		<code number="301">Failų kopijavimas nepavyko.</code>
+		<code number="500">Failų naršyklė yra išjungta dėl saugumo nustaymų. Prašau susisiekti su sistemų administratoriumi ir patikrinkite CKFinder konfigūracinį failą.</code>
+		<code number="501">Miniatiūrų palaikymas išjungtas.</code>
 	</errors>
 </messages>

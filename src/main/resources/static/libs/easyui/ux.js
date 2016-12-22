@@ -221,12 +221,18 @@ $.extend($.fn.datagrid.defaults, {
                                         return isValidate;
                                     }
                                 }).done(function (data) {
-                                    showToast(data.message);
+
                                     $(btn).linkbutton('enable');
-                                    if (data.success) {
-                                        dg.treegrid('reload');
-                                        dlg.dialog('close');
+
+                                    switch(data.code){
+                                        case "200":
+                                            showToast(data.message);
+                                            dg.treegrid('reload');
+                                            dlg.dialog('close');
+                                        case "SYS0111": showToast(data.message);break;
+                                        case "10000":alert("系统故障");
                                     }
+
                                 });
                             }
                         }, {
@@ -262,16 +268,15 @@ $.extend($.fn.datagrid.defaults, {
                             if (r) {
                                 $.ajax({
                                     method: 'DELETE',
-                                    url: opt.url,
+                                    url: opt.url+ (record ? '/' + record['id'] : ''),
                                     data: {
-                                        Id: record['id'],
-                                        Remark: record[opt.treeField]
+                                        id: record['id'],
                                     }
                                 }).done(function (data) {
-                                    if (data.success) {
+
                                         showToast(lang.deleteSuccess);
                                         dg.treegrid('reload');
-                                    }
+
                                 });
                             }
                         });

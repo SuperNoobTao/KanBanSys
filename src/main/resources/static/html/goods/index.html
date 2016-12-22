@@ -14,15 +14,19 @@
             var dg = $('#dg-Goods');
 
             dg.dialogDataGrid({
-                url: '/api/Goods',
+                url: '/resources/v1/devices',
                 dialogTitle: '商品',
                 dialogUrl:'goods/savegoods',
                 deleteField: 'GoodsName',
                 columns: [jQuery.merge([
                     { field: 'ck', checkbox: true },
-                    { field: 'Id', hidden: true },
-                    { field: 'GoodsName', title: '商品名称', width: 220, sortable: true },
-                    { field: 'Price', title: '价格', width: 80 }
+                    { field: 'id', hidden: true },
+                    { field: 'name', title: '名称', width: 150, sortable: true },
+                    { field: 'location', title: '位置', width: 150 },
+                    { field: 'screenSize', title: '屏幕大小', width: 80 },
+                    { field: 'screenNum', title: '分屏数量', width: 80 },
+                    { field: 'styleid', title: '显示样式', width: 80 },
+                    { field: 'description', title: '备注', width: 150 },
                 ], globalColumns)],
                 columnFilters: $.merge([globalFilters.numeric('Price')], globalColumnsFilter)
             });

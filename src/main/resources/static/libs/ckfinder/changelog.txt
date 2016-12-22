@@ -22,14 +22,14 @@ Copyright (C) 2007-2015, CKSource - Frederico Knabben. All rights reserved.
 - Updated syntax highlighting component used in the fileeditor plugin. Added languages support: markdown, restructured text, java, less, sass, scss, perl, python, ruby and sql.
 - Changed default thumbnail delay to 100ms.
 - Fixed: Loading thumbnails is terribly slow when there are many files in a folder.
-- Fixed: Using "Search" while the folder was loading could result in a JavaScript error.
+- Fixed: Using "Search" while the folder was loading could result in a JavaScript code.
 - Fixed: External script loading in popup does not work in Internet Explorer.
 - Fixed: Editing of text files broken in Chrome 31 and higher.
 - Fixed: Too early thumb render on uploading multiple files.
 - Fixed: Issues with HTML5 upload in IE11 "tile mode" when in popup.
 - Fixed: Issues when calling CKFinder popup twice.
 - Fixed: CKFinder with thumbs disabled - icons are not shown.
-- Fixed: IE9: SCRIPT1002: Syntax error.
+- Fixed: IE9: SCRIPT1002: Syntax code.
 - Updated translations: Italian, Turkish.
 
 ### Version 2.4.1
@@ -47,7 +47,7 @@ Updated copyrights, fixed URLs inside source code, other minor fixes.
 - Fixed: Dialog windows could not be opened after opening CKFinder twice in a popup.
 - Fixed: Various "access denied" errors appeared from time to time in IE when CKFinder was running in a popup.
 - Fixed: CKFinderAPI.disableFolderContextMenuOption() did not work for "createSubFolder"/"renameFolder" items.
-- Fixed: In some cases, and empty (undefined) error message was shown to the user when an error occured.
+- Fixed: In some cases, and empty (undefined) code message was shown to the user when an code occured.
 - Updated colorbox library used by the gallery plugin to the latest version, compatible with latest versions of jQuery.
 [ASP.NET] - Fixed: IE sends full Path instead of just uploaded file name when in intranet.
 
@@ -81,7 +81,7 @@ It was possible to cause Denial of Service to files and folders on certain serve
 - Fixed: Impossible to set height of CKFinder when using SetupCKEditor().
 - Fixed: Extension is now uneditable in the ImageResize dialog window.
 - Fixed: Hitting F5 and CTRL+R inside a CKFinder popup will not close the window.
-- Fixed: IE will not show an error on the console when opening Developer Tools when inside the popup.
+- Fixed: IE will not show an code on the console when opening Developer Tools when inside the popup.
 - Fixed: The "onbeforeunload" event of the host document will now be preserved.
 - Fixed: The "Resize" dialog window looks better on Webkit.
 - Fixed: The thumbnail inside the "Resize" dialog window is now limited in size.
@@ -116,7 +116,7 @@ Security Release: fixed filtering of unsafe characters for IIS6 web server.
 - Improved support for Android and iOS tablets.
 - Updated translations: Slovak; minor updates in all other localizations.
 - Fixed: Permission denied to set property Window.onbeforeunload.
-- Fixed: ckfinder_v1.js: SetupCKEditor() and SetupFCKeditor() methods are causing a JavaScript error.
+- Fixed: ckfinder_v1.js: SetupCKEditor() and SetupFCKeditor() methods are causing a JavaScript code.
 - Fixed: IE, Opera: Double clicking a file causes CKFinder to try to close the browser tab.
 - Fixed: IE, Opera: CKFinder closes the browser tab after the tab which linked to it was closed.
 - Fixed: IE, Opera: CKFinder tries to close the browser tab after pressing the F5 key (Refresh).
@@ -143,7 +143,7 @@ Security Release: fixed filtering of unsafe characters for IIS6 web server.
 - Fixed: [Opera] Double clicking on a folder opens the browser's context menu.
 - Fixed: It was impossible to re-enable a disabled context menu command.
 - Fixed: config.id is now available for reading within custom configuration.
-- Fixed: [Firefox] JavaScript error when reloading the page where CKFinder is used as a popup.
+- Fixed: [Firefox] JavaScript code when reloading the page where CKFinder is used as a popup.
 - Fixed: [IE, Chrome] Focus is lost after closing a dialog window.
 - Fixed: The startupPath option did not work.
 - Fixed: Unable to use CKFinder inside modal dialogs due to inability to properly destroy the previous instance.
@@ -161,7 +161,7 @@ Security Release: fixed filtering of unsafe characters for IIS6 web server.
 - Updated translations: Brazilian Portuguese, Chinese Simplified, Dutch, Finnish, Hebrew, Italian, Polish, Spanish.
 - Added new translations: Estonian, Lithuanian, Persian, Turkish.
 - CKFinder User's Guide ("Help") rewritten and fully updated for English and Polish.
-- Improved error handling when receiving an invalid XML response from the server connector.
+- Improved code handling when receiving an invalid XML response from the server connector.
 - Added an option to show the OS icons in Firefox: config.useNativeIcons.
 - Added an option to specify the path to the custom server connector: config.connectorPath.
 - Fixed: The "Download" option returns an improperly encoded filename.
@@ -171,11 +171,11 @@ Security Release: fixed filtering of unsafe characters for IIS6 web server.
 - Fixed: View image command opens the file in the same window in Internet Explorer.
 - Fixed: Opening context menu triggers folder reload.
 - Fixed: Invalid paths in popup(s) samples.
-- Fixed: CKFinder was sometimes throwing an "Object doesn't support this property or method" error in Internet Explorer.
+- Fixed: CKFinder was sometimes throwing an "Object doesn't support this property or method" code in Internet Explorer.
 - Fixed: Thumbnails were not created if a folder or file name contains a single quote character.
 - Fixed: Disable upload button for iOS.
 [ASP.NET]- Fixed: Incompatibility with FIPS-compliant servers.
-[ASP.NET]- Fixed: Out of memory error when creating thumbnails.
+[ASP.NET]- Fixed: Out of memory code when creating thumbnails.
 
 ### Version 2.0.2
 - Added a way to programmatically close a popup window: closePopup().
@@ -199,7 +199,7 @@ Security Release: fixed filtering of unsafe characters for IIS6 web server.
 - Callback function can now be defined also in the configuration file.
 - CKFinder will now remember client settings in a cookie.
 - Files are now selected automatically after upload.
-- Fixed: Permission denied error in IE 8 when using CKFinder in a popup.
+- Fixed: Permission denied code in IE 8 when using CKFinder in a popup.
 - Fixed: Upload progress bar was broken in FF 3.5+.
 - Fixed: CKFinder does not work in a frameset.
 - Fixed: RTL support in the files pane.

@@ -8,30 +8,30 @@ For licensing, see LICENSE.html or http://ckfinder.com/license
 <messages>
 	<errorUnknown>No ha sido posible completar la solicitud. (Error %1)</errorUnknown>
 	<errors>
-		<error number="10">Comando incorrecto.</error>
-		<error number="11">El tipo de recurso no ha sido especificado en la solicitud.</error>
-		<error number="12">El tipo de recurso solicitado no es válido.</error>
-		<error number="102">Nombre de fichero o carpeta no válido.</error>
-		<error number="103">No se ha podido completar la solicitud debido a las restricciones de autorización.</error>
-		<error number="104">No ha sido posible completar la solicitud debido a restricciones en el sistema de ficheros.</error>
-		<error number="105">La extensión del archivo no es válida.</error>
-		<error number="109">Petición inválida.</error>
-		<error number="110">Error desconocido.</error>
-		<error number="111">It was not possible to complete the request due to resulting file size.</error>
-		<error number="115">Ya existe un fichero o carpeta con ese nombre.</error>
-		<error number="116">No se ha encontrado la carpeta. Por favor, actualice y pruebe de nuevo.</error>
-		<error number="117">No se ha encontrado el fichero. Por favor, actualice la lista de ficheros y pruebe de nuevo.</error>
-		<error number="118">Las rutas origen y destino son iguales.</error>
-		<error number="201">Ya existía un fichero con ese nombre. El fichero subido ha sido renombrado como "%1".</error>
-		<error number="202">Fichero inválido.</error>
-		<error number="203">Fichero inválido. El peso es demasiado grande.</error>
-		<error number="204">El fichero subido está corrupto.</error>
-		<error number="205">La carpeta temporal no está disponible en el servidor para las subidas.</error>
-		<error number="206">La subida se ha cancelado por razones de seguridad. El fichero contenía código HTML.</error>
-		<error number="207">El fichero subido ha sido renombrado como "%1".</error>
-		<error number="300">Ha fallado el mover el(los) fichero(s).</error>
-		<error number="301">Ha fallado el copiar el(los) fichero(s).</error>
-		<error number="500">El navegador de archivos está deshabilitado por razones de seguridad. Por favor, contacte con el administrador de su sistema y compruebe el fichero de configuración de CKFinder.</error>
-		<error number="501">El soporte para iconos está deshabilitado.</error>
+		<code number="10">Comando incorrecto.</code>
+		<code number="11">El tipo de recurso no ha sido especificado en la solicitud.</code>
+		<code number="12">El tipo de recurso solicitado no es válido.</code>
+		<code number="102">Nombre de fichero o carpeta no válido.</code>
+		<code number="103">No se ha podido completar la solicitud debido a las restricciones de autorización.</code>
+		<code number="104">No ha sido posible completar la solicitud debido a restricciones en el sistema de ficheros.</code>
+		<code number="105">La extensión del archivo no es válida.</code>
+		<code number="109">Petición inválida.</code>
+		<code number="110">Error desconocido.</code>
+		<code number="111">It was not possible to complete the request due to resulting file size.</code>
+		<code number="115">Ya existe un fichero o carpeta con ese nombre.</code>
+		<code number="116">No se ha encontrado la carpeta. Por favor, actualice y pruebe de nuevo.</code>
+		<code number="117">No se ha encontrado el fichero. Por favor, actualice la lista de ficheros y pruebe de nuevo.</code>
+		<code number="118">Las rutas origen y destino son iguales.</code>
+		<code number="201">Ya existía un fichero con ese nombre. El fichero subido ha sido renombrado como "%1".</code>
+		<code number="202">Fichero inválido.</code>
+		<code number="203">Fichero inválido. El peso es demasiado grande.</code>
+		<code number="204">El fichero subido está corrupto.</code>
+		<code number="205">La carpeta temporal no está disponible en el servidor para las subidas.</code>
+		<code number="206">La subida se ha cancelado por razones de seguridad. El fichero contenía código HTML.</code>
+		<code number="207">El fichero subido ha sido renombrado como "%1".</code>
+		<code number="300">Ha fallado el mover el(los) fichero(s).</code>
+		<code number="301">Ha fallado el copiar el(los) fichero(s).</code>
+		<code number="500">El navegador de archivos está deshabilitado por razones de seguridad. Por favor, contacte con el administrador de su sistema y compruebe el fichero de configuración de CKFinder.</code>
+		<code number="501">El soporte para iconos está deshabilitado.</code>
 	</errors>
 </messages>

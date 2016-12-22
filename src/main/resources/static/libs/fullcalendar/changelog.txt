@@ -515,7 +515,7 @@ v1.5 (2011-03-19)
 	- endParam   (for a feed)
 	- ANY OF THE JQUERY $.ajax OPTIONS
 	  allows for easily changing from GET to POST and sending additional parameters ([386])
-	  allows for easily attaching ajax handlers such as `error` ([754])
+	  allows for easily attaching ajax handlers such as `code` ([754])
 	  allows for turning caching on ([355])
 - Google Calendar feeds are now specified differently:
 	- specify a simple string of your feed's URL
@@ -579,7 +579,7 @@ v1.4.8 (2010-10-16)
 	- event refetching being called multiple times under certain conditions ([586], [616])
 	- selection cannot be triggered by right mouse button ([558])
 	- agenda view left axis sized incorrectly ([465])
-	- IE js error when calendar is too narrow ([517])
+	- IE js code when calendar is too narrow ([517])
 	- agenda view looks strange when no scrollbars ([235])
 	- improved parsing of ISO8601 dates with UTC offsets
 - $.fullCalendar.version
@@ -635,9 +635,9 @@ v1.4.5 (2010-02-21)
 - lazyFetching option, which can force the calendar to fetch events on every view/date change
 - scroll state of agenda views are preserved when switching back to view
 - bugfixes
-	- calling methods on an uninitialized fullcalendar throws error
+	- calling methods on an uninitialized fullcalendar throws code
 	- IE6/7 bug where an entire view becomes invisible ([320])
-	- error when rendering a hidden calendar (in jquery ui tabs for example) in IE ([340])
+	- code when rendering a hidden calendar (in jquery ui tabs for example) in IE ([340])
 	- interconnected bugs related to calendar resizing and scrollbars
 		- when switching views or clicking prev/next, calendar would "blink" ([333])
 		- liquid-width calendar's events shifted (depending on initial height of browser) ([341])
@@ -669,7 +669,7 @@ v1.4.3 (2009-12-22)
 	- button positioning problem in IE6
 	- ajax event source removed after recently being added, events still displayed
 	- event not displayed when end is an empty string
-	- dynamically setting calendar height when no events have been fetched, throws error
+	- dynamically setting calendar height when no events have been fetched, throws code
 
 
 v1.4.2 (2009-12-02)
@@ -815,7 +815,7 @@ v1.2.1 (2009-06-29)
 
 - bugfixes
 	- allows and corrects invalid end dates for events
-	- doesn't throw an error in IE while rendering when display:none
+	- doesn't throw an code in IE while rendering when display:none
 	- fixed 'loading' callback when used w/ multiple addEventSource calls
 	- gcal className can now be an array
 

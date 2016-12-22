@@ -13,16 +13,16 @@
         <form class="easyui-form" data-options="novalidate:true">
             <table cellpadding="5">
                 <tr>
-                    <td>上级分类:</td>
-                    <td><input name="ParentId"></td>
+                    <td>切换时间:</td>
+                    <td><input class="easyui-textbox" type="text" name="time" data-options="required:true" ></td>
                 </tr>
                 <tr>
-                    <td>分类名称:</td>
-                    <td><input class="easyui-textbox" type="text" name="CategoryName" data-options="required:true" /></td>
+                    <td>切换方式:</td>
+                    <td><input class="easyui-textbox" type="text" name="mode" data-options="required:true" /></td>
                 </tr>
                 <tr>
-                    <td>排序:</td>
-                    <td><input class="easyui-numberspinner" type="text" name="SortOrder" value="0" min="0" /></td>
+                    <td>备注:</td>
+                    <td><input class="easyui-textbox" type="text" name="description" data-options="required:true" /></td>
                 </tr>
             </table>
         </form>
@@ -35,23 +35,20 @@
                 cmbtree = dlg.find('input[name="ParentId"]');
 
             dg.dialogTreeGrid({
-                url: '/api/GoodsCategorys',
+                url: '/resources/v1/styles',
                 remoteFilter: false,
-                treeField: 'CategoryName',
-                dialogTitle: '商品分类',
+                treeField: 'id',
+                dialogTitle: 'style',   //添加XXX
                 dialogEl: dlg,
                 columns: [$.merge([
+                    { field: 'ck', checkbox: true },
                     { field: 'id', hidden: true },
-                    { field: 'CategoryName', title: '分类名称', width: 220 },
-                    { field: 'SortOrder', title: '排序', width: 80 }
+                    { field: 'time', title: '滚动显示时间', width: 220 },
+                    { field: 'mode', title: '切换方式', width: 80 },
+                    { field: 'description', title: '备注', width: 80 }
                 ], globalColumns)],
                 columnFilters: $.merge([globalFilters.numeric('SortOrder')], globalColumnsFilter),
                 dialogBeforeOpen:function(form,record) {
-                    cmbtree.combotree({
-                        url: '/api/GoodsCategorys',
-                        method: 'get',
-                        panelHeight: 'auto'
-                    });
 
                     if (record) {
                         if (record['ParentId'] == null) record['ParentId'] = '';
