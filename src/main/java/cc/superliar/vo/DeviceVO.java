@@ -1,6 +1,7 @@
 package cc.superliar.vo;
 
 import cc.superliar.annotation.NotNullField;
+import cc.superliar.constant.ResultConstant;
 import cc.superliar.enums.OperationType;
 
 import javax.validation.constraints.Size;
@@ -12,6 +13,10 @@ import java.io.Serializable;
 public class DeviceVO implements Serializable{
 
     private static final long serialVersionUID = 842497757285997959L;
+
+    private String code = ResultConstant.OK;
+
+    private String message = "Successful operation";
 
     private String id; // device's ID
 
@@ -82,5 +87,21 @@ public class DeviceVO implements Serializable{
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
     }
 }

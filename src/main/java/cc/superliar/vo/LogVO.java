@@ -2,6 +2,7 @@ package cc.superliar.vo;
 
 
 
+import cc.superliar.constant.ResultConstant;
 import cc.superliar.enums.OperationType;
 
 import java.io.Serializable;
@@ -17,6 +18,10 @@ import java.time.LocalDateTime;
 public class LogVO implements Serializable {
 
   private static final long serialVersionUID = -8802363013216964724L;
+
+  private String code = ResultConstant.OK;
+
+  private String message = "Successful operation";
 
   private String username;
 
@@ -60,5 +65,21 @@ public class LogVO implements Serializable {
 
   public String getLogType() {
     return getType().name();
+  }
+
+  public String getCode() {
+    return code;
+  }
+
+  public void setCode(String code) {
+    this.code = code;
+  }
+
+  public String getMessage() {
+    return message;
+  }
+
+  public void setMessage(String message) {
+    this.message = message;
   }
 }

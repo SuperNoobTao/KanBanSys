@@ -1,5 +1,7 @@
 package cc.superliar.vo;
 
+import cc.superliar.constant.ResultConstant;
+
 import javax.persistence.Column;
 import java.io.Serializable;
 
@@ -9,6 +11,10 @@ import java.io.Serializable;
 public class UrlVO implements Serializable{
 
     private static final long serialVersionUID = 170320508720525775L;
+
+    private String code = ResultConstant.OK;
+
+    private String message = "Successful operation";
 
     private Long id;
 
@@ -39,6 +45,22 @@ public class UrlVO implements Serializable{
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
     }
 }
 

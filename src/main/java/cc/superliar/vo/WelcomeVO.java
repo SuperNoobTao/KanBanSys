@@ -1,5 +1,7 @@
   package cc.superliar.vo;
 
+import cc.superliar.constant.ResultConstant;
+
 import java.io.Serializable;
 
   /**
@@ -12,6 +14,10 @@ import java.io.Serializable;
   public class WelcomeVO implements Serializable {
 
     private static final long serialVersionUID = -7734398342573960351L;
+
+    private String code = ResultConstant.OK;
+
+    private String message = "Successful operation";
 
     private final long id;
 
@@ -30,4 +36,19 @@ import java.io.Serializable;
       this.content = content;
     }
 
+    public String getCode() {
+      return code;
+    }
+
+    public void setCode(String code) {
+      this.code = code;
+    }
+
+    public String getMessage() {
+      return message;
+    }
+
+    public void setMessage(String message) {
+      this.message = message;
+    }
   }
