@@ -1,6 +1,8 @@
 # springboot
 
+![主页面](http://obe2uu2sg.bkt.clouddn.com/R%5DI2F40%29IZ_79%25W382VHD%5DW.png)
 
+![设备管理](http://obe2uu2sg.bkt.clouddn.com/%7DZI~JDSLD74JD%7B4F@BMZ2%60Y.png)
 
 ### 用户登录
 url: http://localhost:8080/login
