@@ -17,28 +17,13 @@
             <table cellpadding="5">
                 <tr>
                     <td>部门:</td>
-                    <td colspan="3"><input name="TeamId" style="width: 90%;"></td>
+                    <td colspan="3"><input name="TeamId" ></td>
                 </tr>
                 <tr>
                     <td>角色:</td>
-                    <td colspan="3"><input name="RoleId" style="width: 90%;"></td>
+                    <td colspan="3"><input name="RoleId" width="360px"></td>
                 </tr>
-                <tr>
-                    <td>用户名:</td>
-                    <td colspan="3"><input class="easyui-textbox" type="text" name="UserName" data-options="required:true" /></td>
-                </tr>
-                <tr>
-                    <td>密码:</td>
-                    <td><input id="user-form-pwd" class="textbox" type="password" name="Password" /></td>
-                    <td>确认密码:</td>
-                    <td><input type="password" class="textbox" name="ConfrimPassword" /></td>
-                </tr>
-                <tr>
-                    <td>邮箱:</td>
-                    <td><input class="easyui-textbox" type="text" name="Email" data-options="required:true,validType: 'email'" /></td>
-                    <td>手机号:</td>
-                    <td><input class="easyui-textbox" type="text" name="Mobile" data-options="required:true" /></td>
-                </tr>
+
             </table>
         </form>
     </div>
@@ -94,15 +79,16 @@
                             equals: pwdField
                         }
                     });
-                    cmbtree.combotree({
+                    cmbtree.combobox({
                         url: '/api/teams',
                         method: 'get',
                         required: true,
-                        panelHeight: 'auto'
+                        panelHeight: 'auto',
+                        width:300
                     });
 
                     cmbrole.combobox({
-                        url: '/api/AllRoles',
+                        url: '/api/teams',
                         method: 'get',
                         valueField: 'Id',
                         textField: 'RoleName',

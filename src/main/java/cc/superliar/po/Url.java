@@ -27,6 +27,9 @@ public class Url implements Serializable{
     @Column(name = "url_id")
     private Long id;
 
+    @Column(name = "url_name")
+    private String name;
+
     @Column(name = "url_content")
     private String content;
 
@@ -101,6 +104,14 @@ public class Url implements Serializable{
 
     public void setDevices(Set<Device> devices) {
         this.devices = devices;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Url() {

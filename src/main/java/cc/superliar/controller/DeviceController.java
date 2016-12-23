@@ -2,12 +2,14 @@ package cc.superliar.controller;
 
 import cc.superliar.annotation.CurrentUser;
 import cc.superliar.component.ResultHelper;
+import cc.superliar.component.Transformer;
 import cc.superliar.component.ValidateHelper;
 import cc.superliar.constant.ControllerConstant;
 import cc.superliar.constant.ResourceURL;
 import cc.superliar.constant.VersionConstant;
 import cc.superliar.domain.DeviceDomain;
 
+import cc.superliar.domain.UrlDomain;
 import cc.superliar.enums.ErrorType;
 import cc.superliar.enums.OperationType;
 import cc.superliar.exception.CommonsException;
@@ -15,10 +17,12 @@ import cc.superliar.param.DeviceParam;
 
 import cc.superliar.po.Device;
 
+import cc.superliar.po.Url;
 import cc.superliar.po.User;
 import cc.superliar.util.QueryHelper;
 
 import cc.superliar.vo.DeviceVO;
+import cc.superliar.vo.UrlVO;
 import net.kaczmarzyk.spring.data.jpa.domain.DateBetween;
 import net.kaczmarzyk.spring.data.jpa.domain.In;
 import net.kaczmarzyk.spring.data.jpa.domain.Like;
@@ -28,6 +32,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -38,6 +43,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+import java.util.List;
+import java.util.Set;
 
 /**
  * Created by Administrator on 2016/12/20 0020.
@@ -125,6 +132,31 @@ public class DeviceController {
     }
 
 
+    /**
+     * Show urls by deviceID.
+     *
+     * @param id {@link Device#id}
+     * @return {@link cc.superliar.vo.DeviceVO}
+     */
+    @RequestMapping(value = "/details", method = RequestMethod.GET)
+    public ResponseEntity detailUrls(String id) {
+        try {
+            if (StringUtils.isBlank(id)) {
+                return new ResponseEntity<>(urlDomain.getAll(null, null, UrlVO.class), HttpStatus.OK);
+            }
+            Device device = deviceDomain.getByIdStr(id, Device.class);
+            Set<Url> urls = device.getUrls();
+            List<UrlVO> urlVOS = transformer.pos2VOs(UrlVO.class,transformer.set2List(urls));
+            return new ResponseEntity<>(urlVOS, HttpStatus.OK);
+        } catch (Exception e) {
+            // Return unknown error and log the exception.
+            return resultHelper.errorResp(logger, e, ErrorType.UNKNOWN, e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+
+
+
 
     /**
      * Update {@link Device}.
@@ -206,4 +238,10 @@ public class DeviceController {
 
     @Autowired
     private DeviceDomain deviceDomain;
+
+    @Autowired
+    private Transformer transformer;
+
+    @Autowired
+    private UrlDomain urlDomain;
 }

@@ -32,6 +32,7 @@ public class DeviceVO implements Serializable{
 
     private String description;
 
+    private String text ;
 
     public String getId() {
         return id;
@@ -103,5 +104,13 @@ public class DeviceVO implements Serializable{
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public String getText() {
+        return name;
+    }
+
+    public void setText(String name) {
+        this.text = name;
     }
 }

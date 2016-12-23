@@ -472,11 +472,11 @@
       },
       {
         "ParentId": "0fffc933-6c22-e611-9798-98e0d97b8c7e",
-        "MenuText": "设备显示",
+        "MenuText": "配对管理",
         "MenuLink": "goods/devicemanager",
         "MenuType": null,
         "IconCls": null,
-        "SortOrder": 1,
+        "SortOrder": 4,
         "IsActivated": "on",
         "Buttons": [
           {
@@ -485,13 +485,6 @@
             "ButtonLink": "add",
             "IconCls": "fa-plus",
             "Id": "ddfb7a73-8d12-471c-8a8b-0a06e9efa4f2"
-          },
-          {
-            "ButtonName": "修改",
-            "ButtonDesc": null,
-            "ButtonLink": "edit",
-            "IconCls": "fa-edit",
-            "Id": "16775eee-db91-47fd-9d2b-8d563dccaa64"
           },
           {
             "ButtonName": "删除",
