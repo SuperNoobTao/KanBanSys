@@ -14,7 +14,7 @@
             <table cellpadding="5">
                 <tr>
                     <td>切换时间:</td>
-                    <td><input class="easyui-textbox" type="text" name="time" data-options="required:true" ></td>
+                    <td><input class="easyui-textbox" type="text" id="txtrName" name="time" data-options="required:true" ></td>
                 </tr>
                 <tr>
                     <td>切换方式:</td>
@@ -31,8 +31,8 @@
         $(function () {
             var
                 dg = $('#dg-categorys'),
-                dlg = $('#dlg-category'),
-                cmbtree = dlg.find('input[name="ParentId"]');
+                dlg = $('#dlg-category')
+
 
             dg.dialogTreeGrid({
                 url: '/resources/v1/styles',

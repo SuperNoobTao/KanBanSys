@@ -25,7 +25,7 @@
                 </tr>
                 <tr>
                     <td>用户名:</td>
-                    <td colspan="3"><input class="easyui-textbox" type="text" name="UserName" data-options="required:true" /></td>
+                    <td colspan="3"><input class="easyui-textbox" type="text" id="username" name="UserName" value=""/></td>
                 </tr>
                 <tr>
                     <td>密码:</td>
@@ -44,6 +44,8 @@
     </div>
     <div id="dlg-permissions"></div>
     <script type="text/javascript">
+
+        $('username').textbox('setValue','aaa');
         $(function () {
             var
                 dg = $('#dg-users'),
@@ -52,6 +54,7 @@
                 teamtree = $('#tree-users-teams'),
                 cmbtree = dlg.find('input[name="TeamId"]'),
                 cmbrole = dlg.find('input[name="RoleId"]'),
+                textuser = dlg.find('input[name="UserName"]'),
                 treePermissions = null;
 
             teamtree.tree({
@@ -61,10 +64,12 @@
                     dg.datagrid('load', {
                         teamId: node.id
                     });
+
                 }
             });
 
             dg.dialogDataGrid({
+
                 url: '/api/users',
                 dialogTitle: '用户',
                 dialogEl: dlg,
@@ -78,6 +83,9 @@
                 ], globalColumns)],
                 columnFilters: globalColumnsFilter,
                 dialogBeforeOpen: function (form, record) {
+                    debugger
+                    $('username').textbox('setValue','aaa');
+
                     var pwdField = form.find('input[name="Password"]').validatebox({
                         required: record === undefined,
                         value: '',
@@ -102,14 +110,14 @@
                     });
 
                     cmbrole.combobox({
-                        url: '/api/AllRoles',
-                        method: 'get',
+
                         valueField: 'Id',
                         textField: 'RoleName',
                         required: true,
                         multiple: true,
                         panelHeight: 'auto'
                     });
+
 
                     if (record) {
                         if (record['Team'] != null) record['TeamId'] = record['Team'].Id;

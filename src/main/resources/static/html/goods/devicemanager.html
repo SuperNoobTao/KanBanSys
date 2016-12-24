@@ -17,7 +17,7 @@
             <table cellpadding="5">
                 <tr>
                     <td>部门:</td>
-                    <td colspan="3"><input name="TeamId" ></td>
+                    <td colspan="3"><input class="easyui-textbox" type="text" id="txtrName" name="TeamId" value="" ></td>
                 </tr>
                 <tr>
                     <td>角色:</td>
@@ -27,7 +27,6 @@
             </table>
         </form>
     </div>
-    <div id="dlg-permissions"></div>
     <script type="text/javascript">
         $(function () {
             var
@@ -35,16 +34,16 @@
                 dlg = $('#dlg-user'),
                 dlgPermissions = $('#dlg-permissions'),
                 teamtree = $('#tree-users-teams'),
-                cmbtree = dlg.find('input[name="TeamId"]'),
+
                 cmbrole = dlg.find('input[name="RoleId"]'),
                 treePermissions = null;
 
             teamtree.tree({
-                url: '/api/teams',
+                url: '/api/teams',    //显示全部设备
                 method: 'get',
                 onSelect: function (node) {
                     dg.datagrid('load', {
-                        teamId: node.id
+                        teamId: node.id             //显示选中设备的urls
                     });
                 }
             });
@@ -63,35 +62,16 @@
                 ], globalColumns)],
                 columnFilters: globalColumnsFilter,
                 dialogBeforeOpen: function (form, record) {
-                    var pwdField = form.find('input[name="Password"]').validatebox({
-                        required: record === undefined,
-                        value: '',
-                        novalidate: true,
-                        validType: {
-                            length: [6, 20]
-                        }
-                    });
-                    form.find('input[name="ConfrimPassword"]').validatebox({
-                        required: record === undefined,
-                        novalidate: true,
-                        value: '',
-                        validType: {
-                            equals: pwdField
-                        }
-                    });
-                    cmbtree.combobox({
-                        url: '/api/teams',
-                        method: 'get',
-                        required: true,
-                        panelHeight: 'auto',
-                        width:300
-                    });
 
+                        var id   =   $('#tree-users-teams').tree('getSelected').id;
+
+
+                    $("#txtrName").textbox("setValue", "xxx");
                     cmbrole.combobox({
                         url: '/api/teams',
                         method: 'get',
                         valueField: 'Id',
-                        textField: 'RoleName',
+                        textField: 'TeamName',
                         required: true,
                         multiple: true,
                         panelHeight: 'auto'
@@ -112,59 +92,10 @@
                         form.form('reset');
                     }
                 },
-                setPermissions: function () {
-                    var selected = dg.datagrid('getSelected');
-                    if (selected == null) {
-                        showToast('请选择用户！');
-                        return false;
-                    }
 
-                    dlgPermissions.dialog({
-                        title: '用户权限设置',
-                        modal: true,
-                        cache: true,
-                        width: 600,
-                        height: 400,
-                        top: 120,
-                        href: 'app/user/_permissions.cshtml',
-                        onLoad: function () {
-                            treePermissions = dlgPermissions.find('.roles-tree-Buttons>li');
-                            $.post('/api/GetAllMenuByUserId/' + selected.Id, function (data) {
-                                loadMenusButtons(data, treePermissions);
-                            });
-                        },
-                        buttons: [{
-                            text: lang.iconsave,
-                            handler: function () {
-                                var menus = [];
-                                var tree = treePermissions;
-
-                                $.each(tree.find(':checkbox:checked'), function (i, n) {
-                                    menus.push($(n).val());
-                                });
-
-                                if (menus.length === 0) {
-                                    showToast('请选择权限');
-                                    return false;
-                                }
-
-                                $.post('/api/save-user-permissions/' + selected.Id, { KeyList: menus }, function (data) {
-                                    showToast(data.message);
-                                    if (data.success) {
-                                        dlgPermissions.dialog('close');
-                                        dg.datagrid('reload');
-                                    }
-                                });
-                            }
-                        }, {
-                            text: lang.iconcancel,
-                            handler: function () {
-                                dlgPermissions.dialog('close');
-                            }
-                        }]
-                    });
-                }
             });
+
+
         });
     </script>
 </body>
