@@ -126,6 +126,26 @@ public class Transformer {
   }
 
   /**
+   * Transform param to PO. no createtime no modifytime
+   *
+   * @param type        class type
+   * @param param       param
+   * @param po          PO
+   * @param currentUser current user
+   * @param <T>         class
+   * @return PO
+   * @throws Exception
+   */
+  public <T> T param2PO2(Class<T> type, Object param, T po, User currentUser) throws Exception {
+    // Set param.
+    BeanUtils.copyPropertiesIgnoreNull(param, po);
+    return po;
+  }
+
+
+
+
+  /**
    * Transform PO to VO
    *
    * @param pos PO

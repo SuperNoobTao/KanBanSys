@@ -116,4 +116,18 @@ public class Url implements Serializable{
 
     public Url() {
     }
+
+    @Override
+    public String toString() {
+        return "Url{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", content='" + content + '\'' +
+                ", createDate=" + createDate +
+                ", lastModifiedDate=" + lastModifiedDate +
+                ", description='" + description + '\'' +
+                ", validFlag=" + validFlag +
+                ", devices=" + devices +
+                '}';
+    }
 }

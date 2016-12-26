@@ -10,34 +10,64 @@ import java.io.Serializable;
  */
 
 @Entity
-
 @Table(name="tb_device_has_url")
 public class Manage implements Serializable{
 
     private static final long serialVersionUID = -6658950843575760800L;
 
-    @EmbeddedId
-    private ManagePK id;
+    @Id
+    @SequenceGenerator(name = "manage_id_seq", sequenceName = "manage_id_seq", allocationSize = 1)
+    @GeneratedValue(generator = "manage_id_seq", strategy = GenerationType.SEQUENCE)
+    private int id;
 
-    public Manage() {}
+    @Column(name = "url_id")
+    private int url;
 
-    public Manage(int url, String device) {
-        this.id = new ManagePK(url, device);
-    }
+    @Column(name = "device_id")
+    private String device;
 
-    public ManagePK getId() {
+
+
+
+
+    public int getId() {
         return id;
     }
 
-    public void setId(ManagePK id) {
+    public void setId(int id) {
         this.id = id;
+    }
+
+    public int getUrl() {
+        return url;
+    }
+
+    public void setUrl(int url) {
+        this.url = url;
+    }
+
+    public String getDevice() {
+        return device;
+    }
+
+    public void setDevice(String device) {
+        this.device = device;
     }
 
     @Override
     public String toString() {
         return "Manage{" +
-                "device=" + id.getDevice() +
-                ",url=" + id.getUrl() +
+                "id=" + id +
+                ", url='" + url + '\'' +
+                ", device='" + device + '\'' +
                 '}';
+    }
+
+    public Manage() {
+    }
+
+    public Manage(int url, String device) {
+        this.url = url;
+        this.device = device;
     }
 }

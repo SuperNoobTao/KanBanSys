@@ -412,12 +412,14 @@ $.extend($.fn.datagrid.defaults, {
                 },
                 //删除
                 del: function (dg) {
+                    debugger
                     var records = dg.datagrid('getSelections');
                     if (records.length > 0) {
                         var models = [];
                         $.each(records, function (i, n) {
                             models.push({
                                 Id: n['Id'],
+                                Email:n['Email'],
                                 Remark: n[opt.deleteField]
                             });
                         });

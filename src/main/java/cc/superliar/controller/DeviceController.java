@@ -17,11 +17,12 @@ import cc.superliar.param.DeviceParam;
 
 import cc.superliar.po.Device;
 
-import cc.superliar.po.Url;
 import cc.superliar.po.User;
+import cc.superliar.repo.NativeSQLReposity;
 import cc.superliar.util.QueryHelper;
 
 import cc.superliar.vo.DeviceVO;
+import cc.superliar.vo.ManageVO;
 import cc.superliar.vo.UrlVO;
 import net.kaczmarzyk.spring.data.jpa.domain.DateBetween;
 import net.kaczmarzyk.spring.data.jpa.domain.In;
@@ -32,7 +33,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -44,7 +44,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Created by Administrator on 2016/12/20 0020.
@@ -145,9 +144,10 @@ public class DeviceController {
                 return new ResponseEntity<>(urlDomain.getAll(null, null, UrlVO.class), HttpStatus.OK);
             }
             Device device = deviceDomain.getByIdStr(id, Device.class);
-            Set<Url> urls = device.getUrls();
-            List<UrlVO> urlVOS = transformer.pos2VOs(UrlVO.class,transformer.set2List(urls));
-            return new ResponseEntity<>(urlVOS, HttpStatus.OK);
+//            Set<Url> urls = device.getUrls();
+//            List<UrlVO> urlVOS = transformer.pos2VOs(UrlVO.class,transformer.set2List(urls));
+            List<ManageVO> list = nativeSQLReposity.listbydevice(device.getId());
+            return new ResponseEntity<>(list, HttpStatus.OK);
         } catch (Exception e) {
             // Return unknown error and log the exception.
             return resultHelper.errorResp(logger, e, ErrorType.UNKNOWN, e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
@@ -244,4 +244,7 @@ public class DeviceController {
 
     @Autowired
     private UrlDomain urlDomain;
+
+    @Autowired
+    private NativeSQLReposity nativeSQLReposity;
 }
