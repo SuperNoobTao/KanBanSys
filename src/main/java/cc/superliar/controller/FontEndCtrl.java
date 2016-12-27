@@ -30,12 +30,7 @@ public class FontEndCtrl {
         return mav;
     }
 
-    @RequestMapping(value = "/welcome")
-    public ModelAndView casemanage() {
-        ModelAndView mav = new ModelAndView();
-        mav.setViewName("/home");
-        return mav;
-    }
+
 
 
 }

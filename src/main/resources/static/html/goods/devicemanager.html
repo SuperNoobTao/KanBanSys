@@ -5,11 +5,11 @@
 </head>
 <body>
 <div class="easyui-layout animated fadeInRight" data-options="fit:true">
-    <div data-options="region:'west',border:false" title="按部门筛选" style="width: 200px; border-right: 1px #efefef solid; padding: 10px;">
-        <ul id="tree-users-teams"></ul>
+    <div data-options="region:'west',border:false" title="设备列表" style="width: 200px; border-right: 1px #efefef solid; padding: 10px;">
+        <ul id="tree-devices"></ul>
     </div>
-    <div data-options="region:'center',border:false" title="用户列表">
-        <table id="dg-users"></table>
+    <div data-options="region:'center',border:false" title="链接列表">
+        <table id="dg-urls"></table>
     </div>
 </div>
 <div id="dlg-user" style="width:520px;padding:5px;">
@@ -33,10 +33,10 @@
     $('username').textbox('setValue','aaa');
     $(function () {
         var
-            dg = $('#dg-users'),
+            dg = $('#dg-urls'),
             dlg = $('#dlg-user'),
             dlgPermissions = $('#dlg-permissions'),
-            teamtree = $('#tree-users-teams'),
+            teamtree = $('#tree-devices'),
             cmbtree = dlg.find('input[name="TeamId"]'),
             cmbrole = dlg.find('input[name="RoleId"]'),
             textuser = dlg.find('input[name="UserName"]'),
