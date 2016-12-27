@@ -412,31 +412,21 @@ $.extend($.fn.datagrid.defaults, {
                 },
                 //删除
                 del: function (dg) {
-                    debugger
-                    var records = dg.datagrid('getSelections');
-                    if (records.length > 0) {
-                        var models = [];
-                        $.each(records, function (i, n) {
-                            models.push({
-                                Id: n['Id'],
-                                Email:n['Email'],
-                                Remark: n[opt.deleteField]
-                            });
-                        });
+                    var record = dg.datagrid('getSelected');
+                    if (record != null) {
                         $.messager.confirm('Confirm', lang.deleteConfirm, function (r) {
                             if (r) {
                                 $.ajax({
                                     method: 'DELETE',
-                                    url: opt.url,
-                                    //contentType: 'application/json',
+                                    url: opt.url+ (record ? '/' + record['id'] : ''),
                                     data: {
-                                        input: JSON.stringify(models)
+                                        id: record['id'],
                                     }
                                 }).done(function (data) {
-                                    if (data.success) {
-                                        showToast(lang.deleteSuccess);
-                                        dg.datagrid('reload');
-                                    }
+
+                                    showToast(lang.deleteSuccess);
+                                    dg.datagrid('reload');
+
                                 });
                             }
                         });

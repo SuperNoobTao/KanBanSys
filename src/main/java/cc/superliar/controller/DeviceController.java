@@ -30,20 +30,22 @@ import net.kaczmarzyk.spring.data.jpa.domain.Like;
 import net.kaczmarzyk.spring.data.jpa.web.annotation.And;
 import net.kaczmarzyk.spring.data.jpa.web.annotation.Spec;
 import org.apache.commons.lang3.StringUtils;
+import org.json.JSONArray;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.data.repository.query.Param;
+import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Administrator on 2016/12/20 0020.
@@ -154,7 +156,54 @@ public class DeviceController {
         }
     }
 
+    /**
+     * 显示可以添加的urls
+     *
+     * @param id {@link Device#id}
+     * @return {@link cc.superliar.vo.DeviceVO}
+     */
+    @RequestMapping(value = "/combox", method = RequestMethod.GET)
+    public ResponseEntity canAddUrls(String id) {
+        try {
+            if (StringUtils.isBlank(id)) {
+                return new ResponseEntity<>(urlDomain.getAll(null, null, UrlVO.class), HttpStatus.OK);
+            }
+            Device device = deviceDomain.getByIdStr(id, Device.class);
+//            Set<Url> urls = device.getUrls();
+//            List<UrlVO> urlVOS = transformer.pos2VOs(UrlVO.class,transformer.set2List(urls));
+            List<UrlVO> list = nativeSQLReposity.listbydevice2(device.getId());
+            return new ResponseEntity<>(list, HttpStatus.OK);
+        } catch (Exception e) {
+            // Return unknown error and log the exception.
+            return resultHelper.errorResp(logger, e, ErrorType.UNKNOWN, e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 
+
+    /**
+     * Delete manage {@link Device}.
+     *
+     * @param  {@link Device#id}
+     * @return {@link cc.superliar.vo.DeviceVO}
+     */
+    @RequestMapping(value = "/details/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity manageDelete(@CurrentUser User currentUser, @PathVariable String id, @Valid DeviceParam param, BindingResult result) {
+        try {
+
+            int  idInt = Integer.parseInt(id);
+
+
+            // Delete user.
+            deviceDomain.delete2(idInt, currentUser);
+            return new ResponseEntity(HttpStatus.NO_CONTENT);
+        } catch (CommonsException e) {
+            // Return error information and log the exception.
+            return resultHelper.infoResp(logger, e.getErrorType(), e.getMessage(), HttpStatus.UNPROCESSABLE_ENTITY);
+        } catch (Exception e) {
+            // Return unknown error and log the exception.
+            return resultHelper.errorResp(logger, e, ErrorType.UNKNOWN, e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 
 
 

@@ -8,6 +8,7 @@ import cc.superliar.exception.CommonsException;
 import cc.superliar.param.DeviceParam;
 import cc.superliar.param.UrlParam;
 import cc.superliar.po.*;
+import cc.superliar.repo.NativeSQLReposity;
 import cc.superliar.repo.UrlReposity;
 import cc.superliar.util.ErrorMsgHelper;
 import cc.superliar.vo.UrlVO;
@@ -62,7 +63,9 @@ public class UrlDomain extends BaseDomain<Url,Long> {
         return super.updateByPO(UrlVO.class, urlParam2PO(param, url, currentUser), currentUser);
     }
 
-
+    public List<UrlVO> getUrlByDevice(String device){
+        return nativeSQLReposity.listbydevice2(device);
+    }
 
 
 
@@ -83,6 +86,8 @@ public class UrlDomain extends BaseDomain<Url,Long> {
     @Autowired
     private Transformer transformer;
 
+    @Autowired
+    private NativeSQLReposity nativeSQLReposity;
 
     private Url urlParam2PO(UrlParam param, Url url, User currentUser) throws Exception {
         transformer.param2PO(getClassT(), param, url, currentUser);

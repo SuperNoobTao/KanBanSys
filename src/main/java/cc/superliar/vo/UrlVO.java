@@ -62,6 +62,15 @@ public class UrlVO implements Serializable{
     public void setMessage(String message) {
         this.message = message;
     }
+
+    @Override
+    public String toString() {
+        return "UrlVO{" +
+                "id=" + id +
+                ", content='" + content + '\'' +
+                ", description='" + description + '\'' +
+                '}';
+    }
 }
 
 

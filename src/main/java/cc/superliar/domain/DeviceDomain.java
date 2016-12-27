@@ -4,6 +4,7 @@ import cc.superliar.component.CustomPasswordEncoder;
 import cc.superliar.component.Transformer;
 import cc.superliar.constant.CommonsConstant;
 import cc.superliar.enums.ErrorType;
+import cc.superliar.enums.OperationType;
 import cc.superliar.enums.ValidFlag;
 import cc.superliar.exception.CommonsException;
 import cc.superliar.param.DeviceParam;
@@ -16,6 +17,8 @@ import cc.superliar.po.Url;
 
 import cc.superliar.po.User;
 import cc.superliar.repo.DeviceReposity;
+import cc.superliar.repo.ManageReposity;
+import cc.superliar.util.BeanUtils;
 import cc.superliar.util.ErrorMsgHelper;
 import cc.superliar.vo.DeviceVO;
 import cc.superliar.vo.RoleVO;
@@ -25,6 +28,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.lang.reflect.Field;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -85,6 +90,8 @@ public class DeviceDomain extends BaseDomain<Device,String> {
 
     @Autowired private DeviceReposity deviceReposity;
 
+    @Autowired private ManageReposity manageReposity;
+
     @Autowired private CustomPasswordEncoder passwordEncoder;
 
     @Autowired private Transformer transformer;
@@ -117,6 +124,20 @@ public class DeviceDomain extends BaseDomain<Device,String> {
             // Throw role already existing exception, name taken.
             throw new CommonsException(ErrorType.SYS0111, ErrorMsgHelper.getReturnMsg(ErrorType.SYS0111, getClassT().getSimpleName(), CommonsConstant.ID));
         }
+    }
+
+
+    /**
+     * Delete <T>, update valid flag to invalid.
+     *
+     * @param inputParam  input param
+     * @param currentUser current user
+     * @throws Exception
+     */
+    @Transactional public void delete2(int id, User currentUser) throws Exception {
+
+        logHelper.logUsersOperations(OperationType.DELETE, getClassT().getName(), currentUser);
+        manageReposity.delete(id);
     }
 
 

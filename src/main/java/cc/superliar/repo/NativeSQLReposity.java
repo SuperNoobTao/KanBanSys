@@ -4,6 +4,7 @@ import cc.superliar.po.Device;
 import cc.superliar.po.Manage;
 
 import cc.superliar.vo.ManageVO;
+import cc.superliar.vo.UrlVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -48,6 +49,25 @@ public class NativeSQLReposity {
     }
 
 
+    public List<UrlVO> listbydevice2(String device){
+        List<UrlVO> list = new ArrayList<>();
+        String sql =
+                "select url_id,url_content,url_description " +
+                        "from tb_url u where url_valid_flag=1 and  u.url_id not in" +
+                        " (select url_id from tb_device_has_url where device_id=:device )";
+        javax.persistence.Query query = em.createNativeQuery(sql);
+        query.setParameter("device", device);
+        List objecArraytList = query.getResultList();
+        for (int i = 0; i < objecArraytList.size(); i++) {
+            Object[] obj = (Object[]) objecArraytList.get(i);
+            UrlVO urlVO = new UrlVO();
+            urlVO.setId(Long.valueOf((Integer) obj[0]));
+            urlVO.setContent((String) obj[1]);
+            urlVO.setDescription((String) obj[2]);
+            list.add(urlVO);
+        }
+        return  list;
 
+    }
 
 }
