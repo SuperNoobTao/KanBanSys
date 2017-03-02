@@ -52,7 +52,7 @@ public class UrlController {
 
     /**
      * Create new {@link cc.superliar.po.Url}.
-     *
+     * 创建一条链接
      * @param param {@link UrlParam}
      * @return {@link org.springframework.http.ResponseEntity}
      */
@@ -78,7 +78,7 @@ public class UrlController {
 
     /**
      * Show all.
-     *
+     * 显示全部链接
      * @param param {@link UrlParam}
      * @return all urls.
      */
@@ -108,7 +108,7 @@ public class UrlController {
 
     /**
      * Show {@link org.springframework.http.ResponseEntity} by ID.
-     *
+     * 显示某个ID的链接
      * @param id    {@link Url#id}
      * @return {@link org.springframework.http.ResponseEntity}
      */
@@ -128,7 +128,7 @@ public class UrlController {
 
     /**
      * Update {@link cc.superliar.po.Resource}.
-     *
+     * 更新链接内容
      * @param id    {@link Url#id}
      * @param param {@link UrlParam}
      * @return {@link org.springframework.http.ResponseEntity}
@@ -156,7 +156,7 @@ public class UrlController {
 
     /**
      * Delete {@link cc.superliar.po.Url}.
-     *
+     * 删除某个链接
      * @param id id of url
      * @return {@link org.springframework.http.ResponseEntity}
      */

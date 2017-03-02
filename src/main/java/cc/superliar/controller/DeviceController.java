@@ -58,7 +58,7 @@ public class DeviceController {
     // ------------------------
 
     /**
-     * Create new {@link Device}.
+     * 创建一个设备
      *
      * @param param {@link DeviceParam}
      * @return {@link cc.superliar.vo.DeviceVO}
@@ -119,7 +119,7 @@ public class DeviceController {
 
     /**
      * Show {@link cc.superliar.vo.DeviceVO} by ID.
-     *
+     * 显示某id的设备的信息
      * @param id {@link Device#id}
      * @return {@link cc.superliar.vo.DeviceVO}
      */
@@ -137,28 +137,7 @@ public class DeviceController {
     }
 
 
-    /**
-     * Show urls by deviceID.
-     *
-     * @param id {@link Device#id}
-     * @return {@link cc.superliar.vo.DeviceVO}
-     */
-    @RequestMapping(value = "/details", method = RequestMethod.GET)
-    public ResponseEntity detailUrls(String id) {
-        try {
-            if (StringUtils.isBlank(id)) {
-                return new ResponseEntity<>(urlDomain.getAll(null, null, UrlVO.class), HttpStatus.OK);
-            }
-            Device device = deviceDomain.getByIdStr(id, Device.class);
-//            Set<Url> urls = device.getUrls();
-//            List<UrlVO> urlVOS = transformer.pos2VOs(UrlVO.class,transformer.set2List(urls));
-            List<ManageVO> list = nativeSQLReposity.listbydevice(device.getId());
-            return new ResponseEntity<>(list, HttpStatus.OK);
-        } catch (Exception e) {
-            // Return unknown error and log the exception.
-            return resultHelper.errorResp(logger, e, ErrorType.UNKNOWN, e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
+
 
     /**
      * 显示可以添加的urls
@@ -184,30 +163,7 @@ public class DeviceController {
     }
 
 
-    /**
-     * Delete manage {@link Device}.
-     *
-     * @param  {@link Device#id}
-     * @return {@link cc.superliar.vo.DeviceVO}
-     */
-    @RequestMapping(value = "/details/{id}", method = RequestMethod.DELETE)
-    public ResponseEntity manageDelete(@CurrentUser User currentUser, @PathVariable String id, @Valid DeviceParam param, BindingResult result) {
-        try {
 
-            int  idInt = Integer.parseInt(id);
-
-
-            // Delete user.
-            deviceDomain.delete2(idInt, currentUser);
-            return new ResponseEntity(HttpStatus.NO_CONTENT);
-        } catch (CommonsException e) {
-            // Return error information and log the exception.
-            return resultHelper.infoResp(logger, e.getErrorType(), e.getMessage(), HttpStatus.UNPROCESSABLE_ENTITY);
-        } catch (Exception e) {
-            // Return unknown error and log the exception.
-            return resultHelper.errorResp(logger, e, ErrorType.UNKNOWN, e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
 
 
 

@@ -54,7 +54,7 @@ public class StyleController {
 
     /**
      * Create new {@link Style}.
-     *
+     * 创建一个显示样式
      * @param param {@link StyleParam}
      * @return {@link cc.superliar.vo.StyleVO}
      */
@@ -80,7 +80,7 @@ public class StyleController {
 
     /**
      * Show all.
-     *
+     * 显示全部样式
      * @param param {@link StyleParam}
      * @return styles
      */
@@ -109,7 +109,7 @@ public class StyleController {
 
     /**
      * Show {@link cc.superliar.vo.StyleVO} by ID.
-     *
+     * 显示某个ID的显示样式
      * @param id {@link Style#id}
      * @return {@link cc.superliar.vo.StyleVO}
      */
@@ -129,7 +129,7 @@ public class StyleController {
 
     /**
      * Update {@link Style}.
-     *
+     * 更新某个显示样式
      * @param id    {@link Style#id}
      * @param param {@link StyleParam}
      * @return {@link cc.superliar.vo.StyleVO}
@@ -156,7 +156,7 @@ public class StyleController {
 
     /**
      * Delete {@link Style}.
-     *
+     * 删除某个显示样式
      * @param id {@link Style#id}
      * @return {@link cc.superliar.vo.StyleVO}
      */

@@ -47,6 +47,14 @@ public class DataController {
     @Autowired
     private Transformer transformer;
 
+
+    /**
+     * android设备获取某id的配置信息
+     * @param id
+     * @return
+     * @throws IllegalAccessException
+     * @throws InstantiationException
+     */
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity update(@PathVariable String id) throws IllegalAccessException, InstantiationException {
 

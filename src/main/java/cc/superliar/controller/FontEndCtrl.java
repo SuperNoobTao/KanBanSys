@@ -16,6 +16,11 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class FontEndCtrl {
 
+
+    /**
+     * 到登录页面
+     * @return
+     */
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public ModelAndView login() {
         ModelAndView mav = new ModelAndView();
