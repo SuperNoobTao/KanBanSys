@@ -14,11 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * Welcome controller.
  *
- * @author <a href="http://github.com/saintdan">Liao Yifan</a>
- * @date 6/25/15
- * @since JDK1.8
  */
 @RestController
 @RequestMapping(ResourceURL.RESOURCES + VersionConstant.V1)
@@ -29,7 +25,7 @@ public class WelcomeController {
   // ------------------------
 
   /**
-   * Welcome somebody.
+   * 欢迎页面
    *
    * @param user user
    * @return user's name

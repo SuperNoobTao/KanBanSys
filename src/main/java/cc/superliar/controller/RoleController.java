@@ -86,7 +86,7 @@ public class RoleController {
                     @Spec(path = "createdDate", params = {"createdDateAfter, createdDateBefore"}, spec = DateBetween.class)}) Specification<Role> roleSpecification,
             RoleParam param) {
         try {
-            if (param.getPageNo() == null) {
+            if (param.getPage() == null) {
                 return new ResponseEntity<>(roleDomain.getAll(roleSpecification, QueryHelper.getSort(param.getSortBy()), RoleVO.class), HttpStatus.OK);
             }
             return new ResponseEntity<>(roleDomain.getPage(roleSpecification, QueryHelper.getPageRequest(param), RoleVO.class), HttpStatus.OK);

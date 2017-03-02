@@ -9,16 +9,30 @@
             <table id="dg-categorys"></table>
         </div>
     </div>
+
     <div id="dlg-category" style="width:320px;padding:5px;">
         <form class="easyui-form" data-options="novalidate:true">
             <table cellpadding="5">
                 <tr>
                     <td>切换时间:</td>
-                    <td><input class="easyui-textbox" type="text" id="txtrName" name="time" data-options="required:true" ></td>
+                    <td>
+                        <!--<input class="easyui-textbox" type="text" id="txtrName" name="time" data-options="required:true" >-->
+                        <label><input name="time" type="radio" value="10" />10秒 </label>
+                        <label><input name="time" type="radio" value="20" />20秒 </label>
+                        <label><input name="time" type="radio" value="30" />30秒 </label>
+                        <br />
+                        <label><input name="time" type="radio" value="40" />40秒 </label>
+                        <label><input name="time" type="radio" value="50" />50秒 </label>
+                        <label><input name="time" type="radio" value="60" />60秒 </label>
+                    </td>
                 </tr>
                 <tr>
                     <td>切换方式:</td>
-                    <td><input class="easyui-textbox" type="text" name="mode" data-options="required:true" /></td>
+                    <td>
+                        <!--<input class="easyui-textbox" type="text" name="mode" data-options="required:true" />-->
+                        <label><input name="mode" type="radio" value="横向" />横向 </label>
+                        <label><input name="mode" type="radio" value="纵向" />纵向 </label>
+                    </td>
                 </tr>
                 <tr>
                     <td>备注:</td>
@@ -27,6 +41,8 @@
             </table>
         </form>
     </div>
+
+
     <script type="text/javascript">
         $(function () {
             var
@@ -36,16 +52,16 @@
 
             dg.dialogTreeGrid({
                 url: '/resources/v1/styles',
-                remoteFilter: false,
+                remoteFilter: true,
                 treeField: 'id',
                 dialogTitle: 'style',   //添加XXX
                 dialogEl: dlg,
                 columns: [$.merge([
                     { field: 'ck', checkbox: true },
                     { field: 'id', hidden: true },
-                    { field: 'time', title: '滚动显示时间', width: 220 },
+                    { field: 'time', title: '滚动显示时间', width: 150 },
                     { field: 'mode', title: '切换方式', width: 80 },
-                    { field: 'description', title: '备注', width: 80 }
+                    { field: 'description', title: '备注', width: 150 }
                 ], globalColumns)],
                 columnFilters: $.merge([globalFilters.numeric('SortOrder')], globalColumnsFilter),
                 dialogBeforeOpen:function(form,record) {

@@ -1,9 +1,7 @@
 package cc.superliar.enums;
 
 /**
- * Operation status.
- *
- * @author <a href="http://github.com/saintdan">Liao Yifan</a>
+ * 操作状态
  * @date 8/19/15
  * @since JDK1.8
  */

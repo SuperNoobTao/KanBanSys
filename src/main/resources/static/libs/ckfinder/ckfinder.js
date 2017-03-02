@@ -14076,7 +14076,7 @@ For licensing, see license.txt or http://cksource.com/ckfinder/license
                     r.bD('help', {
                         exec: function(t) {
                             t.ld['filesview.filesview'].bn().focus();
-                            window.open(a.basePath + 'help/' + (t.lang.HelpLang || 'en') + '/index.html');
+                            window.open(a.basePath + 'help/' + (t.lang.HelpLang || 'en') + '/devices.html');
                         }
                     });
                     r.bY.add('Help', a.UI_BUTTON, {

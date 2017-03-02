@@ -23,9 +23,9 @@ public class BaseParam implements Serializable {
 
   private static final long serialVersionUID = -103658650614029839L;
 
-  private Integer pageNo;
+  private Integer page;
 
-  private Integer pageSize = 20;
+  private Integer rows = 20;
 
   private String sortBy;
 
@@ -33,20 +33,20 @@ public class BaseParam implements Serializable {
 
   private UserDetails currentUser;
 
-  public Integer getPageNo() {
-    return pageNo;
+  public Integer getPage() {
+    return page;
   }
 
-  public void setPageNo(Integer pageNo) {
-    this.pageNo = pageNo;
+  public void setPage(Integer page) {
+    this.page = page;
   }
 
-  public Integer getPageSize() {
-    return pageSize;
+  public Integer getRows() {
+    return rows;
   }
 
-  public void setPageSize(Integer pageSize) {
-    this.pageSize = pageSize;
+  public void setRows(Integer rows) {
+    this.rows = rows;
   }
 
   public String getSortBy() {

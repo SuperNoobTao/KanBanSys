@@ -87,7 +87,7 @@ public class ResourceController {
                     @Spec(path = "createdDate", params = {"createdDateAfter, createdDateBefore"}, spec = DateBetween.class)}) Specification<Resource> resourceSpecification,
             ResourceParam param) {
         try {
-            if (param.getPageNo() == null) {
+            if (param.getPage() == null) {
                 return new ResponseEntity<>(resourceDomain.getAll(resourceSpecification, QueryHelper.getSort(param.getSortBy()), ResourceVO.class), HttpStatus.OK);
             }
             return new ResponseEntity<>(resourceDomain.getPage(resourceSpecification, QueryHelper.getPageRequest(param), ResourceVO.class), HttpStatus.OK);

@@ -12,7 +12,6 @@ import cc.superliar.enums.ErrorType;
 import cc.superliar.enums.OperationType;
 import cc.superliar.exception.CommonsException;
 import cc.superliar.param.UserParam;
-import cc.superliar.po.Role;
 import cc.superliar.po.User;
 import cc.superliar.util.QueryHelper;
 import cc.superliar.vo.UserVO;
@@ -89,7 +88,7 @@ public class UserController {
             UserParam param
     ) {
         try {
-            if (param.getPageNo() == null) {
+            if (param.getPage() == null) {
                 return new ResponseEntity<>(userDomain.getAll(userSpecification, QueryHelper.getSort(param.getSortBy()), UserVO.class), HttpStatus.OK);
             }
             return new ResponseEntity<>(userDomain.getPage(userSpecification, QueryHelper.getPageRequest(param), UserVO.class), HttpStatus.OK);

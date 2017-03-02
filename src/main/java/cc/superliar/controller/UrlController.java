@@ -11,13 +11,10 @@ import cc.superliar.domain.UrlDomain;
 import cc.superliar.enums.ErrorType;
 import cc.superliar.enums.OperationType;
 import cc.superliar.exception.CommonsException;
-import cc.superliar.param.ResourceParam;
 import cc.superliar.param.UrlParam;
-import cc.superliar.po.Resource;
 import cc.superliar.po.Url;
 import cc.superliar.po.User;
 import cc.superliar.util.QueryHelper;
-import cc.superliar.vo.ResourceVO;
 import cc.superliar.vo.UrlVO;
 import net.kaczmarzyk.spring.data.jpa.domain.DateBetween;
 import net.kaczmarzyk.spring.data.jpa.domain.In;
@@ -28,6 +25,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -38,6 +36,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by shentao on 2016/12/20.
@@ -90,10 +90,15 @@ public class UrlController {
                     @Spec(path = "createdDate", params = {"createdDateAfter, createdDateBefore"}, spec = DateBetween.class)}) Specification<Url> urlSpecification,
             UrlParam param) {
         try {
-            if (param.getPageNo() == null) {
+            if (param.getPage() == null) {
                 return new ResponseEntity<>(urlDomain.getAll(urlSpecification, QueryHelper.getSort(param.getSortBy()), UrlVO.class), HttpStatus.OK);
             }
-            return new ResponseEntity<>(urlDomain.getPage(urlSpecification, QueryHelper.getPageRequest(param), UrlVO.class), HttpStatus.OK);
+            Page<Url> urlList = urlDomain.getPage(urlSpecification, QueryHelper.getPageRequest(param), UrlVO.class);
+
+            Map<String,Object> map = new HashMap<String,Object>();
+            map.put("total",urlList.getTotalElements());
+            map.put("rows",urlList.getContent());
+            return new ResponseEntity<>(map, HttpStatus.OK);
         } catch (Exception e) {
             // Return unknown error and log the exception.
             return resultHelper.errorResp(logger, e, ErrorType.UNKNOWN, e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);

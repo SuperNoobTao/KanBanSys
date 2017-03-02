@@ -3,6 +3,7 @@ package cc.superliar.domain;
 import cc.superliar.component.Transformer;
 import cc.superliar.constant.CommonsConstant;
 import cc.superliar.enums.ErrorType;
+import cc.superliar.enums.ValidFlag;
 import cc.superliar.exception.CommonsException;
 import cc.superliar.param.BaseParam;
 import cc.superliar.param.StyleParam;
@@ -71,6 +72,9 @@ public class StyleDomain extends BaseDomain<Style,Long> {
     }
 
 
+
+
+
     // --------------------------
     // PRIVATE FIELDS AND METHODS
     // --------------------------
@@ -88,7 +92,7 @@ public class StyleDomain extends BaseDomain<Style,Long> {
     }
 
     private void styleExists(String time,String mode) throws Exception {
-        if (styleReposity.findByTimeAndMode(time,mode).isPresent()) {
+        if (styleReposity.findByTimeAndModeAndValidFlag(time,mode, ValidFlag.VALID).isPresent()) {
             // Throw group already existing exception, name taken.
             throw new CommonsException(ErrorType.SYS0111, ErrorMsgHelper.getReturnMsg(ErrorType.SYS0111, getClassT().getSimpleName(),"time or mode"));
         }

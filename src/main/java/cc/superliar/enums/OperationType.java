@@ -1,9 +1,8 @@
 package cc.superliar.enums;
 
 /**
- * Operation type in log.
+ * 日志操作解释
  *
- * @author <a href="http://github.com/saintdan">Liao Yifan</a>
  * @date 10/27/15
  * @since JDK1.8
  */

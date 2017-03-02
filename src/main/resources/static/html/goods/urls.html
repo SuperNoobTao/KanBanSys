@@ -1,0 +1,84 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+</head>
+<body>
+    <div class="easyui-layout animated fadeInRight" data-options="fit:true">
+        <div data-options="region:'center',border:false">
+            <table id="dg-brands"></table>
+        </div>
+    </div>
+
+    <div id="dlg-brands" style="width:320px;padding:5px;">
+        <form class="easyui-form" data-options="novalidate:true">
+            <table cellpadding="5">
+                <tr>
+                    <td>内容:</td>
+                    <td>
+                        <input class="easyui-textbox" type="text" id="txtrName" name="content" data-options="required:true" >
+
+                    </td>
+                </tr>
+                <tr>
+                    <td>描述:</td>
+                    <td>
+                        <input class="easyui-textbox" type="text" name="description" data-options="required:true" />
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+
+
+    <!--<script type="text/javascript">-->
+        <!--$(function() {-->
+            <!--$('#dg-brands').inlineGrid({-->
+                <!--url: '/resources/v1/urls',-->
+                <!--columns:[$.merge([-->
+                    <!--{ field: 'ck', checkbox: true },-->
+                    <!--{ field: 'id', hidden: true },-->
+                    <!--{ field: 'content', title: '内容', width: 200, editor: { type: 'textbox', options: { required: true } }, sortable: true },-->
+                    <!--{ field: 'description', title: '描述', width: 200, editor: { type: 'textbox', options: { required: true } }, sortable: true },-->
+                <!--], globalColumns)],-->
+                <!--columnFilters: globalColumnsFilter-->
+            <!--});-->
+        <!--});-->
+    <!--</script>-->
+
+    <script type="text/javascript">
+        $(function () {
+            var
+                dg = $('#dg-brands'),
+                dlg = $('#dlg-brands')
+
+
+            dg.dialogTreeGrid({
+                url: '/resources/v1/urls',
+                remoteFilter: true,
+                treeField: 'id',
+                dialogTitle: 'url',   //添加XXX
+                dialogEl: dlg,
+                columns: [$.merge([
+                    { field: 'ck', checkbox: true },
+                    { field: 'id', hidden: true },
+                    { field: 'content', title: '内容', width: 220 },
+                    { field: 'description', title: '描述', width: 150 },
+                ], globalColumns)],
+                columnFilters: $.merge([globalFilters.numeric('SortOrder')], globalColumnsFilter),
+                dialogBeforeOpen:function(form,record) {
+
+                    if (record) {
+                        if (record['ParentId'] == null) record['ParentId'] = '';
+                        form.form('load', record);
+                    }
+                    else {
+                        form.form('reset');
+                    }
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>

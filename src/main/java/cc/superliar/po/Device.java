@@ -154,6 +154,19 @@ public class Device implements Serializable{
     public Device() {
     }
 
-
-
+    @Override
+    public String toString() {
+        return "Device{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", location='" + location + '\'' +
+                ", screenSize='" + screenSize + '\'' +
+                ", screenNum='" + screenNum + '\'' +
+                ", styleid='" + styleid + '\'' +
+                ", createdDate=" + createdDate +
+                ", description='" + description + '\'' +
+                ", lastModifiedDate=" + lastModifiedDate +
+                ", validFlag=" + validFlag +
+                '}';
+    }
 }

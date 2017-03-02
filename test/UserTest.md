@@ -80,7 +80,7 @@ description: null
 ```
 
 ### 访问用户(过滤条件)
-url: http://localhost:8080/resources/v1/users?pageNo=1&pageSize=20&name=admin&sortBy=id:asc,name:desc
+url: http://localhost:8080/resources/v1/users?page=1&rows=20&name=admin&sortBy=id:asc,name:desc
 GET
 
 responese：

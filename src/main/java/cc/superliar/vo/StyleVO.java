@@ -72,3 +72,12 @@ public class StyleVO implements Serializable{
         this.message = message;
     }
 }
+//     if (Integer.parseInt(mode)==0) {
+//             this.mode="NO-ACTION";
+//             }
+//             if (Integer.parseInt(mode)==1) {
+//             this.mode="Horizontal";
+//             }
+//             if (Integer.parseInt(mode)==2) {
+//             this.mode="Vertical";
+//             }

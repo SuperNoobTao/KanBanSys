@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 public class QueryHelper {
 
   public static PageRequest getPageRequest(BaseParam param) {
-    return new PageRequest(param.getPageNo() == null ? 0 : param.getPageNo() - 1, param.getPageSize(), QueryHelper.getSort(param.getSortBy()));
+    return new PageRequest(param.getPage() == null ? 0 : param.getPage() - 1, param.getRows(), QueryHelper.getSort(param.getSortBy()));
   }
 
   /**

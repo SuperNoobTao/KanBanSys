@@ -352,39 +352,32 @@
       {
         "ParentId": "0fffc933-6c22-e611-9798-98e0d97b8c7e",
         "MenuText": "链接管理",
-        "MenuLink": "goods/brands",
+        "MenuLink": "goods/urls",
         "MenuType": null,
         "IconCls": null,
         "SortOrder": 1,
         "IsActivated": "on",
         "Buttons": [
           {
+            "ButtonName": "添加",
+            "ButtonDesc": null,
+            "ButtonLink": "add",
+            "IconCls": "fa-plus",
+            "Id": "b25a3795-6c22-e611-9798-98e0d97b8c7e"
+          },
+          {
             "ButtonName": "删除",
             "ButtonDesc": null,
             "ButtonLink": "del",
             "IconCls": "fa-remove",
-            "Id": "b25a3795-6c22-e611-9798-98e0d97b8c7e"
-          },
-          {
-            "ButtonName": "撤销",
-            "ButtonDesc": null,
-            "ButtonLink": "undo",
-            "IconCls": "fa-undo",
             "Id": "b45a3795-6c22-e611-9798-98e0d97b8c7e"
           },
           {
-            "ButtonName": "新增",
+            "ButtonName": "修改",
             "ButtonDesc": null,
-            "ButtonLink": "insert",
-            "IconCls": "fa-plus",
+            "ButtonLink": "edit",
+            "IconCls": "fa-edit",
             "Id": "b35a3795-6c22-e611-9798-98e0d97b8c7e"
-          },
-          {
-            "ButtonName": "保存",
-            "ButtonDesc": null,
-            "ButtonLink": "save",
-            "IconCls": "fa-save",
-            "Id": "b55a3795-6c22-e611-9798-98e0d97b8c7e"
           }
         ],
         "id": "0708a554-6c22-e611-9798-98e0d97b8c7e",
@@ -397,7 +390,7 @@
       {
         "ParentId": "0fffc933-6c22-e611-9798-98e0d97b8c7e",
         "MenuText": "显示样式管理",
-        "MenuLink": "goods/categorys",
+        "MenuLink": "goods/styles",
         "MenuType": null,
         "IconCls": null,
         "SortOrder": 2,
@@ -435,7 +428,7 @@
       {
         "ParentId": "0fffc933-6c22-e611-9798-98e0d97b8c7e",
         "MenuText": "设备管理",
-        "MenuLink": "goods/index",
+        "MenuLink": "goods/devices",
         "MenuType": null,
         "IconCls": null,
         "SortOrder": 3,
@@ -473,7 +466,7 @@
       {
         "ParentId": "0fffc933-6c22-e611-9798-98e0d97b8c7e",
         "MenuText": "配对管理",
-        "MenuLink": "goods/devicemanager",
+        "MenuLink": "goods/management",
         "MenuType": null,
         "IconCls": null,
         "SortOrder": 4,

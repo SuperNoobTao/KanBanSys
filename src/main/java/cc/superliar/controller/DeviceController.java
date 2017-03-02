@@ -30,20 +30,18 @@ import net.kaczmarzyk.spring.data.jpa.domain.Like;
 import net.kaczmarzyk.spring.data.jpa.web.annotation.And;
 import net.kaczmarzyk.spring.data.jpa.web.annotation.Spec;
 import org.apache.commons.lang3.StringUtils;
-import org.json.JSONArray;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.domain.Specification;
-import org.springframework.data.repository.query.Param;
-import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -88,7 +86,7 @@ public class DeviceController {
 
     /**
      * Show all.
-     *
+     * 分页显示设备列表
      * @param param {@link DeviceParam}
      * @return devices
      */
@@ -101,12 +99,18 @@ public class DeviceController {
             DeviceParam param
     ) {
         try {
-            if (param.getPageNo() == null) {
+
+            if (param.getPage() == null) {
                 return new ResponseEntity<>(deviceDomain.getAll(deviceSpecification, QueryHelper.getSort(param.getSortBy()), DeviceVO.class), HttpStatus.OK);
             }
-            return new ResponseEntity<>(deviceDomain.getPage(deviceSpecification, QueryHelper.getPageRequest(param), DeviceVO.class), HttpStatus.OK);
+
+            Page<Device> deviceList = deviceDomain.getPage(deviceSpecification, QueryHelper.getPageRequest(param), DeviceVO.class);
+            Map<String,java.lang.Object> map = new HashMap<String,Object>();
+            map.put("total",deviceList.getTotalElements());
+            map.put("rows",deviceList.getContent());
+
+            return  new ResponseEntity<>(map, HttpStatus.OK);
         } catch (Exception e) {
-            // Return unknown error and log the exception.
             return resultHelper.errorResp(logger, e, ErrorType.UNKNOWN, e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }

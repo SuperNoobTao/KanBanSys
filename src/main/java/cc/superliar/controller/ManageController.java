@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 
 /**
+ * 管理设备链接列表
  * Created by shentao on 2016/12/26.
  */
 @RestController
@@ -36,9 +37,9 @@ public class ManageController {
     // ------------------------
 
     /**
-     * Create new {@link Device}.
+     * Create new {@link Manage}.
      *
-     * @param param {@link DeviceParam}
+     * @param param {@link ManageParam}
      * @return {@link cc.superliar.vo.DeviceVO}
      */
     @RequestMapping(method = RequestMethod.POST)

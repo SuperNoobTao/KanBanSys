@@ -302,6 +302,7 @@ $.extend($.fn.datagrid.defaults, {
 
             var grid = dg.treegrid($.extend({
                 method: 'get',
+                pagination: true,
                 rownumbers: true,
                 autoRowHeight: false,
                 idField: 'id',

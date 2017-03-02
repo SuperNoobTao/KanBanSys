@@ -20,13 +20,13 @@ import cc.superliar.vo.StyleVO;
 
 import net.kaczmarzyk.spring.data.jpa.domain.DateBetween;
 import net.kaczmarzyk.spring.data.jpa.domain.In;
-import net.kaczmarzyk.spring.data.jpa.domain.Like;
 import net.kaczmarzyk.spring.data.jpa.web.annotation.And;
 import net.kaczmarzyk.spring.data.jpa.web.annotation.Spec;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -37,6 +37,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by shentao on 2016/12/21.
@@ -90,10 +92,14 @@ public class StyleController {
             StyleParam param
     ) {
         try {
-            if (param.getPageNo() == null) {
+            if (param.getPage() == null) {
                 return new ResponseEntity<>(styleDomain.getAll(styleSpecification, QueryHelper.getSort(param.getSortBy()), StyleVO.class), HttpStatus.OK);
             }
-            return new ResponseEntity<>(styleDomain.getPage(styleSpecification, QueryHelper.getPageRequest(param), StyleVO.class), HttpStatus.OK);
+            Page<Style> deviceList = styleDomain.getPage(styleSpecification, QueryHelper.getPageRequest(param), StyleVO.class);
+            Map<String,Object> map = new HashMap<String,Object>();
+            map.put("total",deviceList.getTotalElements());
+            map.put("rows",deviceList.getContent());
+            return  new ResponseEntity<>(map, HttpStatus.OK);
         } catch (Exception e) {
             // Return unknown error and log the exception.
             return resultHelper.errorResp(logger, e, ErrorType.UNKNOWN, e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
