@@ -59,8 +59,9 @@
                 columns: [$.merge([
                     { field: 'ck', checkbox: true },
                     { field: 'id', hidden: true },
-                    { field: 'time', title: '滚动显示时间', width: 150 },
-                    { field: 'mode', title: '切换方式', width: 80 },
+                    { field: 'name', title: '名称', width: 100 },
+                    { field: 'time', title: '滚动显示时间', width: 100 },
+                    { field: 'mode', title: '切换方式', width: 100 },
                     { field: 'description', title: '备注', width: 150 }
                 ], globalColumns)],
                 columnFilters: $.merge([globalFilters.numeric('SortOrder')], globalColumnsFilter),

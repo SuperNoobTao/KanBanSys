@@ -44,6 +44,37 @@ public class DeviceDomain extends BaseDomain<Device,String> {
     // ------------------------
 
     /**
+     * Delete <T>, update valid flag to invalid.
+     *
+     *
+     * @param currentUser current user
+     * @throws Exception
+     */
+    @Transactional public void deleteList(List<String> isList, User currentUser) throws Exception {
+        for(String id : isList) {
+            DeviceParam inputParam = new DeviceParam(StringUtils.isBlank(id) ? null : id);
+            Device po = findByIdParam(inputParam);
+
+            BeanUtils.copyPropertiesIgnoreNull(inputParam, po);
+
+            Field lastModifiedDateField = po.getClass().getDeclaredField(CommonsConstant.LAST_MODIFIED_DATE);
+            lastModifiedDateField.setAccessible(true);
+            lastModifiedDateField.set(po, LocalDateTime.now());
+            logHelper.logUsersOperations(OperationType.DELETE, getClassT().getName(), currentUser);
+            deviceReposity.save(setInvalid(po));
+
+
+        }
+    }
+
+
+
+
+
+
+
+
+    /**
      * Create new {@link Role}.
      *
      * @param currentUser current user
@@ -139,6 +170,22 @@ public class DeviceDomain extends BaseDomain<Device,String> {
         logHelper.logUsersOperations(OperationType.DELETE, getClassT().getName(), currentUser);
         manageReposity.delete(id);
     }
+
+
+    /**
+     * Set invalid flag
+     *
+     * @param po po
+     * @return po with invalid flag
+     * @throws Exception
+     */
+    private Device setInvalid(Device po) throws Exception {
+        Field validFlagField = po.getClass().getDeclaredField(CommonsConstant.VALID_FLAG);
+        validFlagField.setAccessible(true);
+        validFlagField.set(po, ValidFlag.INVALID);
+        return po;
+    }
+
 
 
 }

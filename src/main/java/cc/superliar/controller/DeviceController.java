@@ -29,6 +29,8 @@ import net.kaczmarzyk.spring.data.jpa.domain.In;
 import net.kaczmarzyk.spring.data.jpa.domain.Like;
 import net.kaczmarzyk.spring.data.jpa.web.annotation.And;
 import net.kaczmarzyk.spring.data.jpa.web.annotation.Spec;
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,10 +42,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import net.sf.*;
 
 /**
  * Created by Administrator on 2016/12/20 0020.
@@ -223,8 +229,34 @@ public class DeviceController {
 
 
 
+    /**
+     * 批量删除
+     *
+     * @return {@link cc.superliar.vo.DeviceVO}
+     */
+    @RequestMapping( method = RequestMethod.DELETE)
+    public ResponseEntity deleteList(@CurrentUser User currentUser, HttpServletRequest request) {
+        try {
 
+            List<String> idList = new ArrayList<String>();
+            System.out.println(request.getParameter("input"));
+            JSONArray jsonArr = JSONArray.fromObject(request.getParameter("input"));
+            for(Object obj : jsonArr){
+                JSONObject jso = JSONObject.fromObject(obj);
+                idList.add( jso.get("Id").toString() );//id列表
+            }
 
+            // Delete user. 遍历ID，批量删除
+            deviceDomain.deleteList(idList, currentUser);
+            return new ResponseEntity(HttpStatus.NO_CONTENT);
+        } catch (CommonsException e) {
+            // Return error information and log the exception.
+            return resultHelper.infoResp(logger, e.getErrorType(), e.getMessage(), HttpStatus.UNPROCESSABLE_ENTITY);
+        } catch (Exception e) {
+            // Return unknown error and log the exception.
+            return resultHelper.errorResp(logger, e, ErrorType.UNKNOWN, e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 
 
 

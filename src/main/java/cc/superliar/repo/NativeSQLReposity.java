@@ -28,6 +28,7 @@ public class NativeSQLReposity {
     private EntityManager em;
 
     public List<ManageVO> listbydevice(String device){
+
         List<ManageVO> list = new ArrayList<>();
         String sql =
                 "select id,device_id,m.url_id,u.url_content,u.url_description " +
@@ -99,5 +100,23 @@ public class NativeSQLReposity {
     }
 
 
+    /**
+     * 删除设备
+     * @param device
+     */
+    public void deletebydevice(String device){
+        em.getTransaction().begin();//注意要更新的时候需要开启事物
+        List<Url> list = new ArrayList<>();
+        String sql =
+                "select u.url_id,u.url_content,u.url_description " +
+                        "from tb_device_has_url m,tb_url u " +
+                        "where m.url_id = u.url_id and  m.device_id=:device";
+        javax.persistence.Query query = em.createNativeQuery(sql);
+        query.setParameter("device", device);
+        query.executeUpdate();
+        em.close();
+
+
+    }
 
 }

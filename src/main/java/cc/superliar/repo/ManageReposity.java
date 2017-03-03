@@ -10,4 +10,6 @@ public interface ManageReposity extends CustomRepository<Manage, Integer> {
 
 
 
+
+
 }

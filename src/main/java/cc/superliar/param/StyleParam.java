@@ -11,6 +11,8 @@ public class StyleParam extends BaseParam {
     @NotNullField(value = {OperationType.UPDATE, OperationType.DELETE}, message = "id cannot be null.")
     private Long id;
 
+    private String name;
+
     @NotNullField(value = OperationType.CREATE, message = "time cannot be null.")
     private String time;
 
@@ -25,6 +27,14 @@ public class StyleParam extends BaseParam {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getTime() {

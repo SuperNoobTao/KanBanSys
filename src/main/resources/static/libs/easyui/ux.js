@@ -413,24 +413,35 @@ $.extend($.fn.datagrid.defaults, {
                 },
                 //删除
                 del: function (dg) {
-                    var record = dg.datagrid('getSelected');
-                    if (record != null) {
+                    var records = dg.datagrid('getSelections');
+                    if (records.length > 0) {
+                        var models = [];
+                        $.each(records, function (i, n) {
+                            models.push({
+                                Id: n['id'],
+                                Remark: n[opt.deleteField]
+                            });
+                        });
                         $.messager.confirm('Confirm', lang.deleteConfirm, function (r) {
                             if (r) {
                                 $.ajax({
-                                    method: 'DELETE',
-                                    url: opt.url+ (record ? '/' + record['id'] : ''),
+                                    type: 'POST',
+                                    url: opt.url,
+                                    //contentType: 'application/json',
+                                    //contentType: 'application/x-www-form-urlencoded; charset=utf-8',
                                     data: {
-                                        id: record['id'],
+                                        _method:'DELETE',
+                                        input: JSON.stringify(models)
                                     }
                                 }).done(function (data) {
 
-                                    showToast(lang.deleteSuccess);
-                                    dg.datagrid('reload');
+                                        showToast(lang.deleteSuccess);
+                                        dg.datagrid('reload');
 
                                 });
                             }
                         });
+
 
                     } else {
                         showToast(lang.deletePleaseSelected);

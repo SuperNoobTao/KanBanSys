@@ -25,6 +25,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.PrimitiveIterator;
 
 /**
  * Created by shentao on 2016/12/21.
@@ -41,13 +42,14 @@ public class StyleDomain extends BaseDomain<Style,Long> {
      * Create new {@link Style}.
      *
      * @param currentUser current user
-     * @param param       {@link ResourceParam}
-     * @return {@link ResourceVO}
+     * @param param       {@link StyleParam}
+     * @return {@link StyleVO}
      * @throws CommonsException {@link ErrorType#SYS0111} resource already existing, name taken.
      */
     @Transactional
     public StyleVO create(StyleParam param, User currentUser) throws Exception {
         styleExists(param.getTime(),param.getMode());
+        param.setName(param.getMode()+":"+param.getTime());
         return super.createByPO(StyleVO.class, styleParam2PO(param, new Style(), currentUser), currentUser);
     }
 
@@ -64,6 +66,7 @@ public class StyleDomain extends BaseDomain<Style,Long> {
         if (( StringUtils.isNotBlank(param.getTime())||StringUtils.isNotBlank(param.getMode()) )&& (!param.getTime().equals(style.getTime())||!param.getMode().equals(style.getMode()))) {
             styleExists(param.getTime(),param.getMode());
         }
+        param.setName(param.getMode()+":"+param.getTime());
         return super.updateByPO(StyleVO.class, styleParam2PO(param, style, currentUser), currentUser);
     }
 

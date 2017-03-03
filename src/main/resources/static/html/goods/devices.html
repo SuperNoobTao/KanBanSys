@@ -9,9 +9,56 @@
             <table id="dg-Goods"></table>
         </div>
     </div>
+
+    <div id="dlg-Goods" style="width:320px;padding:5px;">
+        <form class="easyui-form" data-options="novalidate:true">
+            <table cellpadding="5">
+                <tr>
+                    <td>名称:</td>
+                    <td>
+                        <input class="easyui-textbox" type="text" id="txtrName" name="content" data-options="required:true" >
+
+                    </td>
+                </tr>
+                <tr>
+                    <td>位置:</td>
+                    <td>
+                        <input class="easyui-textbox" type="text" name="description" data-options="required:true" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>屏幕大小:</td>
+                    <td>
+                        <input class="easyui-textbox" type="text" name="description" data-options="required:true" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>分屏数量:</td>
+                    <td>
+                        <input class="easyui-textbox" type="text" name="description" data-options="required:true" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>显示样式:</td>
+                    <td>
+                        <input class="easyui-textbox" type="text" name="description" data-options="required:true" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>备注:</td>
+                    <td>
+                        <input class="easyui-textbox" type="text" name="description" data-options="required:true" />
+                    </td>
+                </tr>
+
+            </table>
+        </form>
+    </div>
+
     <script type="text/javascript">
         $(function () {
-            var dg = $('#dg-Goods');
+            var dg = $('#dg-Goods'),
+                dlg = $('#dlg-Goods')
 
             dg.dialogDataGrid({
                 url: '/resources/v1/devices',
@@ -32,5 +79,41 @@
             });
         });
     </script>
+
+    <!--<script type="text/javascript">-->
+        <!--$(function () {-->
+            <!--var-->
+                <!--dg = $('#dg-categorys'),-->
+                <!--dlg = $('#dlg-category')-->
+
+
+            <!--dg.dialogTreeGrid({-->
+                <!--url: '/resources/v1/styles',-->
+                <!--remoteFilter: true,-->
+                <!--treeField: 'id',-->
+                <!--dialogTitle: 'style',   //添加XXX-->
+                <!--dialogEl: dlg,-->
+                <!--columns: [$.merge([-->
+                    <!--{ field: 'ck', checkbox: true },-->
+                    <!--{ field: 'id', hidden: true },-->
+                    <!--{ field: 'time', title: '滚动显示时间', width: 150 },-->
+                    <!--{ field: 'mode', title: '切换方式', width: 80 },-->
+                    <!--{ field: 'description', title: '备注', width: 150 }-->
+                <!--], globalColumns)],-->
+                <!--columnFilters: $.merge([globalFilters.numeric('SortOrder')], globalColumnsFilter),-->
+                <!--dialogBeforeOpen:function(form,record) {-->
+
+                    <!--if (record) {-->
+                        <!--if (record['ParentId'] == null) record['ParentId'] = '';-->
+                        <!--form.form('load', record);-->
+                    <!--}-->
+                    <!--else {-->
+                        <!--form.form('reset');-->
+                    <!--}-->
+                <!--}-->
+            <!--});-->
+        <!--});-->
+    <!--</script>-->
+
 </body>
 </html>

@@ -26,11 +26,15 @@ public class Style implements Serializable{
     @Column(name = "style_id")
     private Long id;
 
+    @Column(name = "style_sname")
+    private String name;
+
     @Column(name = "style_stime")
     private String time;
 
     @Column(name = "style_smode")
     private String mode;
+
 
     @CreatedDate
     @Column(name = "style_created_date")
@@ -52,6 +56,14 @@ public class Style implements Serializable{
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getTime() {

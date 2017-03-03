@@ -214,6 +214,14 @@ public abstract class BaseDomain<T, ID extends Serializable> {
     repository.save(setInvalid(po));
   }
 
+
+
+
+
+
+
+
+
   /**
    * update valid flag to invalid.by id
    * @param id
