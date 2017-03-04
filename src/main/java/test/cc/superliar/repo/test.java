@@ -3,6 +3,7 @@ package test.cc.superliar.repo;
 import cc.superliar.Application;
 
 
+import cc.superliar.domain.ManageDomain;
 import cc.superliar.enums.ValidFlag;
 import cc.superliar.po.Device;
 import cc.superliar.po.Manage;
@@ -38,6 +39,8 @@ public class test {
     private ManageReposity manageReposity;
     @Autowired
     private DeviceReposity deviceReposity;
+    @Autowired
+    private ManageDomain manageDomain;
 
     @Test
     public void likeName() {
@@ -66,10 +69,13 @@ public class test {
 //
 //            System.out.println(devices);
 
-        List<Url> urls = nativeSQLReposity.listbydevice3("111");
-        for (int i=0;i<urls.size();i++) {
-            System.out.println(urls.get(i).getContent());
-        }
+//        List<Url> urls = nativeSQLReposity.listbydevice3("111");
+//        for (int i=0;i<urls.size();i++) {
+//            System.out.println(urls.get(i).getContent());
+//        }
+
+        //删除
+        manageDomain.deleteByDeviceId("111");
 
 
 

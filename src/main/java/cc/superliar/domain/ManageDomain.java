@@ -37,6 +37,17 @@ public class ManageDomain extends BaseDomain<Manage,Integer> {
     // ------------------------
 
     /**
+     * 根据设备id删除对应url
+     * @param id
+     */
+    @Transactional
+    public void deleteByDeviceId(String id){
+        manageReposity.deleteManageById(id);
+    }
+
+
+
+    /**
      * Create new {@link Role}.
      *
      * @param currentUser current user

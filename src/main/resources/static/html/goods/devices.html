@@ -63,8 +63,8 @@
             dg.dialogDataGrid({
                 url: '/resources/v1/devices',
                 dialogTitle: '商品',
-                dialogUrl:'goods/savegoods',
                 deleteField: 'GoodsName',
+                dialogEl: dlg,
                 columns: [jQuery.merge([
                     { field: 'ck', checkbox: true },
                     { field: 'id', hidden: true },
@@ -75,7 +75,17 @@
                     { field: 'styleid', title: '显示样式', width: 80 },
                     { field: 'description', title: '备注', width: 150 },
                 ], globalColumns)],
-                columnFilters: $.merge([globalFilters.numeric('Price')], globalColumnsFilter)
+                columnFilters: $.merge([globalFilters.numeric('Price')], globalColumnsFilter),
+                dialogBeforeOpen:function(form,record) {
+
+                    if (record) {
+                        if (record['ParentId'] == null) record['ParentId'] = '';
+                        form.form('load', record);
+                    }
+                    else {
+                        form.form('reset');
+                    }
+                }
             });
         });
     </script>

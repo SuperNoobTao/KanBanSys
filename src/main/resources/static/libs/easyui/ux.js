@@ -351,7 +351,8 @@ $.extend($.fn.datagrid.defaults, {
                     });
                 },
                 newTab: function (dg, record) {
-                    opentab(opt.dialogUrl, (record ? '修改' : '添加') + opt.dialogTitle, null, record);
+                    opentab(opt.dialogUrl, (record ? '修改' : '添加') + opt.dialogTitle);
+                    return false;
                 },
                 dialog: function (dg, record) {
                     var dlg = $(opt.dialogEl),
@@ -403,10 +404,7 @@ $.extend($.fn.datagrid.defaults, {
                 edit: function (dg) {
                     var selected = dg.datagrid('getSelected');
                     if (selected != null) {
-                        if (opt.dialogEl != null)
-                            this.dialog(dg, selected);
-                        else
-                            this.newTab(dg,selected);
+                        this.dialog(dg, selected);
                     } else {
                         showToast(lang.editPleaseSelected);
                     }

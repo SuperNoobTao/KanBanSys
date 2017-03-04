@@ -61,8 +61,8 @@ public class DeviceDomain extends BaseDomain<Device,String> {
             lastModifiedDateField.setAccessible(true);
             lastModifiedDateField.set(po, LocalDateTime.now());
             logHelper.logUsersOperations(OperationType.DELETE, getClassT().getName(), currentUser);
-            deviceReposity.save(setInvalid(po));
-
+            deviceReposity.save(setInvalid(po));//设置设备可用字段为0
+            manageDomain.deleteByDeviceId(id);//删除对应
 
         }
     }
@@ -126,6 +126,8 @@ public class DeviceDomain extends BaseDomain<Device,String> {
     @Autowired private CustomPasswordEncoder passwordEncoder;
 
     @Autowired private Transformer transformer;
+
+    @Autowired private ManageDomain manageDomain;
 
     @Autowired public DeviceDomain(DeviceReposity deviceReposity) {
         this.deviceReposity = deviceReposity;
