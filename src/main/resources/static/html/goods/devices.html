@@ -14,35 +14,43 @@
         <form class="easyui-form" data-options="novalidate:true">
             <table cellpadding="5">
                 <tr>
+                    <td>id:</td>
+                    <td>
+                        <input class="easyui-textbox" type="text"  name="id" data-options="required:true" disabled>
+
+                    </td>
+                </tr>
+                <tr>
                     <td>名称:</td>
                     <td>
-                        <input class="easyui-textbox" type="text" id="txtrName" name="content" data-options="required:true" >
+                        <input class="easyui-textbox" type="text" id="txtrName" name="name" data-options="required:true" >
 
                     </td>
                 </tr>
                 <tr>
                     <td>位置:</td>
                     <td>
-                        <input class="easyui-textbox" type="text" name="description" data-options="required:true" />
+                        <input class="easyui-textbox" type="text" name="location" data-options="required:true" />
                     </td>
                 </tr>
                 <tr>
                     <td>屏幕大小:</td>
                     <td>
-                        <input class="easyui-textbox" type="text" name="description" data-options="required:true" />
+                        <input class="easyui-textbox" type="text" name="screenSize" data-options="required:true" />
                     </td>
                 </tr>
                 <tr>
                     <td>分屏数量:</td>
                     <td>
-                        <input class="easyui-textbox" type="text" name="description" data-options="required:true" />
+                        <!--<input class="easyui-textbox" type="text" name="screenNum" data-options="required:true" />-->
+                        <label><input name="screenNum" type="radio" value="1" />1 </label>
+                        <label><input name="screenNum" type="radio" value="4" />4 </label>
+                        <label><input name="screenNum" type="radio" value="9" />9 </label>
                     </td>
                 </tr>
                 <tr>
-                    <td>显示样式:</td>
-                    <td>
-                        <input class="easyui-textbox" type="text" name="description" data-options="required:true" />
-                    </td>
+                    <td>部门:</td>
+                    <td colspan="3"><input name="styleid" style="width: 90%;"></td>
                 </tr>
                 <tr>
                     <td>备注:</td>
@@ -58,25 +66,36 @@
     <script type="text/javascript">
         $(function () {
             var dg = $('#dg-Goods'),
-                dlg = $('#dlg-Goods')
+                dlg = $('#dlg-Goods'),
+                cmbtree = dlg.find('input[name="styleid"]')
+
 
             dg.dialogDataGrid({
                 url: '/resources/v1/devices',
-                dialogTitle: '商品',
-                deleteField: 'GoodsName',
+                dialogTitle: '设备',
+                deleteField: 'id',
                 dialogEl: dlg,
                 columns: [jQuery.merge([
                     { field: 'ck', checkbox: true },
-                    { field: 'id', hidden: true },
-                    { field: 'name', title: '名称', width: 150, sortable: true },
+                    { field: 'id', title: 'id', width: 150 },
+                    { field: 'name', title: '名称', width: 80, sortable: true },
                     { field: 'location', title: '位置', width: 150 },
-                    { field: 'screenSize', title: '屏幕大小', width: 80 },
+                    { field: 'screenSize', title: '屏幕大小(寸)', width: 80 },
                     { field: 'screenNum', title: '分屏数量', width: 80 },
-                    { field: 'styleid', title: '显示样式', width: 80 },
+                    { field: 'stylename', title: '显示样式', width: 80 },
                     { field: 'description', title: '备注', width: 150 },
                 ], globalColumns)],
                 columnFilters: $.merge([globalFilters.numeric('Price')], globalColumnsFilter),
                 dialogBeforeOpen:function(form,record) {
+
+                    cmbtree.combobox({
+                        url: '/resources/v1/styles',
+                        method: 'get',
+                        valueField: 'id',
+                        textField: 'name',
+                        required: true,
+                        panelHeight: 'auto'
+                    });
 
                     if (record) {
                         if (record['ParentId'] == null) record['ParentId'] = '';

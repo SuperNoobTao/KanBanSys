@@ -120,7 +120,7 @@
 
 
                     if (record) {
-                        if (record['Team'] != null) record['TeamId'] = record['Team'].Id;
+                        if (record['Team'] != null) record['styleid'] = record['Team'].Id;
                         if (record['Roles'] != null) {
                             var roles = [];
                             $.each(record['Roles'], function (i, n) {

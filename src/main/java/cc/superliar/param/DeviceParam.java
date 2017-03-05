@@ -29,6 +29,8 @@ public class DeviceParam extends BaseParam{
 
     private String styleid;
 
+    private String stylename;
+
     private String description;
 
     private String urlIds;
@@ -80,6 +82,14 @@ public class DeviceParam extends BaseParam{
 
     public void setStyleid(String styleid) {
         this.styleid = styleid;
+    }
+
+    public String getStylename() {
+        return stylename;
+    }
+
+    public void setStylename(String stylename) {
+        this.stylename = stylename;
     }
 
     public String getDescription() {

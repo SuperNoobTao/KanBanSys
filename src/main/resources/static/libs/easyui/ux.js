@@ -368,7 +368,7 @@ $.extend($.fn.datagrid.defaults, {
                                 var data = form.serialize();
                                 $.ajax({
                                     method: record ? 'PUT' : 'POST',
-                                    url: opt.url + (record ? '/' + record['Id'] : ''),
+                                    url: opt.url + (record ? '/' + record['id'] : ''),
                                     data: data,
                                     beforeSend: function () {
                                         var isValidate = form.form('enableValidation').form('validate');
@@ -376,11 +376,15 @@ $.extend($.fn.datagrid.defaults, {
                                         return isValidate;
                                     }
                                 }).done(function (data) {
-                                    showToast(data.message);
                                     $(btn).linkbutton('enable');
-                                    if (data.success) {
-                                        dg.datagrid('reload');
-                                        dlg.dialog('close');
+
+                                    switch(data.code){
+                                        case "200":
+                                            showToast(data.message);
+                                            dg.datagrid('reload');
+                                            dlg.dialog('close');
+                                        case "SYS0111": showToast(data.message);break;
+                                        case "10000":alert("系统故障");
                                     }
                                 });
                             }

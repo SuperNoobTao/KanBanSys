@@ -11,11 +11,8 @@ import cc.superliar.param.DeviceParam;
 
 import cc.superliar.param.RoleParam;
 import cc.superliar.param.UserParam;
-import cc.superliar.po.Device;
-import cc.superliar.po.Role;
-import cc.superliar.po.Url;
+import cc.superliar.po.*;
 
-import cc.superliar.po.User;
 import cc.superliar.repo.DeviceReposity;
 import cc.superliar.repo.ManageReposity;
 import cc.superliar.util.BeanUtils;
@@ -25,6 +22,8 @@ import cc.superliar.vo.RoleVO;
 import cc.superliar.vo.UserVO;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -68,7 +67,20 @@ public class DeviceDomain extends BaseDomain<Device,String> {
     }
 
 
-
+    /**
+     * Get all <T>.
+     *
+     * @return <T>s
+     * @throws Exception
+     */
+    @SuppressWarnings("unchecked")
+    public List<DeviceVO> getAllDevice(Specification<Device> specification, Sort sort, Class<DeviceVO> voType) throws InstantiationException, IllegalAccessException {
+        List<Device> pos = deviceReposity.findAll(specification, sort);
+        if (pos.isEmpty()) {
+            return null;
+        }
+        return transformer.pos2VOs(voType, pos);
+    }
 
 
 
@@ -99,6 +111,8 @@ public class DeviceDomain extends BaseDomain<Device,String> {
      */
     @Transactional public DeviceVO update(DeviceParam param, User currentUser) throws Exception {
         Device device = findById(param.getId());
+        Style style = styleDomain.findByIdAndValidFlag(Long.parseLong(param.getStyleid()));
+        param.setStylename(style.getName());
         //当id不为空或者id改变时需要确认重复与否
         if (StringUtils.isNotBlank(param.getId()) && !param.getId().equals(device.getId())) {
             idExists(param.getId());
@@ -128,6 +142,8 @@ public class DeviceDomain extends BaseDomain<Device,String> {
     @Autowired private Transformer transformer;
 
     @Autowired private ManageDomain manageDomain;
+
+    @Autowired private StyleDomain styleDomain;
 
     @Autowired public DeviceDomain(DeviceReposity deviceReposity) {
         this.deviceReposity = deviceReposity;

@@ -16,12 +16,12 @@
     <form class="easyui-form" data-options="novalidate:true">
         <table cellpadding="5">
             <tr>
-                <td>部门:</td>
-                <td colspan="3"><input name="TeamId"></td>
+                <td>请选择设备:</td>
+                <td colspan="3"><input name="device"></td>
             </tr>
             <tr>
-                <td>角色:</td>
-                <td colspan="3"><input name="RoleId"></td>
+                <td>请选择链接:</td>
+                <td colspan="3"><input name="url"></td>
             </tr>
 
         </table>
@@ -30,16 +30,15 @@
 <div id="dlg-permissions"></div>
 <script type="text/javascript">
 
-    $('username').textbox('setValue','aaa');
+
     $(function () {
         var
             dg = $('#dg-urls'),
             dlg = $('#dlg-user'),
             dlgPermissions = $('#dlg-permissions'),
             teamtree = $('#tree-devices'),
-            cmbtree = dlg.find('input[name="TeamId"]'),
-            cmbrole = dlg.find('input[name="RoleId"]'),
-            textuser = dlg.find('input[name="UserName"]'),
+            cmbtree = dlg.find('input[name="device"]'),
+            cmbrole = dlg.find('input[name="url"]'),
             treePermissions = null;
 
         teamtree.tree({
@@ -54,9 +53,8 @@
         });
 
         dg.dialogDataGrid({
-
             url: '/resources/v1/devices/details',
-            dialogTitle: '用户',
+            dialogTitle: '配对',
             dialogEl: dlg,
             deleteField: 'MenuText',
             columns: [$.merge([
@@ -80,9 +78,9 @@
                     panelHeight: 'auto',
                     width:360,
 
-                    //查询所有学院
+                    //查询所有设备
                     onSelect: function (rec) {
-                        //根据学院查询所有课程
+                        //根据设备查询所有链接
                         $.get('/resources/v1/devices/combox', { "id": rec.id }, function (data) {
                             cmbrole.combobox("clear").combobox('loadData', data);
                         }, 'json');
@@ -100,7 +98,7 @@
 
 
                 if (record) {
-                    if (record['Team'] != null) record['TeamId'] = record['Team'].Id;
+                    if (record['Team'] != null) record['styleid'] = record['Team'].Id;
                     if (record['Roles'] != null) {
                         var roles = [];
                         $.each(record['Roles'], function (i, n) {

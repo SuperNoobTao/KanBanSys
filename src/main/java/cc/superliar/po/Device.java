@@ -40,7 +40,10 @@ public class Device implements Serializable{
     private String screenNum;
 
     @Column(name = "device_styleid")
-    private String styleid="0";
+    private String styleid;
+
+    @Column(name = "device_stylename")
+    private String stylename;
 
     @CreatedDate
     @Column(name = "device_created_date")
@@ -109,6 +112,14 @@ public class Device implements Serializable{
 
     public void setStyleid(String styleid) {
         this.styleid = styleid;
+    }
+
+    public String getStylename() {
+        return stylename;
+    }
+
+    public void setStylename(String stylename) {
+        this.stylename = stylename;
     }
 
     public LocalDateTime getCreatedDate() {

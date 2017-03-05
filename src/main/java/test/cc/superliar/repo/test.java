@@ -4,13 +4,16 @@ import cc.superliar.Application;
 
 
 import cc.superliar.domain.ManageDomain;
+import cc.superliar.domain.StyleDomain;
 import cc.superliar.enums.ValidFlag;
 import cc.superliar.po.Device;
 import cc.superliar.po.Manage;
+import cc.superliar.po.Style;
 import cc.superliar.po.Url;
 import cc.superliar.repo.DeviceReposity;
 import cc.superliar.repo.ManageReposity;
 import cc.superliar.repo.NativeSQLReposity;
+import cc.superliar.repo.StyleReposity;
 import cc.superliar.vo.ManageVO;
 import cc.superliar.vo.UrlVO;
 import org.junit.Test;
@@ -41,7 +44,10 @@ public class test {
     private DeviceReposity deviceReposity;
     @Autowired
     private ManageDomain manageDomain;
-
+    @Autowired
+    private StyleDomain styleDomain;
+    @Autowired
+    private StyleReposity styleReposity;
     @Test
     public void likeName() {
 
@@ -74,8 +80,17 @@ public class test {
 //            System.out.println(urls.get(i).getContent());
 //        }
 
-        //删除
-        manageDomain.deleteByDeviceId("111");
+//        //删除
+//        manageDomain.deleteByDeviceId("111");
+
+        List<Style> styles =  styleReposity.findAll();
+        for (Style s : styles) {
+            System.out.println(
+                   s
+            );
+        }
+
+
 
 
 

@@ -30,6 +30,8 @@ public class DeviceVO implements Serializable{
 
     private String styleid;
 
+    private String stylename;
+
     private String description;
 
     private String text ;
@@ -80,6 +82,14 @@ public class DeviceVO implements Serializable{
 
     public void setStyleid(String styleid) {
         this.styleid = styleid;
+    }
+
+    public String getStylename() {
+        return stylename;
+    }
+
+    public void setStylename(String stylename) {
+        this.stylename = stylename;
     }
 
     public String getDescription() {

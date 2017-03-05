@@ -116,4 +116,18 @@ public class Style implements Serializable{
 
     public Style() {
     }
+
+    @Override
+    public String toString() {
+        return "Style{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", time='" + time + '\'' +
+                ", mode='" + mode + '\'' +
+                ", createDate=" + createDate +
+                ", lastModifiedDate=" + lastModifiedDate +
+                ", description='" + description + '\'' +
+                ", validFlag=" + validFlag +
+                '}';
+    }
 }
