@@ -2,7 +2,6 @@ package cc.superliar.vo;
 
 import cc.superliar.constant.ResultConstant;
 
-import javax.persistence.Column;
 import java.io.Serializable;
 
 /**
@@ -20,7 +19,7 @@ public class StyleVO implements Serializable{
 
     private String name;
 
-    private String time;
+    private String speed;
 
     private String mode;
 
@@ -42,12 +41,12 @@ public class StyleVO implements Serializable{
         this.name = name;
     }
 
-    public String getTime() {
-        return time;
+    public String getSpeed() {
+        return speed;
     }
 
-    public void setTime(String time) {
-        this.time = time;
+    public void setSpeed(String speed) {
+        this.speed = speed;
     }
 
     public String getMode() {

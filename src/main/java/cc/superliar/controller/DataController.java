@@ -6,6 +6,7 @@ import cc.superliar.constant.ResourceURL;
 import cc.superliar.constant.ResultConstant;
 import cc.superliar.constant.VersionConstant;
 import cc.superliar.domain.DataDomain;
+import cc.superliar.domain.StyleDomain;
 import cc.superliar.enums.ErrorType;
 import cc.superliar.enums.OperationType;
 import cc.superliar.exception.CommonsException;
@@ -16,6 +17,7 @@ import cc.superliar.po.User;
 import cc.superliar.repo.DeviceReposity;
 import cc.superliar.repo.NativeSQLReposity;
 import cc.superliar.vo.DataVO;
+import cc.superliar.vo.StyleVO;
 import cc.superliar.vo.UrlVO;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,7 +48,8 @@ public class DataController {
     private DataDomain dataDomain;
     @Autowired
     private Transformer transformer;
-
+    @Autowired
+    private StyleDomain styleDomain;
 
     /**
      * android设备获取某id的配置信息
@@ -56,7 +59,7 @@ public class DataController {
      * @throws InstantiationException
      */
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public ResponseEntity update(@PathVariable String id) throws IllegalAccessException, InstantiationException {
+    public ResponseEntity update(@PathVariable String id) throws Exception {
 
             Device device = dataDomain.findById(id);
         if(device!=null){
@@ -68,7 +71,9 @@ public class DataController {
             dataVO.setLocation(device.getLocation());
             dataVO.setScreenNum(device.getScreenNum());
             dataVO.setScreenSize(device.getScreenSize());
-            dataVO.setStyleid(device.getStyleid());
+
+            StyleVO styleVO = styleDomain.getById(Long.valueOf(device.getStyleid()),StyleVO.class);
+            dataVO.setStyleVO(styleVO);
 
             List<Url> urlList = dataDomain.findAllById(id);
             List<UrlVO> urlVOList = transformer.pos2VOs(UrlVO.class,urlList);

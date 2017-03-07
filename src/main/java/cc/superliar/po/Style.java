@@ -29,8 +29,8 @@ public class Style implements Serializable{
     @Column(name = "style_sname")
     private String name;
 
-    @Column(name = "style_stime")
-    private String time;
+    @Column(name = "style_speed")
+    private String speed;
 
     @Column(name = "style_smode")
     private String mode;
@@ -66,12 +66,12 @@ public class Style implements Serializable{
         this.name = name;
     }
 
-    public String getTime() {
-        return time;
+    public String getSpeed() {
+        return speed;
     }
 
-    public void setTime(String time) {
-        this.time = time;
+    public void setSpeed(String speed) {
+        this.speed = speed;
     }
 
     public String getMode() {
@@ -122,7 +122,7 @@ public class Style implements Serializable{
         return "Style{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", time='" + time + '\'' +
+                ", speed='" + speed + '\'' +
                 ", mode='" + mode + '\'' +
                 ", createDate=" + createDate +
                 ", lastModifiedDate=" + lastModifiedDate +

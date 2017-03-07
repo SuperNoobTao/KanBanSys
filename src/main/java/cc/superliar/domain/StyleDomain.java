@@ -1,31 +1,21 @@
 package cc.superliar.domain;
 
 import cc.superliar.component.Transformer;
-import cc.superliar.constant.CommonsConstant;
 import cc.superliar.enums.ErrorType;
 import cc.superliar.enums.ValidFlag;
 import cc.superliar.exception.CommonsException;
-import cc.superliar.param.BaseParam;
 import cc.superliar.param.StyleParam;
-import cc.superliar.param.UrlParam;
 import cc.superliar.param.UserParam;
-import cc.superliar.po.Device;
 import cc.superliar.po.Style;
-import cc.superliar.po.Url;
 import cc.superliar.po.User;
 import cc.superliar.repo.StyleReposity;
-import cc.superliar.repo.UrlReposity;
 import cc.superliar.util.ErrorMsgHelper;
 import cc.superliar.vo.StyleVO;
-import cc.superliar.vo.UrlVO;
 import cc.superliar.vo.UserVO;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
-import java.util.PrimitiveIterator;
 
 /**
  * Created by shentao on 2016/12/21.
@@ -48,8 +38,8 @@ public class StyleDomain extends BaseDomain<Style,Long> {
      */
     @Transactional
     public StyleVO create(StyleParam param, User currentUser) throws Exception {
-        styleExists(param.getTime(),param.getMode());
-        param.setName(param.getMode()+":"+param.getTime());
+        styleExists(param.getSpeed(),param.getMode());
+        param.setName(param.getMode()+":"+param.getSpeed());
         return super.createByPO(StyleVO.class, styleParam2PO(param, new Style(), currentUser), currentUser);
     }
 
@@ -63,10 +53,10 @@ public class StyleDomain extends BaseDomain<Style,Long> {
      */
     @Transactional public StyleVO update(StyleParam param, User currentUser) throws Exception {
         Style style = findByIdAndValidFlag(param.getId());
-        if (( StringUtils.isNotBlank(param.getTime())||StringUtils.isNotBlank(param.getMode()) )&& (!param.getTime().equals(style.getTime())||!param.getMode().equals(style.getMode()))) {
-            styleExists(param.getTime(),param.getMode());
+        if (( StringUtils.isNotBlank(param.getSpeed())||StringUtils.isNotBlank(param.getMode()) )&& (!param.getSpeed().equals(style.getSpeed())||!param.getMode().equals(style.getMode()))) {
+            styleExists(param.getSpeed(),param.getMode());
         }
-        param.setName(param.getMode()+":"+param.getTime());
+        param.setName(param.getMode()+":"+param.getSpeed());
         return super.updateByPO(StyleVO.class, styleParam2PO(param, style, currentUser), currentUser);
     }
 
@@ -95,7 +85,7 @@ public class StyleDomain extends BaseDomain<Style,Long> {
     }
 
     private void styleExists(String time,String mode) throws Exception {
-        if (styleReposity.findByTimeAndModeAndValidFlag(time,mode, ValidFlag.VALID).isPresent()) {
+        if (styleReposity.findBySpeedAndModeAndValidFlag(time,mode, ValidFlag.VALID).isPresent()) {
             // Throw group already existing exception, name taken.
             throw new CommonsException(ErrorType.SYS0111, ErrorMsgHelper.getReturnMsg(ErrorType.SYS0111, getClassT().getSimpleName(),"time or mode"));
         }

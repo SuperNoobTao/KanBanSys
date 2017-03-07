@@ -13,8 +13,8 @@ public class StyleParam extends BaseParam {
 
     private String name;
 
-    @NotNullField(value = OperationType.CREATE, message = "time cannot be null.")
-    private String time;
+    @NotNullField(value = OperationType.CREATE, message = "speed cannot be null.")
+    private String speed;
 
     @NotNullField(value = OperationType.CREATE, message = "mode cannot be null.")
     private String mode;
@@ -37,12 +37,12 @@ public class StyleParam extends BaseParam {
         this.name = name;
     }
 
-    public String getTime() {
-        return time;
+    public String getSpeed() {
+        return speed;
     }
 
-    public void setTime(String time) {
-        this.time = time;
+    public void setSpeed(String speed) {
+        this.speed = speed;
     }
 
     public String getMode() {

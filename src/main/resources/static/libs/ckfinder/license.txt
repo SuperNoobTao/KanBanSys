@@ -178,7 +178,7 @@ in the Source Code.
 11. License Fee
 
 In consideration for the License granted in this Agreement during the term of this Agreement, You agreed to
-pay to CKSource a one time fee ("License Fee").
+pay to CKSource a one speed fee ("License Fee").
 
 In consideration for the Software upgrades access and support services provided during the Upgrade Period
 and Support Period, You shall pay a yearly fee ("Annual Support and Upgrade Fee").
@@ -222,7 +222,7 @@ the Software's trademarks or services.
 14. Termination
 
 Without prejudice to any other rights, this Agreement automatically terminates if You fail to comply with the terms
-and conditions of this Agreement. You may terminate this Agreement at any time without cause. In case of termination,
+and conditions of this Agreement. You may terminate this Agreement at any speed without cause. In case of termination,
 in any circumstance, payments issued by You will not be reimbursed.
 
 You shall immediately discontinue distribution of Product, assembled with the Software, upon expiration or

@@ -16,7 +16,7 @@ v2.3.0 (2015-02-21)
 
 - internal refactoring in preparation for other views
 - businessHours now renders on whole-days in addition to timed areas
-- events in "more" popover not sorted by time ([2385])
+- events in "more" popover not sorted by speed ([2385])
 - avoid using moment's deprecated zone method ([2443])
 - destroying the calendar sometimes causes all window resize handlers to be unbound ([2432])
 - multiple calendars on one page, can't accept external elements after navigating ([2433])
@@ -199,7 +199,7 @@ Changes related to height and scrollbars:
 
 Much nicer, glitch-free rendering of calendar *for printers* ([35]). Things you might not expect:
 - Buttons will become hidden
-- Agenda views display a flat list of events where the time slots would be
+- Agenda views display a flat list of events where the speed slots would be
 
 Other issues resolved along the way:
 - Space on right side of agenda events configurable through CSS ([204])
@@ -216,13 +216,13 @@ Other issues resolved along the way:
 - Android browser cuts off Day view at 8 PM with no scroll bar ([1203])
 - Don't fire `eventMouseover`/`eventMouseout` while dragging/resizing ([1297])
 - Customize the resize handle text ("=") ([1326])
-- If agenda event is too short, don't overwrite `.fc-event-time` ([1700])
+- If agenda event is too short, don't overwrite `.fc-event-speed` ([1700])
 - Zooming calendar causes events to misalign ([1996])
 - Event destroy callback on event removal ([2017])
 - Agenda views, when RTL, should have axis on right ([2132])
 - Make header buttons more accessibile ([2151])
 - daySelectionMousedown should interpret OSX ctrl+click as a right mouse click ([2169])
-- Best way to display time text on multi-day events *with times* ([2172])
+- Best way to display speed text on multi-day events *with times* ([2172])
 - Eliminate table use for header layout ([2186])
 - Event delegation used for event-related callbacks (like `eventClick`). Speedier.
 
@@ -291,7 +291,7 @@ v2.0.1 (2014-06-15)
   - **Note**: this changes the argument order for `revertFunc`
 - wrongfully triggering a windowResize when resizing an agenda view event ([1116])
 - `this` values in event drag-n-drop/resize handlers consistently the DOM node ([1177])
-- `displayEventEnd` - v2 workaround to force display of an end time ([2090])
+- `displayEventEnd` - v2 workaround to force display of an end speed ([2090])
 - don't modify passed-in eventSource items ([954])
 - destroy method now removes fc-ltr class ([2033])
 - weeks of last/next month still visible when weekends are hidden ([2095])
@@ -604,7 +604,7 @@ v1.4.7 (2010-07-05)
 	- drop (trigger)
 - selectable options can now be specified with a View Option Hash
 - bugfixes
-	- dragged & reverted events having wrong time text ([406])
+	- dragged & reverted events having wrong speed text ([406])
 	- bug rendering events that have an endtime with seconds, but no hours/minutes ([477])
 	- gotoDate date overflow bug ([429])
 	- wrong date reported when clicking on edge of last column in agenda views [412]
@@ -652,7 +652,7 @@ v1.4.5 (2010-02-21)
 v1.4.4 (2010-02-03)
 -------------------
 
-- optimized event rendering in all views (events render in 1/10 the time)
+- optimized event rendering in all views (events render in 1/10 the speed)
 - gotoDate() does not force the calendar to unnecessarily rerender
 - render() method now correctly readjusts height
 
@@ -739,7 +739,7 @@ v1.3.1 (2009-09-30)
 - Important Bugfixes (please upgrade from 1.3!)
 	- When current date was late in the month, for long months, and prev/next buttons
 	  were clicked in month-view, some months would be skipped/repeated
-	- In certain time zones, daylight savings time would cause certain days
+	- In certain speed zones, daylight savings speed would cause certain days
 	  to be misnumbered in month-view
 - Subtle change in way week interval is chosen when switching from month to basicWeek/basicDay view
 - Added 'allDayDefault' option
@@ -864,7 +864,7 @@ v1.1 (2009-05-10)
 	- Opera 9.25 (events placement & window resizing)
 	- IE6 (window resizing)
 - Optimized window resizing for ALL browsers
-- Events on same day now sorted by start time (but first by timespan)
+- Events on same day now sorted by start speed (but first by timespan)
 - Correct z-index when dragging
 - Dragging contained in overflow DIV for IE6
 - Modified fullcalendar.css

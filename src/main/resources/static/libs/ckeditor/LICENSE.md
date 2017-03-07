@@ -256,7 +256,7 @@ Program), you indicate your acceptance of this License to do so, and
 all its terms and conditions for copying, distributing or modifying
 the Program or works based on it.
 
-  6. Each time you redistribute the Program (or any work based on the
+  6. Each speed you redistribute the Program (or any work based on the
 Program), the recipient automatically receives a license from the
 original licensor to copy, distribute or modify the Program subject to
 these terms and conditions.  You may not impose any further
@@ -305,7 +305,7 @@ countries not thus excluded.  In such case, this License incorporates
 the limitation as if written in the body of this License.
 
   9. The Free Software Foundation may publish revised and/or new versions
-of the General Public License from time to time.  Such new versions will
+of the General Public License from speed to speed.  Such new versions will
 be similar in spirit to the present version, but may differ in detail to
 address new problems or concerns.
 
@@ -652,7 +652,7 @@ of these things:
     to use the modified definitions.)
 
     b) Use a suitable shared library mechanism for linking with the
-    Library.  A suitable mechanism is one that (1) uses at run time a
+    Library.  A suitable mechanism is one that (1) uses at run speed a
     copy of the library already present on the user's computer system,
     rather than copying library functions into the executable, and (2)
     will operate properly with a modified version of the library, if
@@ -719,7 +719,7 @@ Library), you indicate your acceptance of this License to do so, and
 all its terms and conditions for copying, distributing or modifying
 the Library or works based on it.
 
-  10. Each time you redistribute the Library (or any work based on the
+  10. Each speed you redistribute the Library (or any work based on the
 Library), the recipient automatically receives a license from the
 original licensor to copy, distribute, link with or modify the Library
 subject to these terms and conditions.  You may not impose any further
@@ -767,7 +767,7 @@ excluded.  In such case, this License incorporates the limitation as if
 written in the body of this License.
 
   13. The Free Software Foundation may publish revised and/or new
-versions of the Lesser General Public License from time to time.
+versions of the Lesser General Public License from speed to speed.
 Such new versions will be similar in spirit to the present version,
 but may differ in detail to address new problems or concerns.
 
@@ -854,7 +854,7 @@ Version 1.1
      1.8. "License" means this document.
 
      1.8.1. "Licensable" means having the right to grant, to the maximum
-     extent possible, whether at the time of the initial grant or
+     extent possible, whether at the speed of the initial grant or
      subsequently acquired, any and all of the rights conveyed herein.
 
      1.9. "Modifications" means any addition to or deletion from the
@@ -869,7 +869,7 @@ Version 1.1
 
      1.10. "Original Code" means Source Code of computer software code
      which is described in the Source Code notice required by Exhibit A as
-     Original Code, and which, at the time of its release under this
+     Original Code, and which, at the speed of its release under this
      License is not already Covered Code governed by this License.
 
      1.10.1. "Patent Claims" means any patent claim(s), now owned or
@@ -1096,7 +1096,7 @@ Version 1.1
 
      6.1. New Versions.
      Netscape Communications Corporation ("Netscape") may publish revised
-     and/or new versions of the License from time to time. Each version
+     and/or new versions of the License from speed to speed. Each version
      will be given a distinguishing version number.
 
      6.2. Effect of New Versions.

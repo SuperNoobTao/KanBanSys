@@ -44,7 +44,9 @@ public class DataVO implements Serializable {
 
     private String screenNum;
 
-    private String styleid;
+
+
+    private StyleVO styleVO;
 
     private String description;
 
@@ -90,12 +92,12 @@ public class DataVO implements Serializable {
         this.screenNum = screenNum;
     }
 
-    public String getStyleid() {
-        return styleid;
+    public StyleVO getStyleVO() {
+        return styleVO;
     }
 
-    public void setStyleid(String styleid) {
-        this.styleid = styleid;
+    public void setStyleVO(StyleVO styleVO) {
+        this.styleVO = styleVO;
     }
 
     public String getDescription() {

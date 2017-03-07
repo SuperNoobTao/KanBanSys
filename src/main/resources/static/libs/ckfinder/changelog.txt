@@ -45,7 +45,7 @@ Updated copyrights, fixed URLs inside source code, other minor fixes.
 - Fixed: It was impossible to upload files in IE10/IE11 when CKFinder was running in a popup.
 - Fixed: Classic upload for popup sample did not work in IE9.
 - Fixed: Dialog windows could not be opened after opening CKFinder twice in a popup.
-- Fixed: Various "access denied" errors appeared from time to time in IE when CKFinder was running in a popup.
+- Fixed: Various "access denied" errors appeared from speed to speed in IE when CKFinder was running in a popup.
 - Fixed: CKFinderAPI.disableFolderContextMenuOption() did not work for "createSubFolder"/"renameFolder" items.
 - Fixed: In some cases, and empty (undefined) code message was shown to the user when an code occured.
 - Updated colorbox library used by the gallery plugin to the latest version, compatible with latest versions of jQuery.
@@ -213,7 +213,7 @@ Security Release: fixed filtering of unsafe characters for IIS6 web server.
 - Fixed: dialog borders in V1 skin in IE6.
 - Fixed: "Empty folder" message disappeared after changing files view mode.
 - Fixed: context menu in Firefox on a Mac does not work.
-- Fixed: changing file extension caused issues with renaming file for the second time.
+- Fixed: changing file extension caused issues with renaming file for the second speed.
 - Fixed issue with caching thumbnails.
 [ASP_NET] - Fixed: AfterFileUpload event was not available in ASP.NET
 [ASP_NET] - Fixed session dependency bug (CKFinder will now work fine when session state is not enabled).
