@@ -61,44 +61,6 @@
       },
       {
         "ParentId": "b2d56dfb-ed77-e511-9bcd-9d38c0ac0015",
-        "MenuText": "功能菜单",
-        "MenuLink": "system/MenuPermissions",
-        "MenuType": null,
-        "IconCls": null,
-        "SortOrder": 1,
-        "IsActivated": "on",
-        "Buttons": [
-          {
-            "ButtonName": "删除",
-            "ButtonDesc": null,
-            "ButtonLink": "del",
-            "IconCls": "fa-remove",
-            "Id": "745662ef-f277-e511-9bcd-9d38c0ac0015"
-          },
-          {
-            "ButtonName": "修改",
-            "ButtonDesc": null,
-            "ButtonLink": "edit",
-            "IconCls": "fa-edit",
-            "Id": "735662ef-f277-e511-9bcd-9d38c0ac0015"
-          },
-          {
-            "ButtonName": "添加",
-            "ButtonDesc": null,
-            "ButtonLink": "add",
-            "IconCls": "fa-plus",
-            "Id": "725662ef-f277-e511-9bcd-9d38c0ac0015"
-          }
-        ],
-        "id": "3fd7c317-f177-e511-9bcd-9d38c0ac0015",
-        "text": "功能菜单",
-        "iconCls": null,
-        "leaf": true,
-        "expanded": true,
-        "children": []
-      },
-      {
-        "ParentId": "b2d56dfb-ed77-e511-9bcd-9d38c0ac0015",
         "MenuText": "按钮管理",
         "MenuLink": "system/buttons",
         "MenuType": null,
@@ -182,51 +144,6 @@
         ],
         "id": "100a6559-f577-e511-9bcd-9d38c0ac0015",
         "text": "角色管理",
-        "iconCls": null,
-        "leaf": true,
-        "expanded": true,
-        "children": []
-      },
-      {
-        "ParentId": "b2d56dfb-ed77-e511-9bcd-9d38c0ac0015",
-        "MenuText": "字典管理",
-        "MenuLink": "system/dictionarys",
-        "MenuType": null,
-        "IconCls": null,
-        "SortOrder": 8,
-        "IsActivated": "on",
-        "Buttons": [
-          {
-            "ButtonName": "删除",
-            "ButtonDesc": null,
-            "ButtonLink": "del",
-            "IconCls": "fa-remove",
-            "Id": "1361eeaf-2b4f-e611-97bc-98e0d97b8c7e"
-          },
-          {
-            "ButtonName": "新增",
-            "ButtonDesc": null,
-            "ButtonLink": "insert",
-            "IconCls": "fa-plus",
-            "Id": "1461eeaf-2b4f-e611-97bc-98e0d97b8c7e"
-          },
-          {
-            "ButtonName": "保存",
-            "ButtonDesc": null,
-            "ButtonLink": "save",
-            "IconCls": "fa-save",
-            "Id": "1661eeaf-2b4f-e611-97bc-98e0d97b8c7e"
-          },
-          {
-            "ButtonName": "撤销",
-            "ButtonDesc": null,
-            "ButtonLink": "undo",
-            "IconCls": "fa-undo",
-            "Id": "1561eeaf-2b4f-e611-97bc-98e0d97b8c7e"
-          }
-        ],
-        "id": "60da24a0-2b4f-e611-97bc-98e0d97b8c7e",
-        "text": "字典管理",
         "iconCls": null,
         "leaf": true,
         "expanded": true,

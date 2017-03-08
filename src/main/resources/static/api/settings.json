@@ -1,9 +1,10 @@
+
 {
   "total": 3,
   "rows": [
     {
       "Key": "system.appname",
-      "Value": "Web+",
+      "Value": "看板界面投放管理系统",
       "Desc": "系统名称",
       "IsHidden": false,
       "IsSystem": true,
@@ -29,7 +30,7 @@
     },
     {
       "Key": "user.defaultrole",
-      "Value": "User",
+      "Value": "管理员",
       "Desc": "注册用户默认角色名称",
       "IsHidden": false,
       "IsSystem": false,
