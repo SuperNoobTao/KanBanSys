@@ -2,6 +2,7 @@ package cc.superliar.controller;
 
 
 import cc.superliar.annotation.CurrentUser;
+import cc.superliar.component.CustomPasswordEncoder;
 import cc.superliar.component.ResultHelper;
 import cc.superliar.component.ValidateHelper;
 import cc.superliar.constant.ControllerConstant;
@@ -31,6 +32,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 
@@ -175,6 +177,49 @@ public class UserController {
         }
     }
 
+
+    @RequestMapping(value = "/currentuser", method = RequestMethod.GET)
+    public ResponseEntity get(@CurrentUser User currentUser) throws Exception {
+        Long id  = currentUser.getId();
+        return new ResponseEntity<>(userDomain.getById(Long.valueOf(id), UserVO.class), HttpStatus.OK);
+    }
+
+
+
+    /**
+     * Update {@link User}.
+     *
+     * @param id    {@link User#id}
+     * @param param {@link UserParam}
+     * @return {@link cc.superliar.vo.UserVO}
+     */
+    @RequestMapping(value = "/currentuser/{id}", method = RequestMethod.PUT)
+    public ResponseEntity changepwd(@CurrentUser User currentUser, @PathVariable String id,UserParam param, HttpServletRequest request, BindingResult result) {
+        try {
+            param.setId(StringUtils.isBlank(id) ? null : Long.valueOf(id));
+            // Validate current user, param and sign.
+            ResponseEntity responseEntity = validateHelper.validate(param, result, currentUser, logger, OperationType.UPDATE);
+            if (!responseEntity.getStatusCode().is2xxSuccessful()) {
+                return responseEntity;
+            }
+            String OldPassword = request.getParameter("OldPassword");
+            String Password = request.getParameter("Password");
+            User user = userDomain.findByIdAndValidFlag(Long.valueOf(id));
+            if(customPasswordEncoder.matches(OldPassword, user.getPwd())){
+               param.setPwd(Password);
+            }
+            // Update user.
+            return new ResponseEntity<>(userDomain.update(param, currentUser), HttpStatus.OK);
+        } catch (CommonsException e) {
+            // Return error information and log the exception.
+            return resultHelper.infoResp(logger, e.getErrorType(), e.getMessage(), HttpStatus.UNPROCESSABLE_ENTITY);
+        } catch (Exception e) {
+            // Return unknown error and log the exception.
+            return resultHelper.errorResp(logger, e, ErrorType.UNKNOWN, e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+
     // ------------------------
     // PRIVATE FIELDS
     // ------------------------
@@ -190,7 +235,8 @@ public class UserController {
     @Autowired
     private UserDomain userDomain;
 
-
+    @Autowired
+    CustomPasswordEncoder customPasswordEncoder;
 
 
 }

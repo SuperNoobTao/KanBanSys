@@ -38,11 +38,11 @@
                 </div>
                 <div class="row">
                     <div class="col-xs-8">
-                        <div class="checkbox icheck">
-                            <label>
-                                <input data-val="true" data-val-required="记住此次登录！ 字段是必需的。" id="RememberMe" name="RememberMe" type="checkbox" value="true" /><input name="RememberMe" type="hidden" value="false" /><label for="RememberMe">记住此次登录！</label>
-                            </label>
-                        </div>
+                        <!--<div class="checkbox icheck">-->
+                            <!--<label>-->
+                                <!--<input data-val="true" data-val-required="记住此次登录！ 字段是必需的。" id="RememberMe" name="RememberMe" type="checkbox" value="true" /><input name="RememberMe" type="hidden" value="false" /><label for="RememberMe">记住此次登录！</label>-->
+                            <!--</label>-->
+                        <!--</div>-->
                     </div>
                     <!-- /.col -->
                     <div class="col-xs-4">
@@ -51,7 +51,7 @@
                     <!-- /.col -->
                 </div>
 </form>
-            <a href="#">忘记密码？</a>
+            <!--<a href="#">忘记密码？</a>-->
 
 
         </div>
@@ -87,13 +87,15 @@
                   pwd : pwd,
               },
               success: function(data){
-                  switch(data.code){
-                      case "200":
-                          window.location.href="/home";
-                          //alert("login success");
-                          break;
-                      case "201": alert("账号或密码错误");break;
-                      case "10000":alert("系统故障");
+
+                  if (data.code == '200') {
+                      window.location.href="/home";
+                  }
+                  else if (data.code == '201') {
+                      alert("账号密码错误请重新输入");
+                  }
+                  else {
+                      alert(data.message);
                   }
               },
               code: function(data){

@@ -30,15 +30,24 @@ public class FontEndCtrl {
         return mav;
     }
 
+
     @RequestMapping(value = "/home", method = RequestMethod.GET)
     public ModelAndView index(@CurrentUser User currentUser) {
-
+        String username = currentUser.getName();
         ModelAndView mav = new ModelAndView();
+        mav.addObject("username",username);
         mav.setViewName("/index");
         return mav;
     }
 
 
-
+//    @RequestMapping(value = "/logout", method = RequestMethod.GET)
+//    public ModelAndView logout(@CurrentUser User currentUser) {
+//        String username = currentUser.getName();
+//        ModelAndView mav = new ModelAndView();
+//        mav.addObject("username",username);
+//        mav.setViewName("/login");
+//        return mav;
+//    }
 
 }

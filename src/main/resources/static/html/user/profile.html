@@ -12,12 +12,13 @@
                 <a href="#" class="c096">修改资料</a>
             </div>
             <p style="font-size: 14px;">
-                用户名：<strong data-init="user['UserName']"></strong><br />
-                手机号：<strong data-init="user['Mobile']"></strong><br />
-                邮箱：<strong data-init="user['Email']"></strong>
+                ID：<strong><input style="border:0;" id="id" value="" readOnly="true"/></strong><br />
+                用户名：<strong><input style="border:0;" id="username" value="" readOnly="true"/></strong><br />
+                账号：<strong><input style="border:0;" input id="account" value=""  readOnly="true"/></strong><br />
+
             </p>
             <div style="border-color: #e7eaec; border-style: solid solid none; border-width: 4px 0 0; padding: 10px 0;">
-                登录总数：<strong data-init="user['LoginCount']"></strong> 次
+                <!--登录总数：<strong></strong> 次-->
             </div>
         </div>
         <div data-options="region:'center',border:false" title="历史登录数据">
@@ -48,7 +49,7 @@
                 dlg = $('#dlg-changpwd'),
                 form = dlg.find('form');
 
-            renderInit();
+
 
             function changepwd() {
                 form.form('reset');
@@ -59,17 +60,19 @@
                     buttons: [{
                         text: lang.iconsave,
                         handler: function () {
+                            var id =  $("#id").val();
+
                             var data = form.serialize();
                             $.ajax({
-                                method: 'POST',
-                                url: '/api/change-user-pwd',
+                                method: 'PUT',
+                                url: '/resources/v1/users/currentuser/'+id,
                                 data: data,
                                 beforeSend: function () {
                                     return form.form('enableValidation').form('validate');
                                 }
                             }).done(function (data) {
                                 showToast(data.message);
-                                if (data.success) {
+                                if (data.code==200) {
                                     dlg.dialog('close');
                                 }
                             });
@@ -87,21 +90,38 @@
                 changepwd();
             });
 
-            dg.datagrid({
-                url: '/api/LoginLogs',
-                pagination: true,
-                rownumbers: true,
-                singleSelect: true,
-                method: 'get',
-                fit: true,
-                border: 0,
-                columns: [[
-                    { field: 'Id', hidden: true },
-                    { field: 'IpAddress', title: '登录IP', width: 160, sortable: true },
-                    { field: 'CreationTime', title: '登录时间', width: 130, sortable: true }
-                ]]
-            });
+//            dg.datagrid({
+//                url: '/api/LoginLogs',
+//                pagination: true,
+//                rownumbers: true,
+//                singleSelect: true,
+//                method: 'get',
+//                fit: true,
+//                border: 0,
+//                columns: [[
+//                    { field: 'Id', hidden: true },
+//                    { field: 'IpAddress', title: '登录IP', width: 160, sortable: true },
+//                    { field: 'CreationTime', title: '登录时间', width: 130, sortable: true }
+//                ]]
+//            });
         });
     </script>
+
+    <script type="text/javascript">
+
+        $.ajax({
+            type: "GET",//请求方式
+            url: "/resources/v1/users/currentuser",//数据请求路径
+            data: "json",//数据类型text xml json  script  jsonp
+            success: function(msg){//返回的参数就是 action里面所有的有get和set方法的参数
+                //$.each(msg.items, function(i,item){});
+                $("#id").val(msg.id);
+                $("#username").val(msg.name);
+                $("#account").val(msg.account);
+            }
+        });
+
+    </script>
+
 </body>
 </html>
