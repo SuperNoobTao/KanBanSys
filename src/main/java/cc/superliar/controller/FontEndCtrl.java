@@ -4,6 +4,8 @@ package cc.superliar.controller;
  * Created by shentao on 2016/11/9.
  */
 
+import cc.superliar.annotation.CurrentUser;
+import cc.superliar.po.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -29,7 +31,8 @@ public class FontEndCtrl {
     }
 
     @RequestMapping(value = "/home", method = RequestMethod.GET)
-    public ModelAndView index() {
+    public ModelAndView index(@CurrentUser User currentUser) {
+
         ModelAndView mav = new ModelAndView();
         mav.setViewName("/index");
         return mav;
