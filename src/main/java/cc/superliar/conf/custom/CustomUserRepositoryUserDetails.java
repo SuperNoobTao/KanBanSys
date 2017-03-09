@@ -24,7 +24,7 @@ public class CustomUserRepositoryUserDetails extends User implements UserDetails
     }
 
     /**
-     * Get the authorities.
+     * 得到权限
      *
      * @return GrantedAuthorities
      */
@@ -33,12 +33,8 @@ public class CustomUserRepositoryUserDetails extends User implements UserDetails
         Collection<GrantedAuthority> authorities = new ArrayList<>();
         Set<Role> roles = getRoles();
         for (Role role : roles) {
-                Set<Resource> resources = role.getResources();
-                for (Resource resource : resources) {
-                    GrantedAuthority authority = new SimpleGrantedAuthority(resource.getName());
+                    GrantedAuthority authority = new SimpleGrantedAuthority(role.getName());
                     authorities.add(authority);
-                }
-
         }
         return authorities;
     }

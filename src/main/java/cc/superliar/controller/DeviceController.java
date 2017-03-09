@@ -39,6 +39,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -69,6 +70,7 @@ public class DeviceController {
      * @param param {@link DeviceParam}
      * @return {@link cc.superliar.vo.DeviceVO}
      */
+    @PreAuthorize("hasAuthority('admin')")
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity create(@CurrentUser User currentUser, @Valid DeviceParam param, BindingResult result) {
         try {
@@ -96,6 +98,7 @@ public class DeviceController {
      * @param param {@link DeviceParam}
      * @return devices
      */
+
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity all(
             @And({
@@ -151,6 +154,7 @@ public class DeviceController {
      * @param id {@link Device#id}
      * @return {@link cc.superliar.vo.DeviceVO}
      */
+
     @RequestMapping(value = "/combox", method = RequestMethod.GET)
     public ResponseEntity canAddUrls(String id) {
         try {
@@ -181,6 +185,7 @@ public class DeviceController {
      * @return {@link cc.superliar.vo.DeviceVO}
      */
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    @PreAuthorize("hasAuthority('admin')")
     public ResponseEntity update(@CurrentUser User currentUser, @PathVariable String id, @Valid DeviceParam param, BindingResult result) {
         try {
             param.setId(StringUtils.isBlank(id) ? null : id);
@@ -206,6 +211,7 @@ public class DeviceController {
      * @param id {@link Device#id}
      * @return {@link cc.superliar.vo.DeviceVO}
      */
+    @PreAuthorize("hasAuthority('admin')")
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity delete(@CurrentUser User currentUser, @PathVariable String id) {
         try {
@@ -234,6 +240,7 @@ public class DeviceController {
      *
      * @return {@link cc.superliar.vo.DeviceVO}
      */
+    @PreAuthorize("hasAuthority('admin')")
     @RequestMapping( method = RequestMethod.DELETE)
     public ResponseEntity deleteList(@CurrentUser User currentUser, HttpServletRequest request) {
         try {

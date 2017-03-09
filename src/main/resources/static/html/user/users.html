@@ -5,14 +5,13 @@
 </head>
 <body>
     <div class="easyui-layout animated fadeInRight" data-options="fit:true">
-        <div data-options="region:'west',border:false" title="按部门筛选" style="width: 200px; border-right: 1px #efefef solid; padding: 10px;">
-            <ul id="tree-users-teams"></ul>
-        </div>
-        <div data-options="region:'center',border:false" title="用户列表">
+
+        <div data-options="region:'center',border:false">
             <table id="dg-users"></table>
         </div>
     </div>
-    <div id="dlg-user" style="width:520px;padding:5px;">
+
+    <div id="dlg-users" style="width:520px;padding:5px;">
         <form class="easyui-form" data-options="novalidate:true">
             <table cellpadding="5">
                 <tr>
@@ -45,11 +44,11 @@
     <div id="dlg-permissions"></div>
     <script type="text/javascript">
 
-        $('username').textbox('setValue','aaa');
+
         $(function () {
             var
                 dg = $('#dg-users'),
-                dlg = $('#dlg-user'),
+                dlg = $('#dlg-users'),
                 dlgPermissions = $('#dlg-permissions'),
                 teamtree = $('#tree-users-teams'),
                 cmbtree = dlg.find('input[name="TeamId"]'),
@@ -57,34 +56,23 @@
                 textuser = dlg.find('input[name="UserName"]'),
                 treePermissions = null;
 
-            teamtree.tree({
-                url: '/api/teams',
-                method: 'get',
-                onSelect: function (node) {
-                    dg.datagrid('load', {
-                        teamId: node.id
-                    });
 
-                }
-            });
 
             dg.dialogDataGrid({
 
-                url: '/api/users',
+                url: '/resources/v1/users',
                 dialogTitle: '用户',
                 dialogEl: dlg,
                 deleteField: 'MenuText',
                 columns: [$.merge([
                     { field: 'ck', checkbox: true },
                     { field: 'id', hidden: true },
-                    { field: 'UserName', title: '用户名', width: 220, sortable: true },
-                    { field: 'Email', title: '邮箱', width: 160, sortable: true },
-                    { field: 'Mobile', title: '手机', width: 120, sortable: true }
+                    { field: 'name', title: '用户名', width: 220, sortable: true },
+                    { field: 'account', title: '账号', width: 160, sortable: true },
+                    { field: 'description', title: '备注', width: 120, sortable: true }
                 ], globalColumns)],
                 columnFilters: globalColumnsFilter,
                 dialogBeforeOpen: function (form, record) {
-                    debugger
-                    $('username').textbox('setValue','aaa');
 
                     var pwdField = form.find('input[name="Password"]').validatebox({
                         required: record === undefined,

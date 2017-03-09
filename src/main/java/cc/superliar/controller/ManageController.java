@@ -25,6 +25,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -54,6 +55,7 @@ public class ManageController {
      * @return {@link cc.superliar.vo.DeviceVO}
      */
     @RequestMapping(method = RequestMethod.POST)
+    @PreAuthorize("hasAuthority('admin')")
     public ResponseEntity create(@CurrentUser User currentUser, @Valid ManageParam param, BindingResult result) {
         try {
             // Validate current user, param and sign.
@@ -79,6 +81,7 @@ public class ManageController {
      * @param id {@link Device#id}
      * @return {@link cc.superliar.vo.DeviceVO}
      */
+
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity detailUrls(String id) {
         try {
@@ -104,6 +107,7 @@ public class ManageController {
      * @param  {@link Device#id}
      * @return {@link cc.superliar.vo.DeviceVO}
      */
+    @PreAuthorize("hasAuthority('admin')")
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity manageDelete(@CurrentUser User currentUser, @PathVariable String id, @Valid DeviceParam param, BindingResult result) {
         try {

@@ -378,14 +378,19 @@ $.extend($.fn.datagrid.defaults, {
                                 }).done(function (data) {
                                     $(btn).linkbutton('enable');
 
-                                    switch(data.code){
-                                        case "200":
-                                            showToast(data.message);
-                                            dg.datagrid('reload');
-                                            dlg.dialog('close');
-                                        case "SYS0111": showToast(data.message);break;
-                                        case "10000":alert("系统故障");
+                                    if (data.code == '200') {
+                                        showToast(data.message);
+                                        dg.datagrid('reload');
+                                        dlg.dialog('close');
                                     }
+                                    else if (data.code == "SYS0111") {
+                                        showToast(data.message);
+                                    }
+                                    else {
+                                        showToast("系统故障");
+                                    }
+
+
                                 });
                             }
                         }, {

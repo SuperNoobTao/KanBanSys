@@ -10,6 +10,7 @@ import org.springframework.data.web.config.EnableSpringDataWebSupport;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -21,6 +22,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @Configuration
 @EnableWebSecurity
 @EnableSpringDataWebSupport
+@EnableGlobalMethodSecurity(prePostEnabled=true)
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
@@ -46,14 +48,14 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/*").authenticated()
                 .antMatchers(WELCOME_URL).authenticated()
-                .antMatchers(CLIENT_URL).hasAnyAuthority("root", "client")
-                .antMatchers(USER_URL).hasAnyAuthority("root", "user")
-                .antMatchers(ROLE_URL).hasAnyAuthority("root", "role")
-                .antMatchers(GROUP_URL).hasAnyAuthority("root", "group")
-                .antMatchers(RESOURCE_URL).hasAnyAuthority("root", "resource")
-                .antMatchers(DEVICE_URL).hasAnyAuthority("root", "device")
-                .antMatchers(STYLE_URL).hasAnyAuthority("root", "style")
-                .antMatchers(URL_URL).hasAnyAuthority("root", "url")
+                .antMatchers(CLIENT_URL).hasAnyAuthority("admin", "guest")
+                .antMatchers(USER_URL).hasAnyAuthority("admin", "guest")
+                .antMatchers(ROLE_URL).hasAnyAuthority("admin", "guest")
+                .antMatchers(GROUP_URL).hasAnyAuthority("admin", "guest")
+                .antMatchers(RESOURCE_URL).hasAnyAuthority("admin", "guest")
+                .antMatchers(DEVICE_URL).hasAnyAuthority("admin", "guest")
+                .antMatchers(STYLE_URL).hasAnyAuthority("admin", "guest")
+                .antMatchers(URL_URL).hasAnyAuthority("admin", "guest")
                 .and()
                 .formLogin()
                 .loginPage("/login")

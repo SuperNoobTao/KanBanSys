@@ -30,6 +30,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -58,6 +59,7 @@ public class StyleController {
      * @param param {@link StyleParam}
      * @return {@link cc.superliar.vo.StyleVO}
      */
+    @PreAuthorize("hasAuthority('admin')")
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity create(@CurrentUser User currentUser, @Valid StyleParam param, BindingResult result) {
         try {
@@ -134,6 +136,7 @@ public class StyleController {
      * @param param {@link StyleParam}
      * @return {@link cc.superliar.vo.StyleVO}
      */
+    @PreAuthorize("hasAuthority('admin')")
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public ResponseEntity update(@CurrentUser User currentUser, @PathVariable String id, @Valid StyleParam param, BindingResult result) {
         try {
@@ -160,6 +163,7 @@ public class StyleController {
      * @param id {@link Style#id}
      * @return {@link cc.superliar.vo.StyleVO}
      */
+    @PreAuthorize("hasAuthority('admin')")
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity delete(@CurrentUser User currentUser, @PathVariable String id) {
         try {

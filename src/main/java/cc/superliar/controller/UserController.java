@@ -23,9 +23,11 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,6 +36,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.util.HashMap;
+import java.util.Map;
 
 
 /**
@@ -55,6 +59,7 @@ public class UserController {
      * @return {@link cc.superliar.vo.UserVO}
      */
     @RequestMapping(method = RequestMethod.POST)
+    @PreAuthorize("hasAuthority('admin')")
     public ResponseEntity create(@CurrentUser User currentUser, @Valid UserParam param, BindingResult result) {
         try {
             // Validate current user, param and sign.
@@ -93,7 +98,14 @@ public class UserController {
             if (param.getPage() == null) {
                 return new ResponseEntity<>(userDomain.getAll(userSpecification, QueryHelper.getSort(param.getSortBy()), UserVO.class), HttpStatus.OK);
             }
-            return new ResponseEntity<>(userDomain.getPage(userSpecification, QueryHelper.getPageRequest(param), UserVO.class), HttpStatus.OK);
+
+            Page<User> userList = userDomain.getPage(userSpecification, QueryHelper.getPageRequest(param), UserVO.class);
+            Map<String,Object> map = new HashMap<String,Object>();
+            map.put("total",userList.getTotalElements());
+            map.put("rows",userList.getContent());
+
+            return  new ResponseEntity<>(map, HttpStatus.OK);
+
         } catch (Exception e) {
             // Return unknown error and log the exception.
             return resultHelper.errorResp(logger, e, ErrorType.UNKNOWN, e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
@@ -108,6 +120,7 @@ public class UserController {
      * @param id {@link User#id}
      * @return {@link cc.superliar.vo.UserVO}
      */
+    @PreAuthorize("hasAuthority('admin')")
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity detail(@PathVariable String id) {
         try {
@@ -130,6 +143,7 @@ public class UserController {
      * @param param {@link UserParam}
      * @return {@link cc.superliar.vo.UserVO}
      */
+    @PreAuthorize("hasAuthority('admin')")
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public ResponseEntity update(@CurrentUser User currentUser, @PathVariable String id, @Valid UserParam param, BindingResult result) {
         try {
@@ -156,6 +170,7 @@ public class UserController {
      * @param id {@link User#id}
      * @return {@link cc.superliar.vo.UserVO}
      */
+    @PreAuthorize("hasAuthority('admin')")
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity delete(@CurrentUser User currentUser, @PathVariable String id) {
         try {
