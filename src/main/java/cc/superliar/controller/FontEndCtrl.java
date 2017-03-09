@@ -42,7 +42,7 @@ public class FontEndCtrl {
 
 
 //    @RequestMapping(value = "/logout", method = RequestMethod.GET)
-//    public ModelAndView logout(@CurrentUser User currentUser) {
+//    public ModelAndView logout(@CurrentUser UserManageVO currentUser) {
 //        String username = currentUser.getName();
 //        ModelAndView mav = new ModelAndView();
 //        mav.addObject("username",username);

@@ -127,7 +127,6 @@ $(document).ajaxStop(hideLoadding);
 $(document).ajaxError(function (event, jqXHR, ajaxSettings, thrownError) {
     //console.log([event, jqXHR, ajaxSettings, thrownError]);
     hideLoadding();
-    debugger
     if (jqXHR.status > 0) {
         showToast("抱歉，系统出现了错误，请联系管理员解决！");
     }

@@ -15,28 +15,16 @@
         <form class="easyui-form" data-options="novalidate:true">
             <table cellpadding="5">
                 <tr>
-                    <td>部门:</td>
-                    <td colspan="3"><input name="TeamId" style="width: 90%;"></td>
-                </tr>
-                <tr>
-                    <td>角色:</td>
-                    <td colspan="3"><input name="RoleId" style="width: 90%;"></td>
-                </tr>
-                <tr>
                     <td>用户名:</td>
-                    <td colspan="3"><input class="easyui-textbox" type="text" id="username" name="UserName" value=""/></td>
+                    <td><input class="easyui-textbox" type="text" name="name"  /></td>
                 </tr>
                 <tr>
-                    <td>密码:</td>
-                    <td><input id="user-form-pwd" class="textbox" type="password" name="Password" /></td>
-                    <td>确认密码:</td>
-                    <td><input type="password" class="textbox" name="ConfrimPassword" /></td>
+                    <td>账号:</td>
+                    <td><input class="easyui-textbox" type="text" name="account"  /></td>
                 </tr>
                 <tr>
-                    <td>邮箱:</td>
-                    <td><input class="easyui-textbox" type="text" name="Email" data-options="required:true,validType: 'email'" /></td>
-                    <td>手机号:</td>
-                    <td><input class="easyui-textbox" type="text" name="Mobile" data-options="required:true" /></td>
+                    <td>备注:</td>
+                    <td><input class="easyui-textbox" type="text" name="description"  /></td>
                 </tr>
             </table>
         </form>
@@ -121,59 +109,8 @@
                     else {
                         form.form('reset');
                     }
-                },
-                setPermissions: function () {
-                    var selected = dg.datagrid('getSelected');
-                    if (selected == null) {
-                        showToast('请选择用户！');
-                        return false;
-                    }
-
-                    dlgPermissions.dialog({
-                        title: '用户权限设置',
-                        modal: true,
-                        cache: true,
-                        width: 600,
-                        height: 400,
-                        top: 120,
-                        href: 'app/user/_permissions.cshtml',
-                        onLoad: function () {
-                            treePermissions = dlgPermissions.find('.roles-tree-Buttons>li');
-                            $.post('/api/GetAllMenuByUserId/' + selected.Id, function (data) {
-                                loadMenusButtons(data, treePermissions);
-                            });
-                        },
-                        buttons: [{
-                            text: lang.iconsave,
-                            handler: function () {
-                                var menus = [];
-                                var tree = treePermissions;
-
-                                $.each(tree.find(':checkbox:checked'), function (i, n) {
-                                    menus.push($(n).val());
-                                });
-
-                                if (menus.length === 0) {
-                                    showToast('请选择权限');
-                                    return false;
-                                }
-
-                                $.post('/api/save-user-permissions/' + selected.Id, { KeyList: menus }, function (data) {
-                                    showToast(data.message);
-                                    if (data.success) {
-                                        dlgPermissions.dialog('close');
-                                        dg.datagrid('reload');
-                                    }
-                                });
-                            }
-                        }, {
-                            text: lang.iconcancel,
-                            handler: function () {
-                                dlgPermissions.dialog('close');
-                            }
-                        }]
-                    });
                 }
+
             });
         });
     </script>

@@ -5,28 +5,32 @@
 </head>
 <body>
 <div class="easyui-layout animated fadeInRight" data-options="fit:true">
-    <div data-options="region:'west',border:false" title="设备列表" style="width: 200px; border-right: 1px #efefef solid; padding: 10px;">
-        <ul id="tree-users"></ul>
+    <div data-options="region:'west',border:false" title="用户列表" style="width: 200px; border-right: 1px #efefef solid; padding: 10px;">
+        <ul id="tree-user"></ul>
     </div>
-    <div data-options="region:'center',border:false" title="链接列表">
-        <table id="dg-roles"></table>
+
+    <div data-options="region:'center',border:false" title="角色列表">
+        <table id="dg-role"></table>
     </div>
+
 </div>
-<div id="dlg-user" style="width:520px;padding:5px;">
+
+<div id="dlg-userrole" style="width:520px;padding:5px;">
     <form class="easyui-form" data-options="novalidate:true">
         <table cellpadding="5">
             <tr>
-                <td>请选择设备:</td>
-                <td colspan="3"><input name="device"></td>
+                <td>请选择用户:</td>
+                <td colspan="3"><input name="user"></td>
             </tr>
             <tr>
-                <td>请选择链接:</td>
-                <td colspan="3"><input name="url"></td>
+                <td>请选择角色:</td>
+                <td colspan="3"><input name="role"></td>
             </tr>
 
         </table>
     </form>
 </div>
+
 <div id="dlg-permissions"></div>
 <script type="text/javascript">
 
@@ -34,15 +38,15 @@
     $(function () {
         var
             dg = $('#dg-role'),
-            dlg = $('#dlg-user'),
+            dlg = $('#dlg-userrole'),
             dlgPermissions = $('#dlg-permissions'),
-            teamtree = $('#tree-users'),
-            cmbtree = dlg.find('input[name="device"]'),
-            cmbrole = dlg.find('input[name="url"]'),
+            teamtree = $('#tree-user'),
+            cmbtree = dlg.find('input[name="user"]'),
+            cmbrole = dlg.find('input[name="role"]'),
             treePermissions = null;
 
         teamtree.tree({
-            url: '/resources/v1/devices',
+            url: '/resources/v1/users',
             method: 'get',
             onSelect: function (node) {
                 dg.datagrid('load', {
@@ -51,16 +55,15 @@
 
             }
         });
-
         dg.dialogDataGrid({
-            url: '/resources/v1/devices/details',
+            url: '/resources/v1/users/details',
             dialogTitle: '配对',
             dialogEl: dlg,
             deleteField: 'MenuText',
             columns: [$.merge([
                 { field: 'ck', checkbox: true },
                 { field: 'id', title: 'id', width: 220, sortable: true },
-                { field: 'content', title: '内容', width: 220, sortable: true },
+                { field: 'rolename', title: '角色', width: 220, sortable: true },
                 { field: 'description', title: '描述', width: 160, sortable: true },
 
             ], globalColumns)],
@@ -111,59 +114,8 @@
                 else {
                     form.form('reset');
                 }
-            },
-            setPermissions: function () {
-                var selected = dg.datagrid('getSelected');
-                if (selected == null) {
-                    showToast('请选择用户！');
-                    return false;
-                }
-
-                dlgPermissions.dialog({
-                    title: '用户权限设置',
-                    modal: true,
-                    cache: true,
-                    width: 600,
-                    height: 400,
-                    top: 120,
-                    href: 'app/user/_permissions.cshtml',
-                    onLoad: function () {
-                        treePermissions = dlgPermissions.find('.roles-tree-Buttons>li');
-                        $.post('/api/GetAllMenuByUserId/' + selected.Id, function (data) {
-                            loadMenusButtons(data, treePermissions);
-                        });
-                    },
-                    buttons: [{
-                        text: lang.iconsave,
-                        handler: function () {
-                            var menus = [];
-                            var tree = treePermissions;
-
-                            $.each(tree.find(':checkbox:checked'), function (i, n) {
-                                menus.push($(n).val());
-                            });
-
-                            if (menus.length === 0) {
-                                showToast('请选择权限');
-                                return false;
-                            }
-
-                            $.post('/api/save-user-permissions/' + selected.Id, { KeyList: menus }, function (data) {
-                                showToast(data.message);
-                                if (data.success) {
-                                    dlgPermissions.dialog('close');
-                                    dg.datagrid('reload');
-                                }
-                            });
-                        }
-                    }, {
-                        text: lang.iconcancel,
-                        handler: function () {
-                            dlgPermissions.dialog('close');
-                        }
-                    }]
-                });
             }
+
         });
     });
 </script>

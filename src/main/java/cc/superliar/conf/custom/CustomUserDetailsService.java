@@ -22,7 +22,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String usr) throws UsernameNotFoundException {
         User user = userReposity.findByAccountAndValidFlag(usr, ValidFlag.VALID).orElseThrow(
                 // Throw cannot find any user by this usr param.
-                () -> new UsernameNotFoundException(String.format("User %s does not exist!", usr)));
+                () -> new UsernameNotFoundException(String.format("UserManageVO %s does not exist!", usr)));
         return new CustomUserRepositoryUserDetails(user);
 
     }

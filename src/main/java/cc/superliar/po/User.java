@@ -17,7 +17,7 @@ import java.util.Set;
 @Entity
 @EntityListeners({AuditingEntityListener.class})
 @Table(name = "tb_user")
-@NamedEntityGraph(name = "User.roles", attributeNodes = @NamedAttributeNode("roles"))
+@NamedEntityGraph(name = "UserManageVO.roles", attributeNodes = @NamedAttributeNode("roles"))
 public class User implements Serializable {
     private static final long serialVersionUID = 2680591198337929454L;
 
@@ -177,7 +177,7 @@ public class User implements Serializable {
 
     @Override
     public String toString() {
-        return "User{" +
+        return "UserManageVO{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", account='" + account + '\'' +

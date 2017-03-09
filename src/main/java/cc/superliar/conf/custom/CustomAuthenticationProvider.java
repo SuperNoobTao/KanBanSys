@@ -37,7 +37,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
         String username = token.getName();
         User user = userReposity.findByAccountAndValidFlag(username, ValidFlag.VALID).orElseThrow(
                 // Throw cannot find any user by this usr param.
-                () -> new UsernameNotFoundException(String.format("User %s does not exist!", username)));
+                () -> new UsernameNotFoundException(String.format("UserManageVO %s does not exist!", username)));
         if (!customPasswordEncoder.matches(token.getCredentials().toString(), user.getPwd())) {
             throw new BadCredentialsException("Invalid username/password");
         }

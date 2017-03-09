@@ -23,6 +23,7 @@ public class UserVO implements Serializable {
 
     private String description;
 
+    private String text;
 
     public Long getId() {
         return id;
@@ -70,5 +71,13 @@ public class UserVO implements Serializable {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public String getText() {
+        return name;
+    }
+
+    public void setText(String name) {
+        this.text = name;
     }
 }

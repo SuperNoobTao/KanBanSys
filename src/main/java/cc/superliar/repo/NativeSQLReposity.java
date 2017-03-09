@@ -6,6 +6,7 @@ import cc.superliar.po.Manage;
 import cc.superliar.po.Url;
 import cc.superliar.vo.ManageVO;
 import cc.superliar.vo.UrlVO;
+import cc.superliar.vo.UserManageVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -50,6 +51,46 @@ public class NativeSQLReposity {
         }
             return  list;
     }
+
+
+
+
+    public List<UserManageVO> listbyuser(Long user){
+
+        List<UserManageVO> list = new ArrayList<>();
+        String sql =
+                "select id,user_id,m.role_id,u.role_name,u.role_description " +
+                        "from tb_user_has_role m,tb_role u " +
+                        "where m.role_id = u.role_id and  m.user_id=:userid";
+        javax.persistence.Query query = em.createNativeQuery(sql);
+        query.setParameter("userid", user);
+
+        List objecArraytList = query.getResultList();
+        for (int i = 0; i < objecArraytList.size(); i++) {
+            Object[] obj = (Object[]) objecArraytList.get(i);
+            UserManageVO manageVO = new UserManageVO();
+            manageVO.setId((Integer) obj[0]);
+            manageVO.setUser((Integer) obj[1]);
+            manageVO.setRole((Integer) obj[2]);
+            manageVO.setRolename((String) obj[3]);
+            manageVO.setDescription((String) obj[4]);
+            list.add(manageVO);
+        }
+        return  list;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     /**
      * 显示可添加的url

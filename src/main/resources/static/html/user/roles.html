@@ -9,22 +9,58 @@
             <table id="dg-roles"></table>
         </div>
     </div>
+
+
+    <div id="dlg-roles" style="width:320px;padding:5px;">
+        <form class="easyui-form" data-options="novalidate:true">
+            <table cellpadding="5">
+                <tr>
+                    <td>角色名称:</td>
+                    <td>
+                        <input class="easyui-textbox" type="text" id="name" name="name" data-options="required:true" >
+
+                    </td>
+                </tr>
+                <tr>
+                    <td>备注:</td>
+                    <td>
+                        <input class="easyui-textbox" type="text" name="description" data-options="required:true" />
+
+                    </td>
+                </tr>
+
+            </table>
+        </form>
+    </div>
+
+
     <script type="text/javascript">
         $(function () {
             var dg = $('#dg-roles')
+            var dlg = $('#dlg-roles')
 
             dg.dialogTreeGrid({
                 url: '/resources/v1/roles',
                 treeField: 'id',
                 dialogTitle: '角色',   //添加XXX
-//                dialogEl: dlg,
+                dialogEl: dlg,
                 columns: [$.merge([
                     { field: 'id', hidden: true },
                     { field: 'name', title: '角色名称', width: 120, editor: { type: 'textbox', options: { required: true } }, sortable: true },
                     { field: 'description', title: '备注', width: 200, editor: 'textbox', sortable: true }
                 ], globalColumns)],
                 pagination:false,
-                columnFilters: globalColumnsFilter
+                columnFilters: globalColumnsFilter,
+                dialogBeforeOpen:function(form,record) {
+
+                    if (record) {
+                        if (record['ParentId'] == null) record['ParentId'] = '';
+                        form.form('load', record);
+                    }
+                    else {
+                        form.form('reset');
+                    }
+                }
             });
         });
     </script>
