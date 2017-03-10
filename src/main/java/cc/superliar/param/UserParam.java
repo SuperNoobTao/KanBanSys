@@ -24,7 +24,7 @@ public class UserParam extends BaseParam {
     private String pwd; // pwd
 
     @NotNullField(value = OperationType.CREATE, message = "name cannot be null.")
-    @Size(min = 4, max = 50)
+    @Size(min = 1, max = 50)
     private String name; // name
 
     private String description;

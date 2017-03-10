@@ -36,22 +36,13 @@
         $(function () {
             var
                 dg = $('#dg-users'),
-                dlg = $('#dlg-users'),
-                dlgPermissions = $('#dlg-permissions'),
-                teamtree = $('#tree-users-teams'),
-                cmbtree = dlg.find('input[name="TeamId"]'),
-                cmbrole = dlg.find('input[name="RoleId"]'),
-                textuser = dlg.find('input[name="UserName"]'),
-                treePermissions = null;
+                dlg = $('#dlg-users')
 
-
-
-            dg.dialogDataGrid({
-
+            dg.dialogTreeGrid({
                 url: '/resources/v1/users',
                 dialogTitle: '用户',
                 dialogEl: dlg,
-                deleteField: 'MenuText',
+                treeField: 'id',
                 columns: [$.merge([
                     { field: 'ck', checkbox: true },
                     { field: 'id', hidden: true },
@@ -61,40 +52,6 @@
                 ], globalColumns)],
                 columnFilters: globalColumnsFilter,
                 dialogBeforeOpen: function (form, record) {
-
-                    var pwdField = form.find('input[name="Password"]').validatebox({
-                        required: record === undefined,
-                        value: '',
-                        novalidate: true,
-                        validType: {
-                            length: [6, 20]
-                        }
-                    });
-                    form.find('input[name="ConfrimPassword"]').validatebox({
-                        required: record === undefined,
-                        novalidate: true,
-                        value: '',
-                        validType: {
-                            equals: pwdField
-                        }
-                    });
-                    cmbtree.combotree({
-                        url: '/api/teams',
-                        method: 'get',
-                        required: true,
-                        panelHeight: 'auto'
-                    });
-
-                    cmbrole.combobox({
-
-                        valueField: 'Id',
-                        textField: 'RoleName',
-                        required: true,
-                        multiple: true,
-                        panelHeight: 'auto'
-                    });
-
-
                     if (record) {
                         if (record['Team'] != null) record['styleid'] = record['Team'].Id;
                         if (record['Roles'] != null) {

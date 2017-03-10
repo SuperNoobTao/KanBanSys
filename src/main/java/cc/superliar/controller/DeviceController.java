@@ -59,14 +59,12 @@ import net.sf.*;
 @RequestMapping(ResourceURL.RESOURCES + VersionConstant.V1 + ResourceURL.DEVICES)
 public class DeviceController {
 
-
     // ------------------------
     // PUBLIC METHODS
     // ------------------------
 
     /**
      * 创建一个设备
-     *
      * @param param {@link DeviceParam}
      * @return {@link cc.superliar.vo.DeviceVO}
      */
@@ -91,14 +89,12 @@ public class DeviceController {
     }
 
 
-
     /**
      * Show all.
      * 分页显示设备列表
      * @param param {@link DeviceParam}
      * @return devices
      */
-
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity all(
             @And({
@@ -108,11 +104,9 @@ public class DeviceController {
             DeviceParam param
     ) {
         try {
-
             if (param.getPage() == null) {
                 return new ResponseEntity<>(deviceDomain.getAll(deviceSpecification, QueryHelper.getSort(param.getSortBy()), DeviceVO.class), HttpStatus.OK);
             }
-
             Page<Device> deviceList = deviceDomain.getPage(deviceSpecification, QueryHelper.getPageRequest(param), DeviceVO.class);
             Map<String,java.lang.Object> map = new HashMap<String,Object>();
             map.put("total",deviceList.getTotalElements());
@@ -123,7 +117,6 @@ public class DeviceController {
             return resultHelper.errorResp(logger, e, ErrorType.UNKNOWN, e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-
 
 
     /**
@@ -146,15 +139,12 @@ public class DeviceController {
     }
 
 
-
-
     /**
      * 显示可以添加的urls
      *
      * @param id {@link Device#id}
      * @return {@link cc.superliar.vo.DeviceVO}
      */
-
     @RequestMapping(value = "/combox", method = RequestMethod.GET)
     public ResponseEntity canAddUrls(String id) {
         try {
@@ -162,8 +152,6 @@ public class DeviceController {
                 return new ResponseEntity<>(urlDomain.getAll(null, null, UrlVO.class), HttpStatus.OK);
             }
             Device device = deviceDomain.getByIdStr(id, Device.class);
-//            Set<Url> urls = device.getUrls();
-//            List<UrlVO> urlVOS = transformer.pos2VOs(UrlVO.class,transformer.set2List(urls));
             List<UrlVO> list = nativeSQLReposity.listbydevice2(device.getId());
             return new ResponseEntity<>(list, HttpStatus.OK);
         } catch (Exception e) {
@@ -173,13 +161,8 @@ public class DeviceController {
     }
 
 
-
-
-
-
     /**
-     * Update {@link Device}.
-     *
+     * 更新设备信息
      * @param id    {@link Device#id}
      * @param param {@link DeviceParam}
      * @return {@link cc.superliar.vo.DeviceVO}
@@ -205,8 +188,9 @@ public class DeviceController {
         }
     }
 
+
     /**
-     * Delete {@link Device}.
+     * 删除设备信息
      *
      * @param id {@link Device#id}
      * @return {@link cc.superliar.vo.DeviceVO}
@@ -234,7 +218,6 @@ public class DeviceController {
     }
 
 
-
     /**
      * 批量删除
      *
@@ -244,7 +227,6 @@ public class DeviceController {
     @RequestMapping( method = RequestMethod.DELETE)
     public ResponseEntity deleteList(@CurrentUser User currentUser, HttpServletRequest request) {
         try {
-
             List<String> idList = new ArrayList<String>();
             System.out.println(request.getParameter("input"));
             JSONArray jsonArr = JSONArray.fromObject(request.getParameter("input"));
@@ -252,7 +234,6 @@ public class DeviceController {
                 JSONObject jso = JSONObject.fromObject(obj);
                 idList.add( jso.get("Id").toString() );//id列表
             }
-
             // Delete user. 遍历ID，批量删除
             deviceDomain.deleteList(idList, currentUser);
             return new ResponseEntity(HttpStatus.NO_CONTENT);
@@ -264,12 +245,6 @@ public class DeviceController {
             return resultHelper.errorResp(logger, e, ErrorType.UNKNOWN, e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-
-
-
-
-
-
 
 
     // ------------------------

@@ -37,7 +37,7 @@ public class ManageDomain extends BaseDomain<Manage,Integer> {
     // ------------------------
 
     /**
-     * 根据设备id删除对应url
+     * 在删除device的时候级联把url都删除
      * @param id
      */
     @Transactional
@@ -45,6 +45,17 @@ public class ManageDomain extends BaseDomain<Manage,Integer> {
         manageReposity.deleteManageById(id);
     }
 
+
+    /**
+     * 批量删除对应关系
+     * @param id
+     */
+    @Transactional
+    public void deleteManages(List<String> isList, User currentUser) throws Exception{
+        for(String id : isList) {
+            manageReposity.delete(Integer.valueOf(id));
+        }
+    }
 
 
     /**

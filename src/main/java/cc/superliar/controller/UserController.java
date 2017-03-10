@@ -8,13 +8,16 @@ import cc.superliar.component.ValidateHelper;
 import cc.superliar.constant.ControllerConstant;
 import cc.superliar.constant.ResourceURL;
 import cc.superliar.constant.VersionConstant;
+import cc.superliar.domain.RoleDomain;
 import cc.superliar.domain.UserDomain;
 import cc.superliar.enums.ErrorType;
 import cc.superliar.enums.OperationType;
 import cc.superliar.exception.CommonsException;
 import cc.superliar.param.UserParam;
 import cc.superliar.po.User;
+import cc.superliar.repo.NativeSQLReposity;
 import cc.superliar.util.QueryHelper;
+import cc.superliar.vo.RoleVO;
 import cc.superliar.vo.UserVO;
 import net.kaczmarzyk.spring.data.jpa.domain.*;
 import net.kaczmarzyk.spring.data.jpa.domain.Like;
@@ -37,6 +40,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -53,7 +57,7 @@ public class UserController {
     // ------------------------
 
     /**
-     * Create new {@link User}.
+     * 创建用户
      *
      * @param param {@link UserParam}
      * @return {@link cc.superliar.vo.UserVO}
@@ -80,7 +84,7 @@ public class UserController {
     }
 
     /**
-     * Show all.
+     * 分页显示所有用户
      *
      * @param param {@link UserParam}
      * @return users
@@ -98,14 +102,11 @@ public class UserController {
             if (param.getPage() == null) {
                 return new ResponseEntity<>(userDomain.getAll(userSpecification, QueryHelper.getSort(param.getSortBy()), UserVO.class), HttpStatus.OK);
             }
-
             Page<User> userList = userDomain.getPage(userSpecification, QueryHelper.getPageRequest(param), UserVO.class);
             Map<String,Object> map = new HashMap<String,Object>();
             map.put("total",userList.getTotalElements());
             map.put("rows",userList.getContent());
-
             return  new ResponseEntity<>(map, HttpStatus.OK);
-
         } catch (Exception e) {
             // Return unknown error and log the exception.
             return resultHelper.errorResp(logger, e, ErrorType.UNKNOWN, e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
@@ -135,10 +136,32 @@ public class UserController {
     }
 
 
+    /**
+     * 显示可以添加的urls
+     * @param id {@link Device#id}
+     * @return {@link cc.superliar.vo.DeviceVO}
+     */
+    @RequestMapping(value = "/combox", method = RequestMethod.GET)
+    public ResponseEntity canAddRoles(String id) {
+        try {
+            if (StringUtils.isBlank(id)) {
+                return new ResponseEntity<>(roleDomain.getAll(null, null, RoleVO.class), HttpStatus.OK);
+            }
+            User user = userDomain.getById(Long.valueOf(id), User.class);
+//            Set<Url> urls = device.getUrls();
+//            List<UrlVO> urlVOS = transformer.pos2VOs(UrlVO.class,transformer.set2List(urls));
+            List<RoleVO> list = nativeSQLReposity.listbyuser2(user.getId());
+            return new ResponseEntity<>(list, HttpStatus.OK);
+        } catch (Exception e) {
+            // Return unknown error and log the exception.
+            return resultHelper.errorResp(logger, e, ErrorType.UNKNOWN, e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+
 
     /**
-     * Update {@link User}.
-     *
+     * 更新用户
      * @param id    {@link User#id}
      * @param param {@link UserParam}
      * @return {@link cc.superliar.vo.UserVO}
@@ -165,8 +188,7 @@ public class UserController {
     }
 
     /**
-     * Delete {@link User}.
-     *
+     * 删除用户
      * @param id {@link User#id}
      * @return {@link cc.superliar.vo.UserVO}
      */
@@ -202,8 +224,7 @@ public class UserController {
 
 
     /**
-     * Update {@link User}.
-     *
+     * 修改当前用户信息
      * @param id    {@link User#id}
      * @param param {@link UserParam}
      * @return {@link cc.superliar.vo.UserVO}
@@ -252,6 +273,12 @@ public class UserController {
 
     @Autowired
     CustomPasswordEncoder customPasswordEncoder;
+
+    @Autowired
+    private RoleDomain roleDomain;
+
+    @Autowired
+    private NativeSQLReposity nativeSQLReposity;
 
 
 }

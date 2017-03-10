@@ -5,6 +5,7 @@ import cc.superliar.po.Manage;
 
 import cc.superliar.po.Url;
 import cc.superliar.vo.ManageVO;
+import cc.superliar.vo.RoleVO;
 import cc.superliar.vo.UrlVO;
 import cc.superliar.vo.UserManageVO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,8 +54,11 @@ public class NativeSQLReposity {
     }
 
 
-
-
+    /**
+     * 显示用户对应的角色
+     * @param user
+     * @return
+     */
     public List<UserManageVO> listbyuser(Long user){
 
         List<UserManageVO> list = new ArrayList<>();
@@ -78,18 +82,6 @@ public class NativeSQLReposity {
         }
         return  list;
     }
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     /**
@@ -119,6 +111,38 @@ public class NativeSQLReposity {
     }
 
 
+    /**
+     * 显示可添加的角色
+     * @param user
+     * @return
+     */
+    public List<RoleVO> listbyuser2(Long user){
+        List<RoleVO> list = new ArrayList<>();
+        String sql =
+                "select role_id,role_name,role_description " +
+                        "from tb_role u where role_valid_flag=1 and  u.role_id not in" +
+                        " (select role_id from tb_user_has_role where user_id=:userid )";
+        javax.persistence.Query query = em.createNativeQuery(sql);
+        query.setParameter("userid", user);
+        List objecArraytList = query.getResultList();
+        for (int i = 0; i < objecArraytList.size(); i++) {
+            Object[] obj = (Object[]) objecArraytList.get(i);
+            RoleVO roleVO = new RoleVO();
+            roleVO.setId(Long.valueOf((Integer) obj[0]));
+            roleVO.setName((String) obj[1]);
+            roleVO.setDescription((String) obj[2]);
+            list.add(roleVO);
+        }
+        return  list;
+
+    }
+
+
+    /**
+     * 发送给android app的信息
+     * @param device
+     * @return
+     */
     public List<Url> listbydevice3(String device){
         List<Url> list = new ArrayList<>();
         String sql =

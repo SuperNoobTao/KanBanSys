@@ -26,7 +26,6 @@ public class WelcomeController {
 
   /**
    * 欢迎页面
-   *
    * @param user user
    * @return user's name
    */

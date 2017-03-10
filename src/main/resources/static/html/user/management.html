@@ -71,7 +71,7 @@
             dialogBeforeOpen: function (form, record) {
 
                 cmbtree.combotree({
-                    url: '/resources/v1/devices',
+                    url: '/resources/v1/users',
                     editable:false, //不可编辑状态
                     cache: false,
                     method: 'get',
@@ -84,7 +84,7 @@
                     //查询所有设备
                     onSelect: function (rec) {
                         //根据设备查询所有链接
-                        $.get('/resources/v1/devices/combox', { "id": rec.id }, function (data) {
+                        $.get('/resources/v1/users/combox', { "id": rec.id }, function (data) {
                             cmbrole.combobox("clear").combobox('loadData', data);
                         }, 'json');
                     }
@@ -93,7 +93,7 @@
                     editable:false, //不可编辑状态
                     cache: false,
                     valueField: 'id',
-                    textField: 'content',
+                    textField: 'name',
                     required: true,
                     panelHeight: 'auto',
                     width:360

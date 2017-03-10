@@ -31,6 +31,11 @@ public class FontEndCtrl {
     }
 
 
+    /**
+     * 到主界面
+     * @param currentUser
+     * @return
+     */
     @RequestMapping(value = "/home", method = RequestMethod.GET)
     public ModelAndView index(@CurrentUser User currentUser) {
         String username = currentUser.getName();
@@ -41,13 +46,5 @@ public class FontEndCtrl {
     }
 
 
-//    @RequestMapping(value = "/logout", method = RequestMethod.GET)
-//    public ModelAndView logout(@CurrentUser UserManageVO currentUser) {
-//        String username = currentUser.getName();
-//        ModelAndView mav = new ModelAndView();
-//        mav.addObject("username",username);
-//        mav.setViewName("/login");
-//        return mav;
-//    }
 
 }

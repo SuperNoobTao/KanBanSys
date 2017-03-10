@@ -11,6 +11,7 @@ import cc.superliar.enums.ValidFlag;
 import cc.superliar.exception.CommonsException;
 import cc.superliar.po.User;
 import cc.superliar.repo.CustomRepository;
+import cc.superliar.repo.UserManageReposity;
 import cc.superliar.util.BeanUtils;
 import cc.superliar.util.ErrorMsgHelper;
 import org.springframework.beans.factory.annotation.Autowired;

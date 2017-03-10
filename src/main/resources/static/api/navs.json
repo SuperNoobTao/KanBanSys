@@ -169,13 +169,6 @@
         "IsActivated": "on",
         "Buttons": [
           {
-            "ButtonName": "添加",
-            "ButtonDesc": null,
-            "ButtonLink": "add",
-            "IconCls": "fa-plus",
-            "Id": "a22020c8-f677-e511-9bcd-9d38c0ac0015"
-          },
-          {
             "ButtonName": "修改",
             "ButtonDesc": null,
             "ButtonLink": "edit",

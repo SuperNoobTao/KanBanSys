@@ -2,14 +2,17 @@ package cc.superliar.domain;
 
 import cc.superliar.component.CustomPasswordEncoder;
 import cc.superliar.component.Transformer;
+import cc.superliar.constant.CommonsConstant;
 import cc.superliar.constant.ResourceConstant;
 import cc.superliar.enums.ErrorType;
+import cc.superliar.enums.OperationType;
 import cc.superliar.enums.ValidFlag;
 import cc.superliar.exception.CommonsException;
 import cc.superliar.param.UserParam;
 import cc.superliar.po.Role;
 import cc.superliar.po.User;
 import cc.superliar.repo.UserReposity;
+import cc.superliar.util.BeanUtils;
 import cc.superliar.util.ErrorMsgHelper;
 import cc.superliar.vo.UserVO;
 import org.apache.commons.lang3.StringUtils;
@@ -17,6 +20,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.lang.reflect.Field;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -65,7 +70,8 @@ public class UserDomain extends BaseDomain<User,Long> {
      * @return {@link UserVO}
      * @throws CommonsException {@link ErrorType#SYS0122} Cannot find any user by id param.
      */
-    @Transactional public UserVO update(UserParam param, User currentUser) throws Exception {
+    @Transactional
+    public UserVO update(UserParam param, User currentUser) throws Exception {
         User user = findByIdAndValidFlag(param.getId());
         //当 account不为空且account改变时需要确认重复与否
         if (StringUtils.isNotBlank(param.getAccount()) && !param.getAccount().equals(user.getAccount())) {
@@ -76,6 +82,27 @@ public class UserDomain extends BaseDomain<User,Long> {
 
     public User findByIdAndValidFlag(Long id) {
         return userRepository.findById(id).orElse(null);
+    }
+
+
+    /**
+     * Delete <T>, update valid flag to invalid.
+     *
+     * @param inputParam  input param
+     * @param currentUser current user
+     * @throws Exception
+     */
+
+    @Transactional
+    public void delete(UserParam inputParam, User currentUser) throws Exception {
+        User po = findByIdParam(inputParam);
+        BeanUtils.copyPropertiesIgnoreNull(inputParam, po);
+        Field lastModifiedDateField = po.getClass().getDeclaredField(CommonsConstant.LAST_MODIFIED_DATE);
+        lastModifiedDateField.setAccessible(true);
+        lastModifiedDateField.set(po, LocalDateTime.now());
+        logHelper.logUsersOperations(OperationType.DELETE, getClassT().getName(), currentUser);
+        userRepository.save(setInvalid(po));
+        userManageDomain.deleteByUserId(po.getId());
     }
 
     // --------------------------
@@ -89,6 +116,9 @@ public class UserDomain extends BaseDomain<User,Long> {
     @Autowired private CustomPasswordEncoder passwordEncoder;
 
     @Autowired private Transformer transformer;
+
+    @Autowired private UserManageDomain userManageDomain;
+
 
     @Autowired public UserDomain(UserReposity userRepository) {
         this.userRepository = userRepository;
@@ -127,5 +157,20 @@ public class UserDomain extends BaseDomain<User,Long> {
             // Throw user already exists error, usr taken.
             throw new CommonsException(ErrorType.SYS0111, ErrorMsgHelper.getReturnMsg(ErrorType.SYS0111, ResourceConstant.USERS, USR));
         }
+    }
+
+
+    /**
+     * Set invalid flag
+     *
+     * @param po po
+     * @return po with invalid flag
+     * @throws Exception
+     */
+    private User setInvalid(User po) throws Exception {
+        Field validFlagField = po.getClass().getDeclaredField(CommonsConstant.VALID_FLAG);
+        validFlagField.setAccessible(true);
+        validFlagField.set(po, ValidFlag.INVALID);
+        return po;
     }
 }

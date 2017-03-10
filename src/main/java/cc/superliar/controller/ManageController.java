@@ -19,6 +19,8 @@ import cc.superliar.po.User;
 import cc.superliar.repo.NativeSQLReposity;
 import cc.superliar.vo.ManageVO;
 import cc.superliar.vo.UrlVO;
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,7 +34,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -41,7 +45,6 @@ import java.util.List;
  */
 @RestController
 @RequestMapping(ResourceURL.RESOURCES + VersionConstant.V1 + ResourceURL.DEVICES+"/details")
-
 public class ManageController {
 
     // ------------------------
@@ -49,7 +52,6 @@ public class ManageController {
     // ------------------------
 
     /**
-     * Create new {@link Manage}.
      * 增加某一设备的链接
      * @param param {@link ManageParam}
      * @return {@link cc.superliar.vo.DeviceVO}
@@ -81,7 +83,6 @@ public class ManageController {
      * @param id {@link Device#id}
      * @return {@link cc.superliar.vo.DeviceVO}
      */
-
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity detailUrls(String id) {
         try {
@@ -89,8 +90,6 @@ public class ManageController {
                 return new ResponseEntity<>(urlDomain.getAll(null, null, UrlVO.class), HttpStatus.OK);
             }
             Device device = deviceDomain.getByIdStr(id, Device.class);
-//            Set<Url> urls = device.getUrls();
-//            List<UrlVO> urlVOS = transformer.pos2VOs(UrlVO.class,transformer.set2List(urls));
             List<ManageVO> list = nativeSQLReposity.listbydevice(device.getId());
             return new ResponseEntity<>(list, HttpStatus.OK);
         } catch (Exception e) {
@@ -100,21 +99,25 @@ public class ManageController {
     }
 
 
-
     /**
      * Delete manage {@link Device}.
-     * 删除 一条 对应的 数据
+     * 批量删除数据
      * @param  {@link Device#id}
      * @return {@link cc.superliar.vo.DeviceVO}
      */
     @PreAuthorize("hasAuthority('admin')")
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    public ResponseEntity manageDelete(@CurrentUser User currentUser, @PathVariable String id, @Valid DeviceParam param, BindingResult result) {
+    @RequestMapping( method = RequestMethod.DELETE)
+    public ResponseEntity manageDelete(@CurrentUser User currentUser, HttpServletRequest request) {
         try {
 
-            int  idInt = Integer.parseInt(id);
-            // Delete user.
-            deviceDomain.delete2(idInt, currentUser);
+            List<String> idList = new ArrayList<String>();
+            System.out.println(request.getParameter("input"));
+            JSONArray jsonArr = JSONArray.fromObject(request.getParameter("input"));
+            for(Object obj : jsonArr){
+                JSONObject jso = JSONObject.fromObject(obj);
+                idList.add( jso.get("Id").toString() );//id列表
+            }
+            manageDomain.deleteManages(idList, currentUser);
             return new ResponseEntity(HttpStatus.NO_CONTENT);
         } catch (CommonsException e) {
             // Return error information and log the exception.

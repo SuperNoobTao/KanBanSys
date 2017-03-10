@@ -442,8 +442,6 @@ $.extend($.fn.datagrid.defaults, {
                                 $.ajax({
                                     type: 'POST',
                                     url: opt.url,
-                                    //contentType: 'application/json',
-                                    //contentType: 'application/x-www-form-urlencoded; charset=utf-8',
                                     data: {
                                         _method:'DELETE',
                                         input: JSON.stringify(models)

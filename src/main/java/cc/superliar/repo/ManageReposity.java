@@ -16,4 +16,6 @@ public interface ManageReposity extends CustomRepository<Manage, Integer> {
     public void deleteManageById(String id);
 
 
+
+
 }
