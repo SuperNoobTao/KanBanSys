@@ -213,6 +213,7 @@ public abstract class BaseDomain<T, ID extends Serializable> {
     lastModifiedDateField.set(po, LocalDateTime.now());
     logHelper.logUsersOperations(OperationType.DELETE, getClassT().getName(), currentUser);
     repository.save(setInvalid(po));
+
   }
 
 
@@ -297,6 +298,7 @@ public abstract class BaseDomain<T, ID extends Serializable> {
 
   @Autowired
   private Transformer transformer;
+
 
 
   /**

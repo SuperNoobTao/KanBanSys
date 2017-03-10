@@ -85,6 +85,9 @@ public class Transformer {
     return new PageImpl<>(content, pageable, totalElements);
   }
 
+
+
+
   /**
    * Transform param to PO.
    *
@@ -117,6 +120,40 @@ public class Transformer {
       //createdBy = (Long) createdByField.get(po);
       lastModifiedBy = currentUser.getId();
     }
+    // Set param.
+    BeanUtils.copyPropertiesIgnoreNull(param, po);
+    //createdByField.set(po, createdBy);
+    //lastModifiedByField.set(po, lastModifiedBy);
+    lastModifiedDateField.set(po, now);
+    return po;
+  }
+
+
+  /**
+   * Transform param to PO.
+   *
+   * @param type        class type
+   * @param param       param
+   * @param po          PO
+   * @param currentUser current user
+   * @param <T>         class
+   * @return PO
+   * @throws Exception
+   */
+  public <T> T param2PO(Class<T> type, Object param, T po) throws Exception {
+    // Init createdBy, lastModifiedBy
+    Long createdBy;
+    Long lastModifiedBy;
+    // Init transformer
+    Field idField = type.getDeclaredField(CommonsConstant.ID);
+    idField.setAccessible(true);
+//    Field createdByField = type.getDeclaredField(CommonsConstant.CREATED_BY);
+//    createdByField.setAccessible(true);
+//    Field lastModifiedByField = type.getDeclaredField(CommonsConstant.LAST_MODIFIED_BY);
+//    lastModifiedByField.setAccessible(true);
+    Field lastModifiedDateField = type.getDeclaredField(CommonsConstant.LAST_MODIFIED_DATE);
+    lastModifiedDateField.setAccessible(true);
+    LocalDateTime now = LocalDateTime.now();
     // Set param.
     BeanUtils.copyPropertiesIgnoreNull(param, po);
     //createdByField.set(po, createdBy);

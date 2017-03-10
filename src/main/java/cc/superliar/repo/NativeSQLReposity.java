@@ -1,24 +1,16 @@
 package cc.superliar.repo;
 
-import cc.superliar.po.Device;
-import cc.superliar.po.Manage;
-
 import cc.superliar.po.Url;
 import cc.superliar.vo.ManageVO;
 import cc.superliar.vo.RoleVO;
 import cc.superliar.vo.UrlVO;
 import cc.superliar.vo.UserManageVO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
-import sun.util.resources.cldr.ga.LocaleNames_ga;
 
 import javax.persistence.EntityManager;
-import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Created by shentao on 2016/12/24.
@@ -76,7 +68,7 @@ public class NativeSQLReposity {
             manageVO.setId((Integer) obj[0]);
             manageVO.setUser((Integer) obj[1]);
             manageVO.setRole((Integer) obj[2]);
-            manageVO.setRolename((String) obj[3]);
+            manageVO.setName((String) obj[3]);
             manageVO.setDescription((String) obj[4]);
             list.add(manageVO);
         }

@@ -17,7 +17,7 @@ public class UserManageVO {
 
     private int user;     //user id
 
-    private String rolename;   //rolename
+    private String name;   //name
 
     private String description;  //备注
 
@@ -61,12 +61,12 @@ public class UserManageVO {
         this.user = user;
     }
 
-    public String getRolename() {
-        return rolename;
+    public String getName() {
+        return name;
     }
 
-    public void setRolename(String rolename) {
-        this.rolename = rolename;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getDescription() {

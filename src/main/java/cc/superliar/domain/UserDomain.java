@@ -34,6 +34,31 @@ public class UserDomain extends BaseDomain<User,Long> {
     // ------------------------
     // PUBLIC METHODS
     // ------------------------
+    /**
+     * Create new {@link User}.
+     *
+     * @param param       {@link UserParam}
+     * @return {@link UserVO}
+     * @throws CommonsException {@link ErrorType#SYS0111} user already existing, usr taken.
+     */
+    @Transactional public UserVO create(UserParam param) throws Exception {
+        User user = new User();
+        user.setAccount(param.getAccount());
+        user.setName(param.getName());
+        user.setPwd(passwordEncoder.encode(param.getPwd()));
+        userRepository.save(user);
+        UserVO userVO = new UserVO();
+        if (userRepository.findById(user.getId())!=null){
+
+            userVO.setName(user.getName());
+            userVO.setAccount(user.getAccount());
+            userVO.setId(user.getId());
+            userVO.setDescription(user.getDescription());
+            return  userVO;
+        }
+        return userVO;
+    }
+
 
     /**
      * Create new {@link User}.
@@ -97,6 +122,9 @@ public class UserDomain extends BaseDomain<User,Long> {
     public void delete(UserParam inputParam, User currentUser) throws Exception {
         User po = findByIdParam(inputParam);
         BeanUtils.copyPropertiesIgnoreNull(inputParam, po);
+//    Field lastModifiedByField = po.getClass().getDeclaredField(CommonsConstant.LAST_MODIFIED_BY);
+//    lastModifiedByField.setAccessible(true);
+//    lastModifiedByField.set(po, currentUser.getId());
         Field lastModifiedDateField = po.getClass().getDeclaredField(CommonsConstant.LAST_MODIFIED_DATE);
         lastModifiedDateField.setAccessible(true);
         lastModifiedDateField.set(po, LocalDateTime.now());
@@ -118,6 +146,8 @@ public class UserDomain extends BaseDomain<User,Long> {
     @Autowired private Transformer transformer;
 
     @Autowired private UserManageDomain userManageDomain;
+
+
 
 
     @Autowired public UserDomain(UserReposity userRepository) {
