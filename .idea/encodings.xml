@@ -2,8 +2,9 @@
 <project version="4">
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/main/java/test/cc/superliar/domain/UserDomainTest.java" charset="GBK" />
-    <file url="file://$PROJECT_DIR$/src/main/java/test/cc/superliar/repo/UserRepoImplTest.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/resources/static/libs/easyui/locale/easyui-lang-zh_CN.js" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/test" charset="UTF-8" />
+    <file url="PROJECT" charset="UTF-8" />
   </component>
 </project>
