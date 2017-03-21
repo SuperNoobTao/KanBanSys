@@ -13,18 +13,6 @@
     <div id="dlg-category" style="width:320px;padding:5px;">
         <form class="easyui-form" data-options="novalidate:true">
             <table cellpadding="5">
-                <tr>
-                    <td>切换时间:</td>
-                    <td>
-                        <!--<input class="easyui-textbox" type="text" id="txtrName" name="speed" data-options="required:true" >-->
-                        <label><input name="speed" type="radio" value="320" />320 </label>
-                        <label><input name="speed" type="radio" value="480" />480 </label>
-                        <label><input name="speed" type="radio" value="640" />640 </label>
-                        <br />
-                        <label><input name="speed" type="radio" value="760" />760 </label>
-                        <label><input name="speed" type="radio" value="880" />880 </label>
-                        <label><input name="speed" type="radio" value="1000" />1000 </label>
-                    </td>
                 </tr>
                 <tr>
                     <td>方向:</td>
@@ -38,10 +26,32 @@
                     <td>切换方式:</td>
                     <td>
                         <!--<input class="easyui-textbox" type="text" name="mode" data-options="required:true" />-->
-                        <label><input name="way" type="radio" value="滚动" />滚动 </label>
-                        <label><input name="way" type="radio" value="切换" />切换 </label>
+                        <label><input name="way" type="radio" value="滚动" id="scroll"/>滚动 </label>
+                        <label><input name="way" type="radio" value="切换" id="switch"/>切换 </label>
                     </td>
                 </tr>
+                <tr id="tr1" style="display: none">
+                    <td>切换时间:</td>
+                    <td>
+                        <label><input name="speed" type="radio" value="1000" />1000 </label>
+                        <label><input name="speed" type="radio" value="1500" />1500 </label>
+                        <label><input name="speed" type="radio" value="2000" />2000 </label>
+                        <label><input name="speed" type="radio" value="2500" />2500 </label>
+                        <label><input anme="speed" type="radio" value="3000" />3000 </label>
+                        <label><input name="speed" type="radio" value="3500" />3500 </label>
+                    </td>
+                </tr>
+                <tr id="tr2" style="display: none">
+                    <td>滚动速度:</td>
+                    <td>
+                        <label><input name="speed" type="radio" value="320" />1/320 </label>
+                        <label><input name="speed" type="radio" value="480" />1/480 </label>
+                        <label><input name="speed" type="radio" value="640" />1/640 </label>
+                        <label><input name="speed" type="radio" value="760" />1/760 </label>
+                        <label><input name="speed" type="radio" value="880" />1/880 </label>
+                        <label><input name="speed" type="radio" value="999" />1/999 </label>
+                    </td>
+
                 <tr>
                     <td>备注:</td>
                     <td><input class="easyui-textbox" type="text" name="description" data-options="required:true" /></td>
@@ -68,7 +78,7 @@
                     { field: 'ck', checkbox: true },
                     { field: 'id', hidden: true },
                     { field: 'name', title: '名称', width: 100 },
-                    { field: 'speed', title: '滚动速度', width: 100 },
+                    { field: 'speed', title: '滚动速度或切换时间', width: 120 },
                     { field: 'mode', title: '方向', width: 100 },
                     { field: 'way', title: '样式', width: 100 },
                     { field: 'description', title: '备注', width: 150 }
@@ -86,6 +96,20 @@
                 }
             });
         });
+
+        var a = document.getElementById("scroll");
+        var b = document.getElementById("switch");
+        a.addEventListener("click", function () {
+            document.getElementById("tr2").style.display = "block";
+            b.checked=false;
+            document.getElementById("tr1").style.display = "none";
+        });
+        b.addEventListener("click", function () {
+            document.getElementById("tr2").style.display = "none";
+            a.checked=false;
+            document.getElementById("tr1").style.display = "block";
+        });
+
     </script>
 </body>
 </html>
