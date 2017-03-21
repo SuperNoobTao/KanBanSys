@@ -8,6 +8,7 @@ import cc.superliar.param.StyleParam;
 import cc.superliar.param.UserParam;
 import cc.superliar.po.Style;
 import cc.superliar.po.User;
+import cc.superliar.repo.DeviceReposity;
 import cc.superliar.repo.StyleReposity;
 import cc.superliar.util.ErrorMsgHelper;
 import cc.superliar.vo.StyleVO;
@@ -38,7 +39,7 @@ public class StyleDomain extends BaseDomain<Style,Long> {
      */
     @Transactional
     public StyleVO create(StyleParam param, User currentUser) throws Exception {
-        styleExists(param.getSpeed(),param.getMode());
+        styleExists(param.getSpeed(),param.getMode(),param.getWay());
         param.setName(param.getWay()+":"+param.getMode()+":"+param.getSpeed());
         return super.createByPO(StyleVO.class, styleParam2PO(param, new Style(), currentUser), currentUser);
     }
@@ -54,10 +55,10 @@ public class StyleDomain extends BaseDomain<Style,Long> {
     @Transactional public StyleVO update(StyleParam param, User currentUser) throws Exception {
         Style style = findByIdAndValidFlag(param.getId());
         if (( StringUtils.isNotBlank(param.getSpeed())||StringUtils.isNotBlank(param.getMode()) )&& (!param.getSpeed().equals(style.getSpeed())||!param.getMode().equals(style.getMode()))) {
-            styleExists(param.getSpeed(),param.getMode());
+            styleExists(param.getSpeed(),param.getMode(),param.getWay());
         }
         param.setName(param.getWay()+":"+param.getMode()+":"+param.getSpeed());
-
+        deviceReposity.updateStyleName(param.getName(), String.valueOf(param.getId()));
         return super.updateByPO(StyleVO.class, styleParam2PO(param, style, currentUser), currentUser);
     }
 
@@ -75,6 +76,8 @@ public class StyleDomain extends BaseDomain<Style,Long> {
 
     @Autowired
     private StyleReposity styleReposity;
+    @Autowired
+    private DeviceReposity deviceReposity;
 
     @Autowired
     private Transformer transformer;
@@ -85,8 +88,8 @@ public class StyleDomain extends BaseDomain<Style,Long> {
         return style;
     }
 
-    private void styleExists(String time,String mode) throws Exception {
-        if (styleReposity.findBySpeedAndModeAndValidFlag(time,mode, ValidFlag.VALID).isPresent()) {
+    private void styleExists(String time,String mode,String way) throws Exception {
+        if (styleReposity.findBySpeedAndModeAndWayAndValidFlag(time,mode,way,ValidFlag.VALID).isPresent()) {
             // Throw group already existing exception, name taken.
             throw new CommonsException(ErrorType.SYS0111, ErrorMsgHelper.getReturnMsg(ErrorType.SYS0111, getClassT().getSimpleName(),"time or mode"));
         }

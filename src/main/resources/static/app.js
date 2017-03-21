@@ -1,5 +1,5 @@
 ﻿$.ajaxPrefilter(function (options) {
-    if (options.url.indexOf('.cshtml') > 0) { 
+    if (options.url.indexOf('.cshtml') > 0) {
         var paras = '';
         var viewUrl = options.url;
         if (viewUrl.indexOf('?') > 0) {
@@ -139,6 +139,13 @@ window.onerror = function () {
 function opentab(plugin, title, buttons, record) {
     if ($('#mainTabs').tabs('exists', title)) {
         $('#mainTabs').tabs('select', title);
+        var selTab = $('#mainTabs').tabs('getSelected');
+        $('#mainTabs').tabs('update', {
+            tab: selTab,
+            options: {
+                href: 'html/' + plugin + '.html'
+            }
+        })
     } else {
         $('#mainTabs').tabs('add', {
             title: title,

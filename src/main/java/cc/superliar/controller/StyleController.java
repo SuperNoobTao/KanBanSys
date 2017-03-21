@@ -147,6 +147,7 @@ public class StyleController {
                 return responseEntity;
             }
             // Update user.
+
             return new ResponseEntity<>(styleDomain.update(param, currentUser), HttpStatus.OK);
         } catch (CommonsException e) {
             // Return error information and log the exception.
