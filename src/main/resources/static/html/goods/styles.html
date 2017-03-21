@@ -27,11 +27,19 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>切换方式:</td>
+                    <td>方向:</td>
                     <td>
                         <!--<input class="easyui-textbox" type="text" name="mode" data-options="required:true" />-->
                         <label><input name="mode" type="radio" value="横向" />横向 </label>
                         <label><input name="mode" type="radio" value="纵向" />纵向 </label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>切换方式:</td>
+                    <td>
+                        <!--<input class="easyui-textbox" type="text" name="mode" data-options="required:true" />-->
+                        <label><input name="way" type="radio" value="滚动" />滚动 </label>
+                        <label><input name="way" type="radio" value="切换" />切换 </label>
                     </td>
                 </tr>
                 <tr>
@@ -61,7 +69,8 @@
                     { field: 'id', hidden: true },
                     { field: 'name', title: '名称', width: 100 },
                     { field: 'speed', title: '滚动速度', width: 100 },
-                    { field: 'mode', title: '切换方式', width: 100 },
+                    { field: 'mode', title: '方向', width: 100 },
+                    { field: 'way', title: '样式', width: 100 },
                     { field: 'description', title: '备注', width: 150 }
                 ], globalColumns)],
                 columnFilters: $.merge([globalFilters.numeric('SortOrder')], globalColumnsFilter),

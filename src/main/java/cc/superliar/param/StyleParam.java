@@ -19,6 +19,9 @@ public class StyleParam extends BaseParam {
     @NotNullField(value = OperationType.CREATE, message = "mode cannot be null.")
     private String mode;
 
+    @NotNullField(value = OperationType.CREATE, message = "way cannot be null.")
+    private String way;
+
     private String description;
 
     public Long getId() {
@@ -51,6 +54,14 @@ public class StyleParam extends BaseParam {
 
     public void setMode(String mode) {
         this.mode = mode;
+    }
+
+    public String getWay() {
+        return way;
+    }
+
+    public void setWay(String way) {
+        this.way = way;
     }
 
     public String getDescription() {

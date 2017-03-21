@@ -39,7 +39,7 @@ public class StyleDomain extends BaseDomain<Style,Long> {
     @Transactional
     public StyleVO create(StyleParam param, User currentUser) throws Exception {
         styleExists(param.getSpeed(),param.getMode());
-        param.setName(param.getMode()+":"+param.getSpeed());
+        param.setName(param.getWay()+":"+param.getMode()+":"+param.getSpeed());
         return super.createByPO(StyleVO.class, styleParam2PO(param, new Style(), currentUser), currentUser);
     }
 
@@ -56,7 +56,8 @@ public class StyleDomain extends BaseDomain<Style,Long> {
         if (( StringUtils.isNotBlank(param.getSpeed())||StringUtils.isNotBlank(param.getMode()) )&& (!param.getSpeed().equals(style.getSpeed())||!param.getMode().equals(style.getMode()))) {
             styleExists(param.getSpeed(),param.getMode());
         }
-        param.setName(param.getMode()+":"+param.getSpeed());
+        param.setName(param.getWay()+":"+param.getMode()+":"+param.getSpeed());
+
         return super.updateByPO(StyleVO.class, styleParam2PO(param, style, currentUser), currentUser);
     }
 
