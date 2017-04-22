@@ -23,35 +23,16 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>切换方式:</td>
+                    <td>速度:</td>
                     <td>
-                        <!--<input class="easyui-textbox" type="text" name="mode" data-options="required:true" />-->
-                        <label><input name="way" type="radio" value="滚动" id="scroll"/>滚动 </label>
-                        <label><input name="way" type="radio" value="切换" id="switch"/>切换 </label>
+                        <label><input name="speed" type="radio" value="1150" />1150 </label>
+                        <label><input name="speed" type="radio" value="1050" />1050 </label>
+                        <label><input name="speed" type="radio" value="950" />950 </label>
+                        <label><input name="speed" type="radio" value="850" />850 </label>
+                        <label><input name="speed" type="radio" value="750" />750 </label>
+                        <label><input name="speed" type="radio" value="650" />650 </label>
                     </td>
                 </tr>
-                <tr id="tr1" style="display: none">
-                    <td>切换时间:</td>
-                    <td>
-                        <label><input name="speed" type="radio" value="1000" />1000 </label>
-                        <label><input name="speed" type="radio" value="1500" />1500 </label>
-                        <label><input name="speed" type="radio" value="2000" />2000 </label>
-                        <label><input name="speed" type="radio" value="2500" />2500 </label>
-                        <label><input anme="speed" type="radio" value="3000" />3000 </label>
-                        <label><input name="speed" type="radio" value="3500" />3500 </label>
-                    </td>
-                </tr>
-                <tr id="tr2" style="display: none">
-                    <td>滚动速度:</td>
-                    <td>
-                        <label><input name="speed" type="radio" value="320" />1/320 </label>
-                        <label><input name="speed" type="radio" value="480" />1/480 </label>
-                        <label><input name="speed" type="radio" value="640" />1/640 </label>
-                        <label><input name="speed" type="radio" value="760" />1/760 </label>
-                        <label><input name="speed" type="radio" value="880" />1/880 </label>
-                        <label><input name="speed" type="radio" value="999" />1/999 </label>
-                    </td>
-
                 <tr>
                     <td>备注:</td>
                     <td><input class="easyui-textbox" type="text" name="description" data-options="required:true" /></td>
@@ -80,7 +61,6 @@
                     { field: 'name', title: '名称', width: 100 },
                     { field: 'speed', title: '滚动速度或切换时间', width: 120 },
                     { field: 'mode', title: '方向', width: 100 },
-                    { field: 'way', title: '样式', width: 100 },
                     { field: 'description', title: '备注', width: 150 }
                 ], globalColumns)],
                 columnFilters: $.merge([globalFilters.numeric('SortOrder')], globalColumnsFilter),
@@ -97,18 +77,6 @@
             });
         });
 
-        var a = document.getElementById("scroll");
-        var b = document.getElementById("switch");
-        a.addEventListener("click", function () {
-            document.getElementById("tr2").style.display = "block";
-            b.checked=false;
-            document.getElementById("tr1").style.display = "none";
-        });
-        b.addEventListener("click", function () {
-            document.getElementById("tr2").style.display = "none";
-            a.checked=false;
-            document.getElementById("tr1").style.display = "block";
-        });
 
     </script>
 </body>

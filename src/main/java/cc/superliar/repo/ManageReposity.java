@@ -16,6 +16,8 @@ public interface ManageReposity extends CustomRepository<Manage, Integer> {
     public void deleteManageById(String id);
 
 
+    @Query(value = "select device_id from tb_device_has_url where id=?1 ", nativeQuery = true)
+    public String findDeviceById(Integer id);
 
 
 }

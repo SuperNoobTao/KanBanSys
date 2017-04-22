@@ -23,8 +23,6 @@ public class StyleVO implements Serializable{
 
     private String mode;
 
-    private String way;
-
     private String description;
 
     public Long getId() {
@@ -57,14 +55,6 @@ public class StyleVO implements Serializable{
 
     public void setMode(String mode) {
         this.mode = mode;
-    }
-
-    public String getWay() {
-        return way;
-    }
-
-    public void setWay(String way) {
-        this.way = way;
     }
 
     public String getDescription() {

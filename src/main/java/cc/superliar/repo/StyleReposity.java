@@ -13,6 +13,6 @@ import java.util.Optional;
 public interface StyleReposity extends CustomRepository<Style, Long> {
 
 
-    Optional<Device> findBySpeedAndModeAndWayAndValidFlag(String speed, String mode, String way, ValidFlag validFlag);
+    Optional<Device> findBySpeedAndModeAndValidFlag(String speed, String mode, ValidFlag validFlag);
 
 }

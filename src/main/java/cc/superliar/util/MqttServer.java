@@ -14,9 +14,7 @@ import org.springframework.context.annotation.PropertySource;
 
 public class MqttServer {
 
-    static String topic        = "android1";
-    static String content      = "111";
-    static int qos             = 2;
+    static int qos             = 1;
     static String broker       = "tcp://iot.eclipse.org:1883";
     static String clientId     = "JavaSample";
 
@@ -43,9 +41,8 @@ public class MqttServer {
             message.setQos(qos);
             sampleClient.publish(topic, message);
             System.out.println("Message published");
-            sampleClient.disconnect();
-            System.out.println("Disconnected");
-            System.exit(0);
+//            sampleClient.disconnect();
+//            System.out.println("Disconnected");
         } catch(MqttException me) {
             System.out.println("reason "+me.getReasonCode());
             System.out.println("msg "+me.getMessage());

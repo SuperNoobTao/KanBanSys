@@ -35,8 +35,7 @@ public class Style implements Serializable{
     @Column(name = "style_smode")
     private String mode;
 
-    @Column(name = "style_sway")
-    private String way;
+
 
     @CreatedDate
     @Column(name = "style_created_date")
@@ -82,14 +81,6 @@ public class Style implements Serializable{
 
     public void setMode(String mode) {
         this.mode = mode;
-    }
-
-    public String getWay() {
-        return way;
-    }
-
-    public void setWay(String way) {
-        this.way = way;
     }
 
     public LocalDateTime getCreateDate() {

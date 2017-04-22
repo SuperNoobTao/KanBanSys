@@ -61,26 +61,8 @@ public class DataController {
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity update(@PathVariable String id) throws Exception {
 
-            Device device = dataDomain.findById(id);
-        if(device!=null){
-            DataVO  dataVO = new DataVO(ResultConstant.OK, "Successful operation");
+            return new ResponseEntity<>(dataDomain.result(id), HttpStatus.OK);
 
-            dataVO.setDescription(device.getDescription());
-            dataVO.setName(device.getName());
-            dataVO.setId(device.getId());
-            dataVO.setLocation(device.getLocation());
-            dataVO.setScreenNum(device.getScreenNum());
-            dataVO.setScreenSize(device.getScreenSize());
-
-            StyleVO styleVO = styleDomain.getById(Long.valueOf(device.getStyleid()),StyleVO.class);
-            dataVO.setStyleVO(styleVO);
-
-            List<Url> urlList = dataDomain.findAllById(id);
-            List<UrlVO> urlVOList = transformer.pos2VOs(UrlVO.class,urlList);
-            dataVO.setUrls(urlVOList);
-            return new ResponseEntity<>(dataVO, HttpStatus.OK);
-        }
-        return  null;
 
     }
 

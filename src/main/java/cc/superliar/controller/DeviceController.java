@@ -7,6 +7,7 @@ import cc.superliar.component.ValidateHelper;
 import cc.superliar.constant.ControllerConstant;
 import cc.superliar.constant.ResourceURL;
 import cc.superliar.constant.VersionConstant;
+import cc.superliar.domain.DataDomain;
 import cc.superliar.domain.DeviceDomain;
 
 import cc.superliar.domain.UrlDomain;
@@ -19,8 +20,10 @@ import cc.superliar.po.Device;
 
 import cc.superliar.po.User;
 import cc.superliar.repo.NativeSQLReposity;
+import cc.superliar.util.MqttServer;
 import cc.superliar.util.QueryHelper;
 
+import cc.superliar.vo.DataVO;
 import cc.superliar.vo.DeviceVO;
 import cc.superliar.vo.ManageVO;
 import cc.superliar.vo.UrlVO;
@@ -65,6 +68,7 @@ public class DeviceController {
 
     /**
      * 创建一个设备
+     *
      * @param param {@link DeviceParam}
      * @return {@link cc.superliar.vo.DeviceVO}
      */
@@ -92,6 +96,7 @@ public class DeviceController {
     /**
      * Show all.
      * 分页显示设备列表
+     *
      * @param param {@link DeviceParam}
      * @return devices
      */
@@ -108,11 +113,11 @@ public class DeviceController {
                 return new ResponseEntity<>(deviceDomain.getAll(deviceSpecification, QueryHelper.getSort(param.getSortBy()), DeviceVO.class), HttpStatus.OK);
             }
             Page<Device> deviceList = deviceDomain.getPage(deviceSpecification, QueryHelper.getPageRequest(param), DeviceVO.class);
-            Map<String,java.lang.Object> map = new HashMap<String,Object>();
-            map.put("total",deviceList.getTotalElements());
-            map.put("rows",deviceList.getContent());
+            Map<String, java.lang.Object> map = new HashMap<String, Object>();
+            map.put("total", deviceList.getTotalElements());
+            map.put("rows", deviceList.getContent());
 
-            return  new ResponseEntity<>(map, HttpStatus.OK);
+            return new ResponseEntity<>(map, HttpStatus.OK);
         } catch (Exception e) {
             return resultHelper.errorResp(logger, e, ErrorType.UNKNOWN, e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -122,6 +127,7 @@ public class DeviceController {
     /**
      * Show {@link cc.superliar.vo.DeviceVO} by ID.
      * 显示某id的设备的信息
+     *
      * @param id {@link Device#id}
      * @return {@link cc.superliar.vo.DeviceVO}
      */
@@ -163,6 +169,7 @@ public class DeviceController {
 
     /**
      * 更新设备信息
+     *
      * @param id    {@link Device#id}
      * @param param {@link DeviceParam}
      * @return {@link cc.superliar.vo.DeviceVO}
@@ -173,12 +180,20 @@ public class DeviceController {
         try {
             param.setId(StringUtils.isBlank(id) ? null : id);
             // Validate current user, param and sign.
+
             ResponseEntity responseEntity = validateHelper.validate(param, result, currentUser, logger, OperationType.UPDATE);
             if (!responseEntity.getStatusCode().is2xxSuccessful()) {
                 return responseEntity;
             }
-            // Update user.
-            return new ResponseEntity<>(deviceDomain.update(param, currentUser), HttpStatus.OK);
+
+            DeviceVO deviceVO = deviceDomain.update(param,currentUser);
+            // send msg
+            DataVO dataVO = dataDomain.result(id);
+            JSONObject object = JSONObject.fromObject(dataVO);
+            String jsonStr = object.toString();
+            MqttServer.sendMqtt(id,jsonStr);
+
+            return new ResponseEntity<>(deviceVO, HttpStatus.OK);
         } catch (CommonsException e) {
             // Return error information and log the exception.
             return resultHelper.infoResp(logger, e.getErrorType(), e.getMessage(), HttpStatus.UNPROCESSABLE_ENTITY);
@@ -224,15 +239,15 @@ public class DeviceController {
      * @return {@link cc.superliar.vo.DeviceVO}
      */
     @PreAuthorize("hasAuthority('admin')")
-    @RequestMapping( method = RequestMethod.DELETE)
+    @RequestMapping(method = RequestMethod.DELETE)
     public ResponseEntity deleteList(@CurrentUser User currentUser, HttpServletRequest request) {
         try {
             List<String> idList = new ArrayList<String>();
             System.out.println(request.getParameter("input"));
             JSONArray jsonArr = JSONArray.fromObject(request.getParameter("input"));
-            for(Object obj : jsonArr){
+            for (Object obj : jsonArr) {
                 JSONObject jso = JSONObject.fromObject(obj);
-                idList.add( jso.get("Id").toString() );//id列表
+                idList.add(jso.get("Id").toString());//id列表
             }
             // Delete user. 遍历ID，批量删除
             deviceDomain.deleteList(idList, currentUser);
@@ -270,4 +285,7 @@ public class DeviceController {
 
     @Autowired
     private NativeSQLReposity nativeSQLReposity;
+
+    @Autowired
+    private DataDomain dataDomain;
 }

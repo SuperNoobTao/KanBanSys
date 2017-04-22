@@ -45,6 +45,15 @@ public class ManageDomain extends BaseDomain<Manage,Integer> {
         manageReposity.deleteManageById(id);
     }
 
+    /**
+     * 查找该链接的设备ID
+     * @param id
+     */
+    public String findDeviceById(String id){
+       return manageReposity.findDeviceById(Integer.valueOf(id));
+    }
+
+
 
     /**
      * 批量删除对应关系

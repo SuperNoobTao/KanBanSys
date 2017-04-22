@@ -6,6 +6,7 @@ import cc.superliar.component.Transformer;
 import cc.superliar.component.ValidateHelper;
 import cc.superliar.constant.ResourceURL;
 import cc.superliar.constant.VersionConstant;
+import cc.superliar.domain.DataDomain;
 import cc.superliar.domain.DeviceDomain;
 import cc.superliar.domain.ManageDomain;
 import cc.superliar.domain.UrlDomain;
@@ -17,6 +18,8 @@ import cc.superliar.param.ManageParam;
 import cc.superliar.po.Device;
 import cc.superliar.po.User;
 import cc.superliar.repo.NativeSQLReposity;
+import cc.superliar.util.MqttServer;
+import cc.superliar.vo.DataVO;
 import cc.superliar.vo.ManageVO;
 import cc.superliar.vo.UrlVO;
 import net.sf.json.JSONArray;
@@ -65,8 +68,15 @@ public class ManageController {
             if (!responseEntity.getStatusCode().is2xxSuccessful()) {
                 return responseEntity;
             }
+            ManageVO manageVO =  manageDomain.create(param,currentUser);
+            // send msg
+            String deviceid = param.getDevice();
+            DataVO dataVO = dataDomain.result(deviceid);
+            JSONObject object = JSONObject.fromObject(dataVO);
+            String jsonStr = object.toString();
+            MqttServer.sendMqtt(deviceid,jsonStr);
             // Return result and message.
-            return new ResponseEntity<>(manageDomain.create(param, currentUser), HttpStatus.CREATED);
+            return new ResponseEntity<>(manageVO, HttpStatus.CREATED);
         } catch (CommonsException e) {
             // Return error information and log the exception.
             return resultHelper.infoResp(logger, e.getErrorType(), e.getMessage(), HttpStatus.UNPROCESSABLE_ENTITY);
@@ -109,15 +119,23 @@ public class ManageController {
     @RequestMapping( method = RequestMethod.DELETE)
     public ResponseEntity manageDelete(@CurrentUser User currentUser, HttpServletRequest request) {
         try {
-
+            String id = null;
             List<String> idList = new ArrayList<String>();
             System.out.println(request.getParameter("input"));
             JSONArray jsonArr = JSONArray.fromObject(request.getParameter("input"));
             for(Object obj : jsonArr){
                 JSONObject jso = JSONObject.fromObject(obj);
-                idList.add( jso.get("Id").toString() );//id列表
+                id=jso.get("Id").toString();
+                idList.add( id );//id列表
             }
+            String deviceid= manageDomain.findDeviceById(id);
             manageDomain.deleteManages(idList, currentUser);
+            // send msg
+            DataVO dataVO = dataDomain.result(deviceid);
+            JSONObject object = JSONObject.fromObject(dataVO);
+            String jsonStr = object.toString();
+            MqttServer.sendMqtt(deviceid,jsonStr);
+
             return new ResponseEntity(HttpStatus.NO_CONTENT);
         } catch (CommonsException e) {
             // Return error information and log the exception.
@@ -156,4 +174,6 @@ public class ManageController {
     @Autowired
     private Transformer transformer;
 
+    @Autowired
+    private DataDomain dataDomain;
 }
